@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lato Studio — YouTube Thumbnail Design</title>
+
+  <!-- External image resources referenced in JS -->
+  <meta name="ext-resource-dependency" content="https://yt3.googleusercontent.com/KFZVoYTrTISUy1POqnB0KBs_P3YUCrlt0DxHgH6JDf6Vx7NIaQ_pxpQGAN9zAxqkzFLM7Ll5=s900-c-k-c0x00ffffff-no-rj" data-resource-id="creatorImg0" />
+  <meta name="ext-resource-dependency" content="https://yt3.googleusercontent.com/phWRKiXE8F9Cm4vwg5-1Jz8PvSDN4mgfRBi_UXO_N-vcEQEPoJrr2YcUAWAu6B2HzCw0PuGn=s900-c-k-c0x00ffffff-no-rj" data-resource-id="creatorImg3" />
+  <meta name="ext-resource-dependency" content="https://i.scdn.co/image/ab6761610000e5ebd87575f2800fa708e0e06c23" data-resource-id="creatorImg2" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ["'Instrument Serif'", "serif"],
+            body: ["'Barlow'", "sans-serif"],
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- React 18 -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <!-- hls.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.6.15/dist/hls.min.js"></script>
+
+  <style>
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.12);
+      --glass-border: rgba(255, 255, 255, 0.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #000; color: #fff; -webkit-font-smoothing: antialiased; }
+
+    .liquid-glass {
+      background: rgba(255,255,255,0.01);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .liquid-glass::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .liquid-glass-strong {
+      background: rgba(255,255,255,0.01);
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(50px);
+      box-shadow: 4px 4px 4px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .liquid-glass-strong::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.2) 80%, rgba(255,255,255,0.5) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+    video { display: block; }
+  </style>
+
+  <!-- Bundler thumbnail -->
+  <template id="__bundler_thumbnail" data-bg-color="#000000">
+    <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="260" fill="#000"/>
+      <text x="200" y="148" font-family="serif" font-style="italic" font-size="96" fill="white" text-anchor="middle" dominant-baseline="middle" opacity="0.9">L</text>
+    </svg>
+  </template>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- ── Components ── -->
+  <script type="text/babel">
+const { useRef, useEffect, useState } = React;
+
+function IconArrowUpRight({ size = 16, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
+    </svg>
+  );
+}
+function IconPlay({ size = 16, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <polygon points="5 3 19 12 5 21 5 3" />
+    </svg>
+  );
+}
+function IconZap({ size = 20, className = "" }) {
+  return (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>);
+}
+function IconPalette({ size = 20, className = "" }) {
+  return (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" /></svg>);
+}
+function IconBarChart3({ size = 20, className = "" }) {
+  return (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 3v18h18" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></svg>);
+}
+function IconShield({ size = 20, className = "" }) {
+  return (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>);
+}
+
+function BlurText({ text, className = "", delay = 120, tag = "span" }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold: 0.1 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  const words = text.split(" ");
+  const Tag = tag;
+  return (
+    <Tag ref={ref} className={className} style={{ display: "block" }}>
+      {words.map((word, i) => (
+        <span key={i} style={{ display: "inline-block", opacity: visible ? 1 : 0, filter: visible ? "blur(0px)" : "blur(12px)", transform: visible ? "translateY(0px)" : "translateY(30px)", transition: `opacity 0.55s ease ${i * delay}ms, filter 0.55s ease ${i * delay}ms, transform 0.55s ease ${i * delay}ms`, marginRight: "0.28em" }}>{word}</span>
+      ))}
+    </Tag>
+  );
+}
+
+function FadeIn({ children, delay = 0, className = "", threshold = 0.1 }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className={className} style={{ opacity: visible ? 1 : 0, filter: visible ? "blur(0px)" : "blur(8px)", transform: visible ? "translateY(0px)" : "translateY(24px)", transition: `opacity 0.6s ease ${delay}ms, filter 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms` }}>
+      {children}
+    </div>
+  );
+}
+
+function HLSVideo({ src, className = "", desaturate = false, style = {}, poster }) {
+  const videoRef = useRef(null);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (window.Hls && window.Hls.isSupported()) {
+      const hls = new window.Hls({ autoStartLoad: true, lowLatencyMode: false });
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      hls.on(window.Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
+      return () => hls.destroy();
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = src;
+      video.play().catch(() => {});
+    }
+  }, [src]);
+  return <video ref={videoRef} autoPlay loop muted playsInline poster={poster} className={className} style={{ ...(desaturate ? { filter: "saturate(0)" } : {}), ...style }} />;
+}
+
+function SectionBadge({ children }) {
+  return <span className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body inline-block">{children}</span>;
+}
+
+Object.assign(window, { IconArrowUpRight, IconPlay, IconZap, IconPalette, IconBarChart3, IconShield, BlurText, FadeIn, HLSVideo, SectionBadge });
+  </script>
+
+  <!-- ── Sections ── -->
+  <script type="text/babel">
+const creators = [
+  { name: "Ninna e Matti",   subs: "2,6M subscribers",  img: null, imgKey: "creatorImg0" },
+  { name: "Marcello Ascani", subs: "1,06M subscribers", img: "https://cdn-magazine.startupitalia.eu/wp-content/uploads/2024/07/30075347/Screenshot-2024-07-30-075245-1.jpg", imgKey: null },
+  { name: "Breakfast Club",  subs: "307K subscribers",  img: null, imgKey: "creatorImg2" },
+  { name: "Giada e Mamma",   subs: "740K subscribers",  img: null, imgKey: "creatorImg3" },
+  { name: "Jack Nobile",     subs: "1,48M subscribers", img: "https://jacknobile.it/wp-content/uploads/elementor/thumbs/fotoprofilo11-1-r5g2ocy52o1kk4wb8onbbyzqpmg0j5ce7joof33ioo.jpg", imgKey: null },
+];
+
+function CreatorsCarousel() {
+  const items = [...creators, ...creators, ...creators];
+  return (
+    <div className="w-full overflow-hidden" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)" }}>
+      <div className="flex gap-5" style={{ animation: "carousel-scroll 28s linear infinite", width: "max-content" }}>
+        {items.map((c, i) => (
+          <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-3 px-6 py-5 flex-shrink-0" style={{ width: "180px" }}>
+            <img src={c.imgKey ? (window.__resources?.[c.imgKey] || "") : c.img} alt={c.name} className="w-16 h-16 rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
+            <div className="text-center">
+              <p className="text-white font-body font-medium text-sm leading-tight">{c.name}</p>
+              <p className="text-white/50 font-body font-light text-xs mt-1">{c.subs}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <style>{`@keyframes carousel-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-33.333%); } }`}</style>
+    </div>
+  );
+}
+
+function Navbar() {
+  return (
+    <nav className="fixed top-4 left-0 right-0 z-50 px-8 lg:px-16 flex items-center justify-between py-3">
+      <div className="flex items-center gap-2">
+        <div className="liquid-glass rounded-full w-10 h-10 flex items-center justify-center">
+          <span className="font-heading italic text-white text-lg leading-none">L</span>
+        </div>
+        <span className="font-heading italic text-white text-lg hidden sm:block">Lato Studio</span>
+      </div>
+      <div className="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-1">
+        {["Home", "Services", "Work", "Process"].map((link) => (
+          <a key={link} href="#" className="px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors rounded-full hover:bg-white/5">{link}</a>
+        ))}
+        <a href="#" className="flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium font-body hover:bg-white/90 transition-colors">
+          Get Started <IconArrowUpRight size={14} />
+        </a>
+      </div>
+      <a href="#" className="md:hidden flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium font-body">Get Started</a>
+    </nav>
+  );
+}
+
+function Hero() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setTimeout(() => setMounted(true), 50); }, []);
+  const fadeStyle = (delay) => ({ opacity: mounted ? 1 : 0, filter: mounted ? "blur(0px)" : "blur(10px)", transform: mounted ? "translateY(0px)" : "translateY(20px)", transition: `opacity 0.7s ease ${delay}ms, filter 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms` });
+  return (
+    <section className="relative overflow-hidden" style={{ height: "1000px" }}>
+      <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" style={{ objectPosition: "center center" }}>
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260210_031346_d87182fb-b0af-4273-84d1-c6fd17d6bf0f.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-black/5 z-0 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-0" style={{ height: "300px", background: "linear-gradient(to bottom, transparent, black)" }} />
+      <div className="relative z-10 flex flex-col items-center text-center" style={{ paddingTop: "150px" }}>
+        <div className="max-w-3xl mx-auto px-4 mb-6">
+          <BlurText text="The Thumbnails Your Channel Deserves" className="text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.85] tracking-[-3px]" delay={100} />
+        </div>
+        <p className="text-sm md:text-base text-white/70 font-body font-light leading-relaxed max-w-md mx-auto mb-8 px-4" style={fadeStyle(800)}>
+          High-click visuals. Stronger first impressions. Designed with AI, refined by experts. This is thumbnail design, wildly reimagined.
+        </p>
+        <div className="flex items-center gap-4" style={fadeStyle(1100)}>
+          <a href="#" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">
+            Our Work <IconArrowUpRight size={15} />
+          </a>
+          <a href="#" className="text-white/80 text-sm font-body font-light hover:text-white transition-colors">Contact Us</a>
+        </div>
+        <div className="mt-auto pt-20 pb-12 w-full flex flex-col items-center gap-8" style={fadeStyle(1400)}>
+          <p className="font-heading italic text-white text-2xl md:text-3xl lg:text-4xl text-center px-4" style={{ textWrap: "balance" }}>
+            Trusted by creators with millions of followers.
+          </p>
+          <CreatorsCarousel />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StartSection() {
+  return (
+    <section className="relative overflow-hidden" style={{ minHeight: "600px" }}>
+      <HLSVideo src="https://stream.mux.com/9JXDljEVWYwWu01PUkAemafDugK89o01BR6zqJ3aS9u00A.m3u8" className="absolute inset-0 w-full h-full object-cover z-0" />
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, black 0%, transparent 200px)" }} />
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to top, black 0%, transparent 200px)" }} />
+      <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none" />
+      <div className="relative z-10 flex flex-col items-center justify-center text-center py-32 px-4" style={{ minHeight: "600px" }}>
+        <FadeIn className="mb-5"><SectionBadge>How It Works</SectionBadge></FadeIn>
+        <FadeIn delay={100} className="mb-6">
+          <BlurText text="You post it. We make it click." className="text-4xl md:text-5xl lg:text-6xl font-heading italic text-white tracking-tight leading-[0.9]" delay={80} />
+        </FadeIn>
+        <FadeIn delay={250} className="mb-8 max-w-lg">
+          <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed">Share your video topic. Our AI handles research, concepts, layout, and visual direction. Then experts refine every detail into a thumbnail built to perform.</p>
+        </FadeIn>
+        <FadeIn delay={400}>
+          <a href="#" className="liquid-glass-strong rounded-full px-6 py-3 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">
+            Get Started <IconArrowUpRight size={15} />
+          </a>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+function FeaturesChess() {
+  const rows = [
+    { title: "Designed to stop the scroll.", body: "Every thumbnail is built with intent. Our AI studies patterns across high-performing videos, then helps craft visuals made to earn attention instantly.", cta: "Learn more", gif: "https://motionsites.ai/assets/hero-finlytic-preview-CV9g0FHP.gif", reverse: false },
+    { title: "It gets sharper over time.", body: "Your creative direction evolves with performance. We analyze packaging patterns, test visual approaches, and improve what gets people to click.", cta: "See how it works", gif: "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif", reverse: true },
+  ];
+  return (
+    <section className="relative z-10 py-24 px-6 md:px-12 lg:px-24 bg-black">
+      <div className="max-w-6xl mx-auto">
+        <FadeIn className="text-center mb-20">
+          <SectionBadge>Capabilities</SectionBadge>
+          <BlurText text="Pro thumbnails. Zero guesswork." className="text-4xl md:text-5xl lg:text-6xl font-heading italic text-white tracking-tight leading-[0.9] mt-4" delay={80} />
+        </FadeIn>
+        <div className="flex flex-col gap-24">
+          {rows.map((row, i) => (
+            <FadeIn key={i} delay={i * 150}>
+              <div className={`flex flex-col ${row.reverse ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12 md:gap-16`}>
+                <div className="flex-1 flex flex-col gap-5">
+                  <h3 className="text-3xl md:text-4xl font-heading italic text-white leading-tight">{row.title}</h3>
+                  <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed max-w-md">{row.body}</p>
+                  <a href="#" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white inline-flex items-center gap-2 hover:bg-white/10 transition-colors w-fit">
+                    {row.cta} <IconArrowUpRight size={14} />
+                  </a>
+                </div>
+                <div className="flex-1 w-full">
+                  <div className="liquid-glass rounded-2xl overflow-hidden aspect-video">
+                    <img src={row.gif} alt={row.title} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturesGrid() {
+  const cards = [
+    { icon: IconZap, title: "Fast Turnaround", body: "From idea to finished thumbnail in a timeframe that keeps up with your upload schedule." },
+    { icon: IconPalette, title: "Obsessively Crafted", body: "Every composition, facial expression, contrast choice, and hierarchy refined for maximum visual impact." },
+    { icon: IconBarChart3, title: "Built to Click", body: "Creative decisions informed by performance logic, audience behavior, and packaging strategy." },
+    { icon: IconShield, title: "Consistent by Default", body: "Strong visual identity across your channel, so every upload feels sharper, stronger, and more recognizable." },
+  ];
+  return (
+    <section className="relative z-10 py-24 px-6 md:px-12 lg:px-24 bg-black">
+      <div className="max-w-6xl mx-auto">
+        <FadeIn className="text-center mb-16">
+          <SectionBadge>Why Us</SectionBadge>
+          <BlurText text="The difference is everything." className="text-4xl md:text-5xl lg:text-6xl font-heading italic text-white tracking-tight leading-[0.9] mt-4" delay={80} />
+        </FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {cards.map((card, i) => (
+            <FadeIn key={i} delay={i * 80}>
+              <div className="liquid-glass rounded-2xl p-6 h-full flex flex-col gap-4">
+                <div className="liquid-glass-strong rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0">
+                  <card.icon size={18} className="text-white" />
+                </div>
+                <h4 className="text-white font-body font-medium text-base">{card.title}</h4>
+                <p className="text-white/60 font-body font-light text-sm leading-relaxed">{card.body}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Stats() {
+  const stats = [
+    { value: "500+", label: "Thumbnails delivered" },
+    { value: "96%", label: "Client satisfaction" },
+    { value: "3.4×", label: "Higher CTR potential" },
+    { value: "24h", label: "Average turnaround" },
+  ];
+  return (
+    <section className="relative overflow-hidden" style={{ minHeight: "500px" }}>
+      <HLSVideo src="https://stream.mux.com/NcU3HlHeF7CUL86azTTzpy3Tlb00d6iF3BmCdFslMJYM.m3u8" className="absolute inset-0 w-full h-full object-cover z-0" desaturate />
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, black 0%, transparent 200px)" }} />
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to top, black 0%, transparent 200px)" }} />
+      <div className="absolute inset-0 bg-black/50 z-0 pointer-events-none" />
+      <div className="relative z-10 flex items-center justify-center py-28 px-6">
+        <FadeIn className="w-full max-w-4xl">
+          <div className="liquid-glass rounded-3xl p-10 md:p-16">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 md:gap-6">
+              {stats.map((s, i) => (
+                <div key={i} className="text-center flex flex-col gap-2">
+                  <span className="text-4xl md:text-5xl lg:text-6xl font-heading italic text-white leading-none">{s.value}</span>
+                  <span className="text-white/60 font-body font-light text-xs md:text-sm">{s.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+function Testimonials() {
+  const testimonials = [
+    { quote: "We changed the packaging and the difference was immediate. Better clicks, stronger branding, and a much more premium feel.", name: "Sarah Chen", role: "Creator, Luminary" },
+    { quote: "CTR went up dramatically. The thumbnails finally looked like they belonged to a serious channel.", name: "Marcus Webb", role: "Growth Lead, Arcline" },
+    { quote: "They didn't just make thumbnails. They helped define the visual identity of the whole channel.", name: "Elena Voss", role: "Brand Director, Helix" },
+  ];
+  return (
+    <section className="relative z-10 py-24 px-6 md:px-12 lg:px-24 bg-black">
+      <div className="max-w-6xl mx-auto">
+        <FadeIn className="text-center mb-16">
+          <SectionBadge>What They Say</SectionBadge>
+          <BlurText text="Don't take our word for it." className="text-4xl md:text-5xl lg:text-6xl font-heading italic text-white tracking-tight leading-[0.9] mt-4" delay={80} />
+        </FadeIn>
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((t, i) => (
+            <FadeIn key={i} delay={i * 100}>
+              <div className="liquid-glass rounded-2xl p-8 flex flex-col gap-5 h-full">
+                <p className="text-white/80 font-body font-light text-sm italic leading-relaxed flex-1">"{t.quote}"</p>
+                <div>
+                  <p className="text-white font-body font-medium text-sm">{t.name}</p>
+                  <p className="text-white/50 font-body font-light text-xs mt-0.5">{t.role}</p>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CtaFooter() {
+  return (
+    <section className="relative overflow-hidden">
+      <HLSVideo src="https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8" className="absolute inset-0 w-full h-full object-cover z-0" />
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, black 0%, transparent 200px)" }} />
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to top, black 0%, transparent 200px)" }} />
+      <div className="absolute inset-0 bg-black/50 z-0 pointer-events-none" />
+      <div className="relative z-10 flex flex-col items-center text-center py-36 px-6">
+        <FadeIn className="max-w-3xl">
+          <BlurText text="Your next high-performing thumbnail starts here." className="text-5xl md:text-6xl lg:text-7xl font-heading italic text-white leading-[0.85] mb-6" delay={80} />
+        </FadeIn>
+        <FadeIn delay={300} className="max-w-md mb-10">
+          <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed">Book a free strategy call. See what AI-powered thumbnail design can do for your channel. No pressure. Just sharper packaging.</p>
+        </FadeIn>
+        <FadeIn delay={500}>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a href="#" className="liquid-glass-strong rounded-full px-6 py-3 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">
+              Book a Call <IconArrowUpRight size={15} />
+            </a>
+            <a href="#" className="bg-white text-black rounded-full px-6 py-3 text-sm font-medium font-body hover:bg-white/90 transition-colors">View Pricing</a>
+          </div>
+        </FadeIn>
+        <div className="mt-32 pt-8 border-t border-white/10 w-full max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="text-white/40 text-xs font-body">© 2026 Lato Studio. All rights reserved.</span>
+          <div className="flex items-center gap-6">
+            {["Privacy", "Terms", "Contact"].map((link) => (
+              <a key={link} href="#" className="text-white/40 text-xs font-body hover:text-white/70 transition-colors">{link}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, { Navbar, Hero, StartSection, FeaturesChess, FeaturesGrid, Stats, Testimonials, CtaFooter });
+  </script>
+
+  <!-- ── App ── -->
+  <script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"accentGlow": true, "glassStrength": "medium", "heroParallax": true}/*EDITMODE-END*/;
+
+function App() {
+  const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+  const [tweaksOpen, setTweaksOpen] = useState(false);
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.data?.type === "__activate_edit_mode") setTweaksOpen(true);
+      if (e.data?.type === "__deactivate_edit_mode") setTweaksOpen(false);
+    };
+    window.addEventListener("message", handler);
+    window.parent.postMessage({ type: "__edit_mode_available" }, "*");
+    return () => window.removeEventListener("message", handler);
+  }, []);
+  const updateTweak = (key, value) => {
+    const next = { ...tweaks, [key]: value };
+    setTweaks(next);
+    window.parent.postMessage({ type: "__edit_mode_set_keys", edits: { [key]: value } }, "*");
+  };
+  return (
+    <div className="bg-black min-h-screen">
+      <div className="relative z-10">
+        <Navbar />
+        <Hero />
+        <div className="bg-black">
+          <StartSection />
+          <FeaturesChess />
+          <FeaturesGrid />
+          <Stats />
+          <Testimonials />
+          <CtaFooter />
+        </div>
+      </div>
+      {tweaksOpen && (
+        <div className="fixed bottom-6 right-6 z-[999] liquid-glass-strong rounded-2xl p-5 w-64 text-white font-body">
+          <h3 className="font-medium text-sm mb-4 text-white/90">Tweaks</h3>
+          <div className="flex flex-col gap-4">
+            <label className="flex items-center justify-between text-xs text-white/70">
+              Accent glow
+              <button onClick={() => updateTweak("accentGlow", !tweaks.accentGlow)} className={`w-9 h-5 rounded-full transition-colors relative ${tweaks.accentGlow ? "bg-white/30" : "bg-white/10"}`}>
+                <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${tweaks.accentGlow ? "translate-x-4" : "translate-x-0.5"}`} />
+              </button>
+            </label>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

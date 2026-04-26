@@ -358,35 +358,37 @@ function FAQ() {
 
 // ── OurWork ───────────────────────────────────────────────────────────────
 const row1imgs = [
-  "uploads/pozzo2.jpg",
-  "uploads/zucca2.jpg",
-  "uploads/YELLOWJACKETS.jpg",
-  "uploads/COLLASSO.jpg",
-  "uploads/VERSIONE 3.jpg",
-  "uploads/CAP.jpg",
-  "uploads/DTI22.jpg",
-  "uploads/24672.jpg",
-  "uploads/control anger.jpg",
+  "uploads/1-fbdd1925.jpg",
+  "uploads/2-9fddb269.jpg",
+  "uploads/3-f2932fc4.jpg",
+  "uploads/4-0f7907bb.jpg",
+  "uploads/5-292b4bf6.jpg",
+  "uploads/6-6ccfc551.jpg",
+  "uploads/7.png",
+  "uploads/8-ed9d90a3.jpg",
+  "uploads/9-51cc76e8.jpg",
 ];
 const row2imgs = [
-  "uploads/just.jpg",
-  "uploads/SUCCEDE.jpg",
-  "uploads/CR3.png",
-  "uploads/EURO.jpg",
-  "uploads/HUNTRIX.jpg",
-  "uploads/MBH.jpg",
-  "uploads/mcdonalds4.jpg",
-  "uploads/stranger2.jpg",
+  "uploads/10-bce1278b.jpg",
+  "uploads/11.png",
+  "uploads/12-5150371b.jpg",
+  "uploads/13-0f221c84.jpg",
+  "uploads/14-f6946fe3.jpg",
+  "uploads/15-3404d5ef.jpg",
+  "uploads/16-85fe88fe.jpg",
+  "uploads/17-374ecca4.jpg",
+  "uploads/18-6e96e3a7.jpg",
 ];
 const row3imgs = [
-  "uploads/FIUME1.jpg",
-  "uploads/COLORIKPOP1.jpg",
-  "uploads/BAMBOLA2.jpg",
-  "uploads/grtttt-4b1bce61.png",
-  "uploads/maxresdefault (6).jpg",
-  "uploads/vergogna.jpg",
-  "uploads/MUAI22.jpg",
-  "uploads/MUAY.jpg",
+  "uploads/19-aff8f00e.jpg",
+  "uploads/20-f11d64d0.jpg",
+  "uploads/21-48de0481.jpg",
+  "uploads/22-387be320.jpg",
+  "uploads/23-cafb642e.jpg",
+  "uploads/24-d069e338.jpg",
+  "uploads/25-852f6745.jpg",
+  "uploads/26-6610e25d.jpg",
+  "uploads/27-ae071ca8.jpg",
 ];
 
 function OurWorkRow({ images, reverse, speed }) {
@@ -406,7 +408,7 @@ function OurWorkRow({ images, reverse, speed }) {
             className="flex-shrink-0 rounded-xl overflow-hidden"
             style={{ width: "280px", height: "158px" }}
           >
-            <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+            <img src={src} alt="" className="w-full h-full object-cover" />
           </div>
         ))}
       </div>
