@@ -310,20 +310,21 @@
     }
 
     // ── OurWork ───────────────────────────────────────────────────────────
+    const _v = Date.now();
     const row1imgs = [
-      "uploads/1.jpg","uploads/2.jpg","uploads/3.jpg",
-      "uploads/4.jpg","uploads/5.jpg","uploads/6.jpg",
-      "uploads/7.jpg","uploads/8.jpg","uploads/9.jpg",
+      `uploads/1.jpg?v=${_v}`,`uploads/2.jpg?v=${_v}`,`uploads/3.jpg?v=${_v}`,
+      `uploads/4.jpg?v=${_v}`,`uploads/5.jpg?v=${_v}`,`uploads/6.jpg?v=${_v}`,
+      `uploads/7.jpg?v=${_v}`,`uploads/8.jpg?v=${_v}`,`uploads/9.jpg?v=${_v}`,
     ];
     const row2imgs = [
-      "uploads/10.jpg","uploads/11.jpg","uploads/12.jpg",
-      "uploads/13.jpg","uploads/14.jpg","uploads/15.jpg",
-      "uploads/16.jpg","uploads/17.jpg","uploads/18.jpg",
+      `uploads/10.jpg?v=${_v}`,`uploads/11.jpg?v=${_v}`,`uploads/12.jpg?v=${_v}`,
+      `uploads/13.jpg?v=${_v}`,`uploads/14.jpg?v=${_v}`,`uploads/15.jpg?v=${_v}`,
+      `uploads/16.jpg?v=${_v}`,`uploads/17.jpg?v=${_v}`,`uploads/18.jpg?v=${_v}`,
     ];
     const row3imgs = [
-      "uploads/19.jpg","uploads/20.jpg","uploads/21.jpg",
-      "uploads/22.jpg","uploads/23.jpg","uploads/24.jpg",
-      "uploads/25.jpg","uploads/26.jpg","uploads/27.jpg",
+      `uploads/19.jpg?v=${_v}`,`uploads/20.jpg?v=${_v}`,`uploads/21.jpg?v=${_v}`,
+      `uploads/22.jpg?v=${_v}`,`uploads/23.jpg?v=${_v}`,`uploads/24.jpg?v=${_v}`,
+      `uploads/25.jpg?v=${_v}`,`uploads/26.jpg?v=${_v}`,`uploads/27.jpg?v=${_v}`,
     ];
     function OurWorkRow({ images, reverse, speed }) {
       const items = [...images, ...images, ...images];
