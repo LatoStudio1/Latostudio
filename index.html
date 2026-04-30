@@ -259,7 +259,7 @@
           if (!isSwiping && dy > Math.abs(dx) * 1.5) return;
           isSwiping = true;
           e.preventDefault();
-          targetX.current += dx;
+          targetX.current += dx * 1.5;
           touchStartX = e.touches[0].clientX;
         };
 
@@ -394,19 +394,19 @@
     // ── OurWork ───────────────────────────────────────────────────────────
     const _v = Date.now();
     const row1imgs = [
-      `uploads/1.jpg?v=${_v}`,`uploads/2.jpg?v=${_v}`,`uploads/3.jpg?v=${_v}`,
-      `uploads/4.jpg?v=${_v}`,`uploads/5.jpg?v=${_v}`,`uploads/6.jpg?v=${_v}`,
-      `uploads/7.jpg?v=${_v}`,`uploads/8.jpg?v=${_v}`,`uploads/9.jpg?v=${_v}`,
+      `uploads/1.jpg?v=${_v}`,`uploads/2.jpg?v=${_v}`,`uploads/3.jpg?v=${_v}`,`uploads/4.jpg?v=${_v}`,
+      `uploads/5.jpg?v=${_v}`,`uploads/6.jpg?v=${_v}`,`uploads/7.jpg?v=${_v}`,`uploads/8.jpg?v=${_v}`,
+      `uploads/9.jpg?v=${_v}`,`uploads/10.jpg?v=${_v}`,`uploads/11.jpg?v=${_v}`,`uploads/12.jpg?v=${_v}`,
     ];
     const row2imgs = [
-      `uploads/10.jpg?v=${_v}`,`uploads/11.jpg?v=${_v}`,`uploads/12.jpg?v=${_v}`,
-      `uploads/13.jpg?v=${_v}`,`uploads/14.jpg?v=${_v}`,`uploads/15.jpg?v=${_v}`,
-      `uploads/16.jpg?v=${_v}`,`uploads/17.jpg?v=${_v}`,`uploads/18.jpg?v=${_v}`,
+      `uploads/13.jpg?v=${_v}`,`uploads/14.jpg?v=${_v}`,`uploads/15.jpg?v=${_v}`,`uploads/16.jpg?v=${_v}`,
+      `uploads/17.jpg?v=${_v}`,`uploads/18.jpg?v=${_v}`,`uploads/19.jpg?v=${_v}`,`uploads/20.jpg?v=${_v}`,
+      `uploads/21.jpg?v=${_v}`,`uploads/22.jpg?v=${_v}`,`uploads/23.jpg?v=${_v}`,`uploads/24.jpg?v=${_v}`,
     ];
     const row3imgs = [
-      `uploads/19.jpg?v=${_v}`,`uploads/20.jpg?v=${_v}`,`uploads/21.jpg?v=${_v}`,
-      `uploads/22.jpg?v=${_v}`,`uploads/23.jpg?v=${_v}`,`uploads/24.jpg?v=${_v}`,
-      `uploads/25.jpg?v=${_v}`,`uploads/26.jpg?v=${_v}`,`uploads/27.jpg?v=${_v}`,
+      `uploads/25.jpg?v=${_v}`,`uploads/26.jpg?v=${_v}`,`uploads/27.jpg?v=${_v}`,`uploads/28.jpg?v=${_v}`,
+      `uploads/29.jpg?v=${_v}`,`uploads/30.jpg?v=${_v}`,`uploads/31.jpg?v=${_v}`,`uploads/32.jpg?v=${_v}`,
+      `uploads/33.jpg?v=${_v}`,`uploads/34.jpg?v=${_v}`,`uploads/35.jpg?v=${_v}`,`uploads/36.jpg?v=${_v}`,
     ];
     function OurWorkRow({ images, reverse, speed }) {
       const items = [...images, ...images, ...images];
