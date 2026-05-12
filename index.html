@@ -197,12 +197,12 @@
       }, []);
       return (
         <nav className="fixed top-4 left-0 right-0 z-50 px-8 lg:px-16 flex items-center justify-between py-3" style={{ transition: "all 0.3s ease" }}>
-          <div className="flex items-center gap-2">
-            <div className="liquid-glass rounded-full w-10 h-10 flex items-center justify-center">
-              <span className="font-heading italic text-white text-lg leading-none">L</span>
+          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="flex items-center gap-2 cursor-pointer">
+            <div className="liquid-glass rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
+              <img src="uploads/Asset 2@3x-8.png" alt="Lato Studio" style={{ width: "70%", height: "70%", objectFit: "contain" }} />
             </div>
-            <span className="font-heading italic text-white text-lg hidden sm:block">Lato Studio</span>
-          </div>
+            <span className="font-hero font-bold text-white text-lg hidden sm:block">Lato Studio</span>
+          </a>
           <div className="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-1">
             {[["Home","#"],["Capabilities","#capabilities"],["Work","#our-work"],["FAQ","#faq"],["Contacts","#contact"]].map(([label, href]) => (
               <a key={label} href={href} className="px-3 py-2 text-sm font-medium font-body transition-all rounded-full" style={{ color: active === label ? "#000" : "rgba(255,255,255,0.75)", background: active === label ? "#fff" : "transparent" }}>{label}</a>
@@ -237,6 +237,13 @@
       { name: "Best",            subs: "617K subscribers",  img: "https://yt3.googleusercontent.com/JQPg-GlJDwofP0qxPCT7Wh3JndU6AbytTCnP2MVh2TaxejBsfnnvQ-x6nehCLZtK5bnjTR8v=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Continss",        subs: "465K subscribers",  img: "https://yt3.googleusercontent.com/K95m6FmTcdEyLVVDz0PKvlM8W6BeInhHYviO8FVLFXisxrdfifBrMUFTg3aw312RboK3_BuoAg=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Khadiax Horror",  subs: "1,18M subscribers", img: "https://yt3.googleusercontent.com/0JemXGuLtzYDVcQd080S8PuTpDoR9EqVVHz3jHiKLEICfqdIA2PK2hmyGNmsta3o6dqNZ4AFlQ=s160-c-k-c0x00ffffff-no-rj" },
+      { name: "Primodan",        subs: "58,3K subscribers", img: "https://yt3.googleusercontent.com/447pNPyxxxHdNEy1KIuxEhA4cpviU2HAhLXzJCelqJTD72H4a_fCl9xpUST4XnixHkvwrLF4=s160-c-k-c0x00ffffff-no-rj" },
+      { name: "iStorica",        subs: "102K subscribers",  img: "https://yt3.googleusercontent.com/ytc/AIdro_kiHD384JXCgEhwvAK07_mWNgVra9OeY4BsFdh6mC0wsA=s160-c-k-c0x00ffffff-no-rj" },
+      { name: "Portable Orange", subs: "51K subscribers",   img: "https://yt3.googleusercontent.com/paVLW5j7sOimYOidgAU4iFRtBmrf7VLiytPxwPegF1iRHMYh-psPtDAEzxV2IIxNTWxQZQU94uM=s160-c-k-c0x00ffffff-no-rj" },
+      { name: "Chase Bridges",   subs: "178K subscribers",  img: "https://yt3.googleusercontent.com/HkbpApb2LE5966UnxKqyzDkd7IOIzOys6Jyo3U8S4WGyWyXS3vmwgJ7QTAMtRjks4rA8ukpzOA=s160-c-k-c0x00ffffff-no-rj" },
+      { name: "E. with Giotto",  subs: "228K subscribers",  img: "https://yt3.googleusercontent.com/bOrWjta1mBS1Sw_-UpzCzeb8tXSb9N5h_tAIfpWiSD-egZp78qlIwzm-k_Ydiy8H1aVSUVaP=s160-c-k-c0x00ffffff-no-rj" },
+      { name: "ZaneSG",          subs: "383K subscribers",  img: "https://yt3.googleusercontent.com/ytc/AIdro_kTlI52D-Aa4PW4SxbNv4w9zpSnu4vuZIN7wI3U-VOv2S0=s160-c-k-c0x00ffffff-no-rj" },
+      { name: "The Booyz",       subs: "215K subscribers",  img: "https://yt3.googleusercontent.com/M8_ce2aTmSNxA1v65ETAJRcl9QPZfQiGsLnCivvOg1qxcIPziuYu8EKpxisx9LKWoFdQVVEFeQ=s160-c-k-c0x00ffffff-no-rj" },
     ];
     function CreatorsCarousel() {
       const items = [...creators, ...creators, ...creators];
@@ -306,7 +313,7 @@
             <div ref={trackRef} className="flex gap-5" style={{ width: "max-content", willChange: "transform" }}>
               {items.map((c, i) => (
                 <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-3 px-5 py-5 flex-shrink-0 md:px-8 md:py-7 md:gap-4"
-                  style={{ width: isMobile ? "160px" : "220px", transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)", cursor: "pointer" }}
+                  style={{ width: isMobile ? "140px" : "220px", transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)", cursor: "pointer" }}
                   onMouseEnter={e => e.currentTarget.style.transform = "scale(1.07)"}
                   onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
                   <img src={c.img} alt={c.name} className="w-14 h-14 md:w-20 md:h-20 rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
@@ -345,7 +352,7 @@
               <a href="#contact" className="text-white/80 text-sm font-body font-light hover:text-white transition-colors">Contact Us</a>
             </div>
             <div className="mt-auto pt-20 pb-12 w-full flex flex-col items-center gap-8" style={fadeStyle(1400)}>
-              <p className="font-heading italic text-white text-2xl md:text-3xl lg:text-4xl text-center px-4" style={{ textWrap: "balance" }}>Trusted by creators with millions of followers.</p>
+              <p className="font-hero font-bold text-white text-2xl md:text-3xl lg:text-4xl text-center px-4" style={{ textWrap: "balance" }}>Trusted by creators with millions of followers.</p>
               <CreatorsCarousel />
             </div>
           </div>
@@ -377,7 +384,7 @@
                 <FadeIn key={i} delay={i * 150}>
                   <div className={`flex flex-col ${row.reverse ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12 md:gap-16`}>
                     <div className="flex-1 flex flex-col gap-5">
-                      <h3 className="text-3xl md:text-4xl font-heading italic text-white leading-tight">{row.title}</h3>
+                      <h3 className="text-3xl md:text-4xl font-hero font-bold text-white leading-tight">{row.title}</h3>
                       <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed max-w-md">{row.body}</p>
                       <div><a href="#" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white inline-flex items-center gap-2 hover:bg-white/10 transition-colors">{row.cta} <IconArrowUpRight size={14} /></a></div>
                     </div>
@@ -517,10 +524,10 @@
     // ── Stats ─────────────────────────────────────────────────────────────
     function Stats() {
       const stats = [
-        { value: "500+", label: "Thumbnails delivered" },
-        { value: "96%", label: "Client satisfaction" },
-        { value: "3.4×", label: "Higher CTR potential" },
-        { value: "24h", label: "Average turnaround" },
+        { value: "1000+", label: "Thumbnails delivered" },
+        { value: "15M+", label: "Total subscribers" },
+        { value: "5B+", label: "Total views" },
+        { value: "6+", label: "Years of experience" },
       ];
       return (
         <section className="relative overflow-hidden" style={{ minHeight: "500px" }}>
@@ -534,7 +541,7 @@
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 md:gap-6">
                   {stats.map((s, i) => (
                     <div key={i} className="text-center flex flex-col gap-2">
-                      <span className="text-4xl md:text-5xl lg:text-6xl font-heading italic text-white leading-none">{s.value}</span>
+                      <span className="text-4xl md:text-5xl lg:text-6xl font-hero font-bold text-white leading-none">{s.value}</span>
                       <span className="text-white/60 font-body font-light text-xs md:text-sm">{s.label}</span>
                     </div>
                   ))}
@@ -549,9 +556,9 @@
     // ── Testimonials ──────────────────────────────────────────────────────
     function Testimonials() {
       const testimonials = [
-        { quote: "We changed the packaging and the difference was immediate. Better clicks, stronger branding, and a much more premium feel.", name: "Sarah Chen", role: "Creator, Luminary" },
-        { quote: "CTR went up dramatically. The thumbnails finally looked like they belonged to a serious channel.", name: "Marcus Webb", role: "Growth Lead, Arcline" },
-        { quote: "They didn't just make thumbnails. They helped define the visual identity of the whole channel.", name: "Elena Voss", role: "Brand Director, Helix" },
+        { quote: "He's been a huge help with my thumbnails. Since working with him, my videos look way more professional and eye-catching. He understands what I need right away and always delivers on point.", name: "Crazie", role: "1.2M subscribers", img: "https://yt3.googleusercontent.com/ViOr41w3bI7XW6WmJHbvqNTdTjN-gfLXfgJFl8IgO9mLXBDsLXiwGyRDuquG5dzOrAyEUfil=s160-c-k-c0x00ffffff-no-rj" },
+        { quote: "Reliability and precision in delivery, with thumbnails done very well.", name: "Continss", role: "466K subscribers", img: "https://yt3.googleusercontent.com/K95m6FmTcdEyLVVDz0PKvlM8W6BeInhHYviO8FVLFXisxrdfifBrMUFTg3aw312RboK3_BuoAg=s160-c-k-c0x00ffffff-no-rj" },
+        { quote: "We've worked together for 5 years, and it's the best choice I could have made!", name: "Powah", role: "396K subscribers", img: "" },
       ];
       return (
         <section className="relative z-10 py-24 px-6 md:px-12 lg:px-24 bg-black">
@@ -564,11 +571,18 @@
               {testimonials.map((t, i) => (
                 <FadeIn key={i} delay={i * 100}>
                   <div className="liquid-glass rounded-2xl p-8 flex flex-col gap-5 h-full">
-                    <p className="text-white/80 font-body font-light text-sm italic leading-relaxed flex-1">"{t.quote}"</p>
-                    <div>
-                      <p className="text-white font-body font-medium text-sm">{t.name}</p>
-                      <p className="text-white/50 font-body font-light text-xs mt-0.5">{t.role}</p>
+                    <div className="flex items-center gap-3">
+                      {t.img ? (
+                        <img src={t.img} alt={t.name} className="w-12 h-12 rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
+                      ) : (
+                        <div className="w-12 h-12 rounded-full flex items-center justify-center font-hero font-bold text-white text-lg" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)", border: "1.5px solid rgba(255,255,255,0.2)" }}>P</div>
+                      )}
+                      <div className="flex-1">
+                        <p className="text-white font-body font-medium text-sm">{t.name}</p>
+                        <p className="text-white/50 font-body font-light text-xs mt-0.5">{t.role}</p>
+                      </div>
                     </div>
+                    <p className="text-white/80 font-body font-light text-sm leading-relaxed flex-1">{t.quote}</p>
                   </div>
                 </FadeIn>
               ))}
