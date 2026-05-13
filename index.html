@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lato Studio</title>
-  <link rel="icon" type="image/png" href="uploads/favicon-purple.png" />
+  <link rel="icon" type="image/png" href="uploads/favicon-purple.png?v=2" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -180,7 +180,7 @@
     function Navbar() {
       const [active, setActive] = useState("Home");
       useEffect(() => {
-        const sections = [["Home", null],["Capabilities","capabilities"],["Work","our-work"],["FAQ","faq"],["Contacts","contact"]];
+        const sections = [["Home", null],["Workflow","capabilities"],["Portfolio","our-work"],["FAQ","faq"],["Contacts","contact"]];
         const onScroll = () => {
           const scrollY = window.scrollY + 120;
           const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 100;
@@ -205,7 +205,7 @@
             <span className="font-hero font-bold text-white text-lg hidden sm:block">Lato Studio</span>
           </a>
           <div className="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-1">
-            {[["Home","#"],["Capabilities","#capabilities"],["Work","#our-work"],["FAQ","#faq"],["Contacts","#contact"]].map(([label, href]) => (
+            {[["Home","#"],["Workflow","#capabilities"],["Portfolio","#our-work"],["FAQ","#faq"],["Contacts","#contact"]].map(([label, href]) => (
               <a key={label} href={href} className="px-3 py-2 text-sm font-medium font-body transition-all rounded-full" style={{ color: active === label ? "#000" : "rgba(255,255,255,0.75)", background: active === label ? "#fff" : "transparent" }}>{label}</a>
             ))}
           </div>
@@ -314,9 +314,7 @@
             <div ref={trackRef} className="flex gap-5" style={{ width: "max-content", willChange: "transform" }}>
               {items.map((c, i) => (
                 <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-3 px-5 py-5 flex-shrink-0 md:px-8 md:py-7 md:gap-4"
-                  style={{ width: isMobile ? "140px" : "220px", transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)", cursor: "pointer" }}
-                  onMouseEnter={e => e.currentTarget.style.transform = "scale(1.07)"}
-                  onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
+                  style={{ width: isMobile ? "140px" : "220px", cursor: "pointer" }}>
                   <img src={c.img} alt={c.name} className="w-14 h-14 md:w-20 md:h-20 rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
                   <div className="text-center">
                     <p className="text-white font-body font-medium text-base leading-tight">{c.name}</p>
@@ -344,12 +342,13 @@
           <div className="absolute inset-0 bg-black/5 z-0 pointer-events-none" />
           <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-0" style={{ height: "300px", background: "linear-gradient(to bottom, transparent, black)" }} />
           <div className="relative z-10 flex flex-col items-center text-center" style={{ paddingTop: "150px" }}>
-            <div className="max-w-3xl mx-auto px-4 mb-6">
-              <BlurText text="The Thumbnails Your Channel Deserves" className="text-6xl md:text-7xl lg:text-[5.5rem] font-hero font-bold text-white leading-[0.85] tracking-[-3px]" delay={100} />
+            <div className="max-w-4xl mx-auto px-4 mb-6">
+              <BlurText text="Creative That" className="text-6xl md:text-7xl lg:text-[5.5rem] font-hero font-bold text-white leading-[0.85] tracking-[-3px]" delay={100} />
+              <BlurText text="Makes People Click" className="text-6xl md:text-7xl lg:text-[5.5rem] font-hero font-bold text-white leading-[0.85] tracking-[-3px] whitespace-nowrap" delay={100} />
             </div>
-            <p className="text-sm md:text-base text-white/70 font-body font-light leading-relaxed max-w-md mx-auto mb-8 px-4" style={fadeStyle(800)}>High-click visuals. Stronger first impressions. Designed with AI, refined by experts. This is thumbnail design, wildly reimagined.</p>
+            <p className="text-sm md:text-base text-white/70 font-body font-light leading-relaxed max-w-md mx-auto mb-8 px-4" style={fadeStyle(800)}>Lato Studio helps YouTube creators grow through high performance thumbnails and premium visual packaging.</p>
             <div className="flex items-center gap-4" style={fadeStyle(1100)}>
-              <a href="#our-work" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">Our Work</a>
+              <a href="#our-work" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">Portfolio</a>
               <a href="#contact" className="text-white/80 text-sm font-body font-light hover:text-white transition-colors">Contact Us</a>
             </div>
             <div className="mt-auto pt-20 pb-12 w-full flex flex-col items-center gap-8" style={fadeStyle(1400)}>
@@ -370,26 +369,25 @@
         return () => window.removeEventListener("scroll", onScroll);
       }, []);
       const rows = [
-        { title: "Designed to stop the scroll.", body: "Every thumbnail is built with intent. Our AI studies patterns across high-performing videos, then helps craft visuals made to earn attention instantly.", cta: "Learn more", gif: "https://motionsites.ai/assets/hero-finlytic-preview-CV9g0FHP.gif", reverse: false },
+        { title: "Behind the Thumbnail", body: "Explore the step-by-step process of creating a YouTube thumbnail in this time-lapse. From initial layout to precise adjustments, see how every detail is refined to maximize CTR and craft an eye-catching design.", cta: "Learn more", gif: "uploads/Comp 1-ac77ba26.mp4", isVideo: true, reverse: false },
         { title: "It gets sharper over time.", body: "Your creative direction evolves with performance. We analyze packaging patterns, test visual approaches, and improve what gets people to click.", cta: "See how it works", gif: "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif", reverse: true },
       ];
       return (
         <section id="capabilities" className="relative z-10 py-24 px-6 md:px-12 lg:px-24 bg-black">
           <div className="max-w-6xl mx-auto">
             <FadeIn className="text-center mb-20">
-              {hasScrolled && <SectionBadge>Capabilities</SectionBadge>}
-              {hasScrolled && <BlurText text="Pro thumbnails. Zero guesswork." className="text-4xl md:text-5xl lg:text-6xl font-hero font-bold text-white tracking-tight leading-[0.9] mt-4" delay={80} />}
+              {hasScrolled && <SectionBadge>Workflow</SectionBadge>}
+              {hasScrolled && <BlurText text="Creative Process" className="text-4xl md:text-5xl lg:text-6xl font-hero font-bold text-white tracking-tight leading-[0.9] mt-4" delay={80} />}
             </FadeIn>
             <div className="flex flex-col gap-24">
               {rows.map((row, i) => (
                 <FadeIn key={i} delay={i * 150}>
                   <div className={`flex flex-col ${row.reverse ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12 md:gap-16`}>
                     <div className="flex-1 flex flex-col gap-5">
-                      <h3 className="text-3xl md:text-4xl font-hero font-bold text-white leading-tight">{row.title}</h3>
+                      <h3 className="text-3xl md:text-4xl font-hero font-bold text-white" style={{ lineHeight: "1.05" }}>{row.title}</h3>
                       <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed max-w-md">{row.body}</p>
-                      <div><a href="#" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white inline-flex items-center gap-2 hover:bg-white/10 transition-colors">{row.cta} <IconArrowUpRight size={14} /></a></div>
                     </div>
-                    <div className="flex-1 w-full"><div className="liquid-glass rounded-2xl overflow-hidden aspect-video"><img src={row.gif} alt={row.title} className="w-full h-full object-cover" /></div></div>
+                    <div className="flex-1 w-full"><div className="liquid-glass rounded-2xl overflow-hidden aspect-video">{row.isVideo ? <video src={row.gif} autoPlay loop muted playsInline className="w-full h-full object-cover" /> : <img src={row.gif} alt={row.title} className="w-full h-full object-cover" />}</div></div>
                   </div>
                 </FadeIn>
               ))}
@@ -435,7 +433,7 @@
         <section id="our-work" className="relative z-10 py-24 bg-black overflow-hidden">
           <div className="px-6 md:px-12 lg:px-24 mb-14">
             <FadeIn className="text-center">
-              <SectionBadge>Our Work</SectionBadge>
+              <SectionBadge>Portfolio</SectionBadge>
               <BlurText text="Thumbnails that perform." className="text-4xl md:text-5xl lg:text-6xl font-hero font-bold text-white tracking-tight leading-[0.9] mt-4" delay={80} />
             </FadeIn>
           </div>
@@ -455,10 +453,10 @@
     // ── FAQ ───────────────────────────────────────────────────────────────
     const faqItems = [
       { q: "How do you create your thumbnails?", a: "We combine AI-powered design research with expert human refinement. Our process starts with analysing top-performing videos in your niche, then crafting compositions, color and typography built to earn clicks." },
-      { q: "What kind of channels do you work with?", a: "We specialise in IRL, gaming, finance, lifestyle and educational content — but we're versatile and can adapt our visual direction to any niche or brand identity." },
+      { q: "What kind of channels do you work with?", a: "We specialize in finance, business, AI/tech, podcast, educational content, IRL, gaming, creating thumbnails focused on CTR, audience psychology, and performance-driven visual strategy while adapting seamlessly to any niche or brand identity." },
       { q: "How can a professionally designed thumbnail benefit my channel?", a: "A well-designed thumbnail is the single highest-leverage asset for your video. It directly influences click-through rate, watch time, and how the algorithm surfaces your content to new audiences." },
-      { q: "How fast is the turnaround?", a: "Most thumbnails are delivered within 24 hours of briefing. Rush delivery is available for tight upload schedules." },
-      { q: "Do you offer revisions?", a: "Yes — every project includes revision rounds until you're fully satisfied with the result. We iterate quickly based on your feedback." },
+      { q: "How fast is the turnaround?", a: "Most thumbnails are delivered within 24-48 hours of briefing. Rush delivery is available for tight upload schedules." },
+      { q: "Do you offer revisions?", a: "Yes, every project includes revision rounds until you're fully satisfied with the result. We iterate quickly based on your feedback." },
     ];
     function FAQ() {
       const [open, setOpen] = useState(null);
@@ -496,7 +494,7 @@
       const cards = [
         { icon: IconZap, title: "Fast Turnaround", body: "From idea to finished thumbnail in a timeframe that keeps up with your upload schedule." },
         { icon: IconPalette, title: "Obsessively Crafted", body: "Every composition, facial expression, contrast choice, and hierarchy refined for maximum visual impact." },
-        { icon: IconBarChart3, title: "Built to Click", body: "Creative decisions informed by performance logic, audience behavior, and packaging strategy." },
+        { icon: IconBarChart3, title: "Built to Click", body: "Creative decisions driven by audience psychology and packaging strategy — delivering CTR increases of up to 40%." },
         { icon: IconShield, title: "Consistent by Default", body: "Strong visual identity across your channel, so every upload feels sharper, stronger, and more recognizable." },
       ];
       return (
