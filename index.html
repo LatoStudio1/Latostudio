@@ -371,7 +371,7 @@
       }, []);
       const rows = [
         { title: "Behind the Thumbnail", body: "Explore the step-by-step process of creating a YouTube thumbnail in this time-lapse. From initial layout to precise adjustments, see how every detail is refined to maximize CTR and craft an eye-catching design.", cta: "Learn more", gif: "uploads/Comp 1-ac77ba26.mp4", isVideo: true, reverse: false },
-        { title: "It gets sharper over time.", body: "Your creative direction evolves with performance. We analyze packaging patterns, test visual approaches, and improve what gets people to click.", cta: "See how it works", gif: "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif", reverse: true },
+        { title: "About Us", body: "Lato Studio is led by Luca and Alessandro, two graphic designers with years of experience in social media and visual design.\nWe help YouTube creators stand out with thumbnails that are crafted to perform.", cta: "See how it works", isLogo: true, reverse: true },
       ];
       return (
         <section id="capabilities" className="relative z-10 py-24 px-6 md:px-12 lg:px-24 bg-black">
@@ -386,9 +386,14 @@
                   <div className={`flex flex-col ${row.reverse ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12 md:gap-16`}>
                     <div className="flex-1 flex flex-col gap-5">
                       <h3 className="text-3xl md:text-4xl font-hero font-bold text-white" style={{ lineHeight: "1.05" }}>{row.title}</h3>
-                      <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed max-w-md">{row.body}</p>
+                      <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed max-w-md" style={{ whiteSpace: "pre-line" }}>{row.body}</p>
                     </div>
-                    <div className="flex-1 w-full"><div className="liquid-glass rounded-2xl overflow-hidden aspect-video">{row.isVideo ? <video src={row.gif} autoPlay loop muted playsInline className="w-full h-full object-cover" /> : <img src={row.gif} alt={row.title} className="w-full h-full object-cover" />}</div></div>
+                    <div className="flex-1 w-full"><div className="liquid-glass rounded-2xl overflow-hidden aspect-video">{row.isLogo ? (
+                      <div className="w-full h-full flex flex-col items-center justify-center gap-4" style={{ background: "linear-gradient(135deg, #6214d9 0%, #8b5cf6 100%)" }}>
+                        <img src="uploads/logo.png" alt="Lato Studio" style={{ width: "30%", maxWidth: "140px", filter: "brightness(0) invert(1)" }} />
+                        <span className="font-hero font-bold text-white text-3xl md:text-4xl tracking-tight">Lato Studio</span>
+                      </div>
+                    ) : row.isVideo ? <video src={row.gif} autoPlay loop muted playsInline className="w-full h-full object-cover" /> : <img src={row.gif} alt={row.title} className="w-full h-full object-cover" />}</div></div>
                   </div>
                 </FadeIn>
               ))}
