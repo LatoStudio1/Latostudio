@@ -344,8 +344,8 @@
           <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-0" style={{ height: "300px", background: "linear-gradient(to bottom, transparent, black)" }} />
           <div className="relative z-10 flex flex-col items-center text-center" style={{ paddingTop: "150px" }}>
             <div className="max-w-4xl mx-auto px-4 mb-6">
-              <BlurText text="Creative That" className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-hero font-bold text-white leading-[0.85] tracking-[-2px] md:tracking-[-3px]" delay={100} />
-              <BlurText text="Makes People Click" className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-hero font-bold text-white leading-[0.85] tracking-[-2px] md:tracking-[-3px] md:whitespace-nowrap" delay={100} />
+              <BlurText text="Thumbnails That" className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-hero font-bold text-white leading-[0.85] tracking-[-2px] md:tracking-[-3px]" delay={100} />
+              <BlurText text="Make People Click" className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-hero font-bold text-white leading-[0.85] tracking-[-2px] md:tracking-[-3px] md:whitespace-nowrap" delay={100} />
             </div>
             <p className="text-sm md:text-base text-white/70 font-body font-light leading-relaxed max-w-md mx-auto mb-8 px-4" style={fadeStyle(800)}>Lato Studio helps YouTube creators grow through high performance thumbnails and premium visual packaging.</p>
             <div className="flex items-center gap-4" style={fadeStyle(1100)}>
@@ -404,16 +404,19 @@
       `uploads/1.jpg?v=${_v}`,`uploads/2.jpg?v=${_v}`,`uploads/3.jpg?v=${_v}`,`uploads/4.jpg?v=${_v}`,
       `uploads/5.jpg?v=${_v}`,`uploads/6.jpg?v=${_v}`,`uploads/7.jpg?v=${_v}`,`uploads/8.jpg?v=${_v}`,
       `uploads/9.jpg?v=${_v}`,`uploads/10.jpg?v=${_v}`,`uploads/11.jpg?v=${_v}`,`uploads/12.jpg?v=${_v}`,
+      `uploads/13.jpg?v=${_v}`,`uploads/14.jpg?v=${_v}`,`uploads/15.jpg?v=${_v}`,`uploads/16.jpg?v=${_v}`,
     ];
     const row2imgs = [
-      `uploads/13.jpg?v=${_v}`,`uploads/14.jpg?v=${_v}`,`uploads/15.jpg?v=${_v}`,`uploads/16.jpg?v=${_v}`,
       `uploads/17.jpg?v=${_v}`,`uploads/18.jpg?v=${_v}`,`uploads/19.jpg?v=${_v}`,`uploads/20.jpg?v=${_v}`,
       `uploads/21.jpg?v=${_v}`,`uploads/22.jpg?v=${_v}`,`uploads/23.jpg?v=${_v}`,`uploads/24.jpg?v=${_v}`,
-    ];
-    const row3imgs = [
       `uploads/25.jpg?v=${_v}`,`uploads/26.jpg?v=${_v}`,`uploads/27.jpg?v=${_v}`,`uploads/28.jpg?v=${_v}`,
       `uploads/29.jpg?v=${_v}`,`uploads/30.jpg?v=${_v}`,`uploads/31.jpg?v=${_v}`,`uploads/32.jpg?v=${_v}`,
+    ];
+    const row3imgs = [
       `uploads/33.jpg?v=${_v}`,`uploads/34.jpg?v=${_v}`,`uploads/35.jpg?v=${_v}`,`uploads/36.jpg?v=${_v}`,
+      `uploads/37.jpg?v=${_v}`,`uploads/38.jpg?v=${_v}`,`uploads/39.jpg?v=${_v}`,`uploads/40.jpg?v=${_v}`,
+      `uploads/41.jpg?v=${_v}`,`uploads/42.jpg?v=${_v}`,`uploads/43.jpg?v=${_v}`,`uploads/44.jpg?v=${_v}`,
+      `uploads/45.jpg?v=${_v}`,`uploads/46.jpg?v=${_v}`,`uploads/47.jpg?v=${_v}`,`uploads/48.jpg?v=${_v}`,
     ];
     function OurWorkRow({ images, reverse, speed }) {
       const items = [...images, ...images, ...images];
@@ -421,7 +424,7 @@
         <div className="overflow-hidden">
           <div className="flex gap-4" style={{ width: "max-content", animation: `ow-scroll-${reverse ? "rev" : "fwd"} ${speed} linear infinite` }}>
             {items.map((src, i) => (
-              <div key={i} className="flex-shrink-0 rounded-xl overflow-hidden" style={{ width: "280px", height: "158px" }}>
+              <div key={i} className="flex-shrink-0 rounded-xl overflow-hidden" style={{ width: window.innerWidth < 768 ? "220px" : "280px", height: window.innerWidth < 768 ? "124px" : "158px" }}>
                 <img src={src} alt="" className="w-full h-full object-cover" />
               </div>
             ))}
@@ -612,7 +615,7 @@
               <div ref={scrollerRef} className="flex-1 flex gap-6 overflow-x-auto" style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none", msOverflowStyle: "none" }}>
                 <style>{`section .flex-1.overflow-x-auto::-webkit-scrollbar { display: none; }`}</style>
                 {testimonials.map((t, i) => (
-                  <div key={i} className="liquid-glass rounded-2xl p-8 flex flex-col gap-5 flex-shrink-0" style={{ width: window.innerWidth < 768 ? "85%" : "calc(33.333% - 1rem)", minWidth: "280px", scrollSnapAlign: "start" }}>
+                  <div key={i} className="liquid-glass rounded-2xl p-6 md:p-8 flex flex-col gap-5 flex-shrink-0" style={{ width: window.innerWidth < 768 ? "78%" : "calc(33.333% - 1rem)", minWidth: "240px", scrollSnapAlign: "start" }}>
                     <div className="flex items-center gap-3">
                       <img src={t.img} alt={t.name} className="w-12 h-12 rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
                       <div className="flex-1">
