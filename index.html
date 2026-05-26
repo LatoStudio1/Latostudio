@@ -383,10 +383,7 @@
                       <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed max-w-md" style={{ whiteSpace: "pre-line" }}>{row.body}</p>
                     </div>
                     <div className="flex-1 w-full"><div className="liquid-glass rounded-2xl overflow-hidden aspect-video">{row.isLogo ? (
-                      <div className="w-full h-full flex flex-col items-center justify-center gap-4" style={{ background: "linear-gradient(135deg, #6214d9 0%, #8b5cf6 100%)" }}>
-                        <img src="uploads/logo.png" alt="Lato Studio" style={{ width: "30%", maxWidth: "140px", filter: "brightness(0) invert(1)" }} />
-                        <span className="font-hero font-bold text-white text-3xl md:text-4xl tracking-tight">Lato Studio</span>
-                      </div>
+                      <img src="uploads/lato about us.jpg.jpeg" alt="Lato Studio" className="w-full h-full object-cover" />
                     ) : row.isVideo ? <video src={row.gif} autoPlay loop muted playsInline className="w-full h-full object-cover" /> : <img src={row.gif} alt={row.title} className="w-full h-full object-cover" />}</div></div>
                   </div>
                 </FadeIn>
