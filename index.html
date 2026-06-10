@@ -316,7 +316,7 @@
               {items.map((c, i) => (
                 <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-2 px-3 py-4 flex-shrink-0 md:px-8 md:py-7 md:gap-4 w-[140px] md:w-[220px]"
                   style={{ cursor: "pointer" }}>
-                  <img src={c.img} alt={c.name} className="w-12 h-12 md:w-20 md:h-20 rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
+                  <img src={c.img} alt={c.name} loading="eager" referrerPolicy="no-referrer" onError={(e) => { const t = e.currentTarget; const n = Number(t.dataset.retry || 0); if (n < 3) { t.dataset.retry = n + 1; setTimeout(() => { t.src = c.img + (c.img.includes("?") ? "&" : "?") + "r=" + Date.now(); }, 600 * (n + 1)); } }} className="w-12 h-12 md:w-20 md:h-20 rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
                   <div className="text-center">
                     <p className="text-white font-body font-medium text-sm md:text-base leading-tight">{c.name}</p>
                     <p className="text-white/50 font-body font-light text-xs md:text-sm mt-0.5 md:mt-1">{c.subs}</p>
@@ -567,6 +567,7 @@
         { quote: "Working with Alessio is a real pleasure. A great person first of all, always open to change his mind, to challenge his ideas, and to try different styles and concepts to find the best graphic every time. These are the qualities I consider essential in a human being, and consequently in an artist and a professional. At this point I can't go back, I blindly trust his intuition.", name: "Jack Nobile", role: "1.48M subscribers", img: "https://jacknobile.it/wp-content/uploads/elementor/thumbs/fotoprofilo11-1-r5g2ocy52o1kk4wb8onbbyzqpmg0j5ce7joof33ioo.jpg" },
         { quote: "Working with him is always great. Punctual even on short notice, and the thumbnails are top quality for every type of video.", name: "Piz", role: "170K subscribers", img: "https://yt3.googleusercontent.com/a30cmSLe9QXHTMfZswSHb3gpBvnvt2hW_-2dAi4JHOVzzNMNA4j0saiCPYYORk53zK4gpbPg=s160-c-k-c0x00ffffff-no-rj" },
         { quote: "I've been working with him for almost a year now and he's always been punctual with every project. Super reliable.", name: "ElPupo", role: "181K subscribers", img: "https://yt3.googleusercontent.com/tqa2cJXB_ywgbZsBBKuRBXd93edxkQfxxIhaxWpSkrCIpMs34uUSU3yqvy5-kyn62wdqoKOA9A=s160-c-k-c0x00ffffff-no-rj" },
+        { quote: "Amazing collaboration! The thumbnails always reflect exactly what we wanted, and the attention to detail is incredible. Communication is super smooth and the results speak for themselves.", name: "Giada e Mamma", role: "740K subscribers", img: "https://yt3.googleusercontent.com/phWRKiXE8F9Cm4vwg5-1Jz8PvSDN4mgfRBi_UXO_N-vcEQEPoJrr2YcUAWAu6B2HzCw0PuGn=s900-c-k-c0x00ffffff-no-rj" },
       ];
       const scrollerRef = useRef(null);
       const [canLeft, setCanLeft] = useState(false);
