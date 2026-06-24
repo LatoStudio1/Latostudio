@@ -563,7 +563,7 @@
         { quote: "Reliability and precision in delivery, with thumbnails done very well.", name: "Continss", role: "466K subscribers", img: "https://yt3.googleusercontent.com/K95m6FmTcdEyLVVDz0PKvlM8W6BeInhHYviO8FVLFXisxrdfifBrMUFTg3aw312RboK3_BuoAg=s160-c-k-c0x00ffffff-no-rj" },
         { quote: "Finding a designer like this is rare! Super professional, punctual, and with impeccable communication. I absolutely recommend him to anyone looking for thumbnails that truly make a difference.", name: "Kroatomist", role: "456K subscribers", img: "https://yt3.googleusercontent.com/ZKdBcpfWxPUbPRZtM_Ph8KfII2tnjuxKFvWne4VGCnTtlubaIxtLY-qbDGBtamd8eMyPLdd4=s160-c-k-c0x00ffffff-no-rj" },
         { quote: "We've worked together for 5 years, and it's the best choice I could have made!", name: "Powah", role: "400K subscribers", img: "https://yt3.googleusercontent.com/idmRdaeWx5v_nW2ZyccLU5po21JEa-A_Hxp-nscH7qTkdjZ9rszjVlA8fWaRUP7r5DA814jj=s900-c-k-c0x00ffffff-no-rj" },
-        { quote: "Solid work, great guy! Been working with Alessio for months, fast, reliable, and the thumbnails are always clean and effective. Easy to work with and open to feedback. Definitely recommend!", name: "ZaneSG", role: "384K subscribers", img: "https://yt3.googleusercontent.com/ytc/AIdro_kTlI52D-Aa4PW4SxbNv4w9zpSnu4vuZIN7wI3U-VOv2S0=s160-c-k-c0x00ffffff-no-rj" },
+        { quote: "Solid work, great guy! Been working with Luca for months, fast, reliable, and the thumbnails are always clean and effective. Easy to work with and open to feedback. Definitely recommend!", name: "ZaneSG", role: "384K subscribers", img: "https://yt3.googleusercontent.com/ytc/AIdro_kTlI52D-Aa4PW4SxbNv4w9zpSnu4vuZIN7wI3U-VOv2S0=s160-c-k-c0x00ffffff-no-rj" },
         { quote: "His thumbnails are spectacular. Every time I have a half-formed idea in mind and the finished work always turns out better than I imagined. Since I started working with him, my videos and click-through rate are doing much better than before.", name: "Danny Enrico", role: "360K subscribers", img: "https://yt3.googleusercontent.com/ZbueC6NLBuB4ZXDKRfv0PaXjjOCrg-g-6BQorg11fXzCNRn0E-5ciS3d-QATpF-8-olbR9dW=s160-c-k-c0x00ffffff-no-rj" },
         { quote: "I'm working with Alessio on my thumbnails and I'm really happy with the result. Creativity, precision, and above all... speed!", name: "Andrea Muzii", role: "245K subscribers", img: "https://yt3.googleusercontent.com/ytc/AIdro_lyQzE5qg9qAwCsMsdr_rauz5jXgX19RfpBlqJ4QKri5n4=s160-c-k-c0x00ffffff-no-rj" },
         { quote: "I've been working with him for almost a year now and he's always been punctual with every project. Super reliable.", name: "ElPupo", role: "181K subscribers", img: "https://yt3.googleusercontent.com/tqa2cJXB_ywgbZsBBKuRBXd93edxkQfxxIhaxWpSkrCIpMs34uUSU3yqvy5-kyn62wdqoKOA9A=s160-c-k-c0x00ffffff-no-rj" },
@@ -740,6 +740,49 @@
         </div>
       );
     }
+
+    // ── Smooth scroll (desktop only, fade in/out wheel speed) ───────────────
+    (function () {
+      const isTouch = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
+      if (isTouch) return;
+
+      let target = window.scrollY;
+      let current = window.scrollY;
+      let running = false;
+
+      const clamp = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (target < 0) target = 0;
+        if (target > max) target = max;
+      };
+
+      const loop = () => {
+        current += (target - current) * 0.085; // ease toward target
+        if (Math.abs(target - current) < 0.5) {
+          current = target;
+          window.scrollTo(0, current);
+          running = false;
+          return;
+        }
+        window.scrollTo(0, current);
+        requestAnimationFrame(loop);
+      };
+
+      window.addEventListener("wheel", (e) => {
+        // let pinch-zoom / modifier scrolls behave natively
+        if (e.ctrlKey) return;
+        e.preventDefault();
+        target += e.deltaY;
+        clamp();
+        if (!running) { running = true; current = window.scrollY; requestAnimationFrame(loop); }
+      }, { passive: false });
+
+      // keep target synced if user jumps (anchor links, keyboard, resize)
+      window.addEventListener("resize", () => { target = window.scrollY; });
+      const syncOnJump = () => { if (!running) { target = window.scrollY; current = window.scrollY; } };
+      window.addEventListener("keydown", syncOnJump);
+      window.addEventListener("mousedown", syncOnJump);
+    })();
 
     ReactDOM.createRoot(document.getElementById("root")).render(<App />);
   </script>
