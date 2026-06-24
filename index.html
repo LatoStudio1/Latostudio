@@ -420,7 +420,7 @@
         <div className="overflow-hidden">
           <div className="flex gap-4" style={{ width: "max-content", animation: `ow-scroll-${reverse ? "rev" : "fwd"} ${speed} linear infinite` }}>
             {items.map((src, i) => (
-              <div key={i} className="flex-shrink-0 rounded-xl overflow-hidden" style={{ width: window.innerWidth < 768 ? "220px" : "280px", height: window.innerWidth < 768 ? "124px" : "158px" }}>
+              <div key={i} className="flex-shrink-0 rounded-xl overflow-hidden w-[220px] h-[124px] md:w-[280px] md:h-[158px]">
                 <img src={src} alt="" className="w-full h-full object-cover" />
               </div>
             ))}
@@ -740,49 +740,6 @@
         </div>
       );
     }
-
-    // ── Smooth scroll (desktop only, fade in/out wheel speed) ───────────────
-    (function () {
-      const isTouch = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
-      if (isTouch) return;
-
-      let target = window.scrollY;
-      let current = window.scrollY;
-      let running = false;
-
-      const clamp = () => {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        if (target < 0) target = 0;
-        if (target > max) target = max;
-      };
-
-      const loop = () => {
-        current += (target - current) * 0.085; // ease toward target
-        if (Math.abs(target - current) < 0.5) {
-          current = target;
-          window.scrollTo(0, current);
-          running = false;
-          return;
-        }
-        window.scrollTo(0, current);
-        requestAnimationFrame(loop);
-      };
-
-      window.addEventListener("wheel", (e) => {
-        // let pinch-zoom / modifier scrolls behave natively
-        if (e.ctrlKey) return;
-        e.preventDefault();
-        target += e.deltaY;
-        clamp();
-        if (!running) { running = true; current = window.scrollY; requestAnimationFrame(loop); }
-      }, { passive: false });
-
-      // keep target synced if user jumps (anchor links, keyboard, resize)
-      window.addEventListener("resize", () => { target = window.scrollY; });
-      const syncOnJump = () => { if (!running) { target = window.scrollY; current = window.scrollY; } };
-      window.addEventListener("keydown", syncOnJump);
-      window.addEventListener("mousedown", syncOnJump);
-    })();
 
     ReactDOM.createRoot(document.getElementById("root")).render(<App />);
   </script>
