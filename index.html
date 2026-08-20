@@ -416,25 +416,12 @@
     ];
     function OurWorkRow({ images, reverse, speed }) {
       const items = [...images, ...images, ...images];
-      return (
-        <div className="overflow-hidden">
-          <div className="flex gap-4 ow-track" style={{ width: "max-content", animation: `ow-scroll-${reverse ? "rev" : "fwd"} ${speed} linear infinite` }}>
-            {items.map((src, i) => (
-              <div key={i} className="flex-shrink-0 rounded-xl overflow-hidden w-[220px] h-[124px] md:w-[280px] md:h-[158px]">
-                <img src={src} alt="" className="w-full h-full object-cover" />
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    }
-    function OurWork() {
-      const rowsRef = useRef(null);
+      const trackRef = useRef(null);
       const rampRef = useRef(null);
       const rampTo = (target) => {
         if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
         cancelAnimationFrame(rampRef.current);
-        const anims = rowsRef.current ? Array.from(rowsRef.current.querySelectorAll(".ow-track")).flatMap(el => el.getAnimations()) : [];
+        const anims = trackRef.current ? trackRef.current.getAnimations() : [];
         if (!anims.length) return;
         const step = () => {
           let done = true;
@@ -450,6 +437,19 @@
       };
       useEffect(() => () => cancelAnimationFrame(rampRef.current), []);
       return (
+        <div className="overflow-hidden" onMouseEnter={() => rampTo(0.35)} onMouseLeave={() => rampTo(1)}>
+          <div ref={trackRef} className="flex gap-4 ow-track" style={{ width: "max-content", animation: `ow-scroll-${reverse ? "rev" : "fwd"} ${speed} linear infinite` }}>
+            {items.map((src, i) => (
+              <div key={i} className="flex-shrink-0 rounded-xl overflow-hidden w-[220px] h-[124px] md:w-[280px] md:h-[158px]">
+                <img src={src} alt="" className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    function OurWork() {
+      return (
         <section id="our-work" className="relative z-10 py-14 md:py-24 bg-black overflow-hidden">
           <div className="px-6 md:px-12 lg:px-24 mb-10 md:mb-14">
             <FadeIn className="text-center">
@@ -457,7 +457,7 @@
               <BlurText text="Thumbnails that perform." className="text-4xl md:text-5xl lg:text-6xl font-hero font-bold text-white tracking-tight leading-[0.9] mt-4" delay={80} />
             </FadeIn>
           </div>
-          <div ref={rowsRef} onMouseEnter={() => rampTo(0.15)} onMouseLeave={() => rampTo(1)} className="flex flex-col gap-4 ow-marquee" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
+          <div className="flex flex-col gap-4 ow-marquee" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
             <OurWorkRow images={row1imgs} reverse={false} speed="60s" />
             <OurWorkRow images={row2imgs} reverse={true} speed="75s" />
             <OurWorkRow images={row3imgs} reverse={false} speed="68s" />
