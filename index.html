@@ -105,12 +105,12 @@
     /* Reduced motion: gentler, non-vestibular equivalents — never zero feedback */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after {
+      *:not(.ow-track), *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 200ms !important;
       }
-      .ow-track { animation: none !important; }
+      /* the portfolio marquee keeps drifting: it is the content, not decoration */
       a:active, button:active, [role="button"]:active { transform: none; opacity: 0.7; }
     }
     /* Reduced transparency: frostier, solid surfaces instead of glass */
