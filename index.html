@@ -315,7 +315,7 @@
         return () => { window.removeEventListener("resize", measure); clearTimeout(t); };
       }, [active]);
       useEffect(() => {
-        const sections = [["Home", null],["Process","capabilities"],["Portfolio","our-work"],["FAQ","faq"],["Contacts","contact"]];
+        const sections = [["Home", null],["Services","capabilities"],["Portfolio","our-work"],["FAQ","faq"],["Contacts","contact"]];
         const onScroll = () => {
           const scrollY = window.scrollY + 120;
           const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 100;
@@ -343,7 +343,7 @@
               opacity: pill.width ? 1 : 0, pointerEvents: "none",
               transition: "transform var(--d-ui) var(--ease-in-out), width var(--d-ui) var(--ease-in-out), opacity var(--d-ui) var(--ease-out)"
             }} />
-            {[["Home","#"],["Process","#capabilities"],["Portfolio","#our-work"],["FAQ","#faq"],["Contacts","#contact"]].map(([label, href]) => (
+            {[["Home","#"],["Services","#capabilities"],["Portfolio","#our-work"],["FAQ","#faq"],["Contacts","#contact"]].map(([label, href]) => (
               <a key={label} href={href} data-nav={label} className="px-3 py-2 text-sm font-medium font-body rounded-full relative"
                 style={{ color: active === label ? "#000" : "rgba(255,255,255,0.75)", transition: "color var(--d-ui) var(--ease-out)" }}>{label}</a>
             ))}
@@ -356,6 +356,7 @@
     // ── CreatorsCarousel ───────────────────────────────────────────────────
     const creators = [
       { name: "Ninna e Matti",   subs: "2,6M subscribers",  img: "https://yt3.googleusercontent.com/KFZVoYTrTISUy1POqnB0KBs_P3YUCrlt0DxHgH6JDf6Vx7NIaQ_pxpQGAN9zAxqkzFLM7Ll5=s900-c-k-c0x00ffffff-no-rj" },
+      { name: "CO.RA. SpA",      subs: "3K subscribers",    img: "https://yt3.googleusercontent.com/NA1myIhCafnuJAwO7x0G8akgGfPpJYXZfNwFDbMsT1zOEBnqQmRP10GxmkE41RO8GXE9LGacKg=s900-c-k-c0x00ffffff-no-rj" },
       { name: "Riccardo Danile",  subs: "86K subscribers",   img: "https://yt3.googleusercontent.com/jTM0frbs-hnADmfN0IYr4ibknOq3EG_8JMrIMR6GcS7oU-4Tr7Uvxd2fylRHzC7auAyDVKiksw=s900-c-k-c0x00ffffff-no-rj" },
       { name: "Marcello Ascani", subs: "1,06M subscribers", img: "uploads/marcello.jpg" },
       { name: "Breakfast Club",  subs: "307K subscribers",  img: "https://i.scdn.co/image/ab6761610000e5ebd87575f2800fa708e0e06c23" },
@@ -371,13 +372,11 @@
       { name: "Danny Enrico",    subs: "360K subscribers",  img: "https://yt3.googleusercontent.com/ZbueC6NLBuB4ZXDKRfv0PaXjjOCrg-g-6BQorg11fXzCNRn0E-5ciS3d-QATpF-8-olbR9dW=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Michele Molteni", subs: "2,05M subscribers", img: "https://m.media-amazon.com/images/S/influencer-profile-image-prod/logo/michelemolteni_1591145030810_original._CR0%2C159%2C956%2C956_._US500_SCLZZZZZZZ_.jpeg" },
       { name: "Ale Della Giusta", subs: "1,64M subscribers", img: "https://yt3.googleusercontent.com/GcnrpiDObtMRCDeWgOeuio0ji2cyBfdQbZwBxYA4HRzKNtJrVNxLoyIzVbq5vjnylM1dIe7A=s900-c-k-c0x00ffffff-no-rj" },
-      { name: "Ferro",           subs: "470K subscribers",  img: "https://yt3.googleusercontent.com/vbIZbHXMQ_ScLX2mADy1cbZIaO5pO6lQiVgVP5z6pJk-HSXlGzSs5l3QoyT0LI5LcycUbkGd2yc=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Primodan",        subs: "58,3K subscribers", img: "https://yt3.googleusercontent.com/447pNPyxxxHdNEy1KIuxEhA4cpviU2HAhLXzJCelqJTD72H4a_fCl9xpUST4XnixHkvwrLF4=s160-c-k-c0x00ffffff-no-rj" },
       { name: "iStorica",        subs: "102K subscribers",  img: "https://yt3.googleusercontent.com/ytc/AIdro_kiHD384JXCgEhwvAK07_mWNgVra9OeY4BsFdh6mC0wsA=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Portable Orange", subs: "51K subscribers",   img: "https://yt3.googleusercontent.com/paVLW5j7sOimYOidgAU4iFRtBmrf7VLiytPxwPegF1iRHMYh-psPtDAEzxV2IIxNTWxQZQU94uM=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Chase Bridges",   subs: "178K subscribers",  img: "https://yt3.googleusercontent.com/HkbpApb2LE5966UnxKqyzDkd7IOIzOys6Jyo3U8S4WGyWyXS3vmwgJ7QTAMtRjks4rA8ukpzOA=s160-c-k-c0x00ffffff-no-rj" },
       { name: "E. with Giotto",  subs: "228K subscribers",  img: "https://yt3.googleusercontent.com/bOrWjta1mBS1Sw_-UpzCzeb8tXSb9N5h_tAIfpWiSD-egZp78qlIwzm-k_Ydiy8H1aVSUVaP=s160-c-k-c0x00ffffff-no-rj" },
-      { name: "The Booyz",       subs: "215K subscribers",  img: "https://yt3.googleusercontent.com/M8_ce2aTmSNxA1v65ETAJRcl9QPZfQiGsLnCivvOg1qxcIPziuYu8EKpxisx9LKWoFdQVVEFeQ=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Chapeau",         subs: "140K subscribers",  img: "https://yt3.googleusercontent.com/HZm6BuUjWF6_sC9CT3qvHb3cesBfNe8HB1-9HczpSELOMbB9YImlPVm1t5QobyzBLkRXinBQ=s900-c-k-c0x00ffffff-no-rj" },
     ].sort((a, b) => {
       const n = (s) => { const v = parseFloat(s.replace(",", ".")); return s.includes("M") ? v * 1e6 : s.includes("K") ? v * 1e3 : v; };
@@ -397,6 +396,11 @@
       creators.splice(pi < 0 ? creators.length : pi + 1, 0, ch);
     })();
     creators.unshift(creators.pop()); // shift everyone one position to the right
+    // keep CO.RA. out of the first cards on screen
+    (() => {
+      const i = creators.findIndex(c => c.name === "CO.RA. SpA");
+      if (i > -1) creators.push(creators.splice(i, 1)[0]);
+    })();
     function CreatorsCarousel() {
       const items = [...creators, ...creators, ...creators];
       const trackRef = useRef(null);
@@ -521,10 +525,9 @@
               {items.map((c, i) => (
                 <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-2 px-3 py-3 flex-shrink-0 md:px-5 md:py-5 md:gap-4 w-[140px] md:w-[220px]"
                   style={{ cursor: "pointer" }}>
-                  <img src={c.img} alt={c.name} loading="eager" referrerPolicy="no-referrer" onError={(e) => { const t = e.currentTarget; const n = Number(t.dataset.retry || 0); if (n < 3) { t.dataset.retry = n + 1; setTimeout(() => { t.src = c.img + (c.img.includes("?") ? "&" : "?") + "r=" + Date.now(); }, 600 * (n + 1)); } }} className="w-[60px] h-[60px] md:w-[100px] md:h-[100px] rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
+                  <img src={c.img} alt={c.name} loading="eager" referrerPolicy="no-referrer" onError={(e) => { const t = e.currentTarget; const n = Number(t.dataset.retry || 0); if (n < 3) { t.dataset.retry = n + 1; setTimeout(() => { t.src = c.img + (c.img.includes("?") ? "&" : "?") + "r=" + Date.now(); }, 600 * (n + 1)); } }} className="w-[68px] h-[68px] md:w-[116px] md:h-[116px] rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
                   <div className="text-center">
                     <p className="text-white font-body font-medium text-sm md:text-base leading-tight">{c.name}</p>
-                    <p className="text-white/50 font-body font-light text-xs md:text-sm mt-0.5 md:mt-1">{c.subs}</p>
                   </div>
                 </div>
               ))}
@@ -556,12 +559,12 @@
             <p className="text-xs md:text-base text-white/70 font-body font-light leading-relaxed max-w-md mx-auto mb-8 px-4" style={fadeStyle(800)}>Lato Studio helps creators and brands grow on YouTube through high performance thumbnails and premium visual packaging.</p>
             <div style={{ paddingTop: "18px" }}>
               <div className="flex items-center gap-4" style={fadeStyle(1100)}>
-                <a href="#our-work" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">Portfolio</a>
+                <a href="#capabilities" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">Services</a>
                 <a href="#contact" className="text-white/80 text-sm font-body font-light hover:text-white transition-colors">Contact Us</a>
               </div>
             </div>
             <div className="mt-auto pt-10 md:pt-20 pb-8 md:pb-12 w-full flex flex-col items-center gap-4 md:gap-8" style={fadeStyle(1400)}>
-              <p className="text-white text-[4.4vw] sm:text-2xl md:text-3xl lg:text-4xl text-center px-4 leading-tight whitespace-nowrap">
+              <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center px-6 leading-snug md:whitespace-nowrap" style={{ textWrap: "balance" }}>
                 <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.03em" }}>Creators and agencies who worked with </span>
                 <span style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400, fontStyle: "italic", fontSize: "1.1em" }}>Lato Studio.</span>
               </p>
