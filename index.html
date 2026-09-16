@@ -577,6 +577,29 @@
 
     // ── FeaturesChess ──────────────────────────────────────────────────────
     function FeaturesChess() {
+      // A soft light that tracks the scroll through this section — one light, low opacity
+      const secRef = useRef(null);
+      const [on, setOn] = useState(0);
+      useEffect(() => {
+        let raf = 0;
+        const update = () => {
+          raf = 0;
+          const el = secRef.current;
+          if (!el) return;
+          const r = el.getBoundingClientRect();
+          const mid = window.innerHeight / 2;
+          // distance from the screen's middle to the nearest edge of the section
+          const room = Math.min(mid - r.top, r.bottom - mid);
+          const ramp = Math.min(520, r.height / 2);
+          setOn(Math.min(Math.max(room / ramp, 0), 1));
+        };
+        const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+        update();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); cancelAnimationFrame(raf); };
+      }, []);
+
       const rows = [
         { title: "Thumbnail", body: "Explore the step-by-step process of creating a YouTube thumbnail in this time-lapse. From initial layout to precise adjustments, see how every detail is refined to maximize CTR and craft an eye-catching design.", cta: "Learn more", gif: `uploads/Behind The Thumbnail.mp4?v=${_v}`, isVideo: true, reverse: false },
         { title: "Title & Packaging", body: "Title and thumbnail are one decision, not two. We work on them together, testing angles against what the audience already clicks on.\nYou get the thinking behind the image, not only the image.", gif: `uploads/strategy.jpg?v=${_v}`, reverse: true },
@@ -586,8 +609,14 @@
         { title: "About Us", heading: "Team", body: "Lato Studio is led by Luca Terenzi, Alessio Orlando and Matteo Polito, three graphic designers with years of experience in social media and visual design.\nWe help creators and brands stand out on YouTube with thumbnails that are crafted to perform.", cta: "See how it works", isLogo: true, reverse: true },
       ];
       return (
-        <section id="capabilities" className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24 bg-black">
-          <div className="max-w-6xl mx-auto">
+<section ref={secRef} id="capabilities" className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24 bg-black">
+          <div aria-hidden="true" style={{
+            position: "fixed", left: "50%", top: "50%", width: "min(1900px, 190vw)", height: "min(1900px, 190vw)",
+            transform: "translate(-50%, -50%)",
+            background: "radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.018) 55%, rgba(255,255,255,0) 75%)",
+            opacity: on, pointerEvents: "none", zIndex: 0
+          }} />
+          <div className="relative max-w-6xl mx-auto">
             <FadeIn className="text-center mb-12 md:mb-20">
               <h2 className="text-5xl md:text-6xl lg:text-7xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Services</h2>
             </FadeIn>
