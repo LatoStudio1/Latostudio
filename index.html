@@ -609,13 +609,20 @@
         { title: "About Us", heading: "Team", body: "Lato Studio is led by Luca Terenzi, Alessio Orlando and Matteo Polito, three graphic designers with years of experience in social media and visual design.\nWe help creators and brands stand out on YouTube with thumbnails that are crafted to perform.", cta: "See how it works", isLogo: true, reverse: true },
       ];
       return (
-        <section ref={secRef} id="capabilities" className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24 overflow-hidden">
-          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" style={{ opacity: 0.35, objectPosition: "center top" }}>
-            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260210_031346_d87182fb-b0af-4273-84d1-c6fd17d6bf0f.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, black 0%, transparent 70px)" }} />
-          <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to top, black 0%, transparent 180px)" }} />
-          <div className="absolute inset-0 bg-black/45 z-0 pointer-events-none" />
+        <section ref={secRef} id="capabilities" className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24">
+          {/* the light starts before the section and dies out long before it ends */}
+          <div className="absolute z-0 pointer-events-none overflow-hidden" style={{ left: 0, right: 0, top: 0, bottom: 0 }}>
+            <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover pointer-events-none" style={{ opacity: 0.5, objectPosition: "center top" }}>
+              <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260210_031346_d87182fb-b0af-4273-84d1-c6fd17d6bf0f.mp4" type="video/mp4" />
+            </video>
+            {/* the frame's light lives at its top edge — mirror a copy so the lower half isn't dead black */}
+            <video autoPlay loop muted playsInline className="absolute left-0 right-0 bottom-0 w-full object-cover pointer-events-none" style={{ opacity: 0.42, height: "100%", objectPosition: "center top", transform: "scaleY(-1)", maskImage: "linear-gradient(to top, transparent 0%, rgba(0,0,0,0.5) 22%, black 60%)", WebkitMaskImage: "linear-gradient(to top, transparent 0%, rgba(0,0,0,0.5) 22%, black 60%)" }}>
+              <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260210_031346_d87182fb-b0af-4273-84d1-c6fd17d6bf0f.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-black/25 pointer-events-none" />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.45) 80px, transparent 240px)" }} />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, black 0%, rgba(0,0,0,0.45) 110px, transparent 300px)" }} />
+          </div>
           {ReactDOM.createPortal((
             <div aria-hidden="true" style={{
               position: "fixed", left: "50%", top: "50%", width: "min(1900px, 190vw)", height: "min(1900px, 190vw)",
