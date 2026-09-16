@@ -609,13 +609,15 @@
         { title: "About Us", heading: "Team", body: "Lato Studio is led by Luca Terenzi, Alessio Orlando and Matteo Polito, three graphic designers with years of experience in social media and visual design.\nWe help creators and brands stand out on YouTube with thumbnails that are crafted to perform.", cta: "See how it works", isLogo: true, reverse: true },
       ];
       return (
-<section ref={secRef} id="capabilities" className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24 bg-black">
-          <div aria-hidden="true" style={{
-            position: "fixed", left: "50%", top: "50%", width: "min(1900px, 190vw)", height: "min(1900px, 190vw)",
-            transform: "translate(-50%, -50%)",
-            background: "radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.018) 55%, rgba(255,255,255,0) 75%)",
-            opacity: on, pointerEvents: "none", zIndex: 0
-          }} />
+        <section ref={secRef} id="capabilities" className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24">
+          {ReactDOM.createPortal((
+            <div aria-hidden="true" style={{
+              position: "fixed", left: "50%", top: "50%", width: "min(1900px, 190vw)", height: "min(1900px, 190vw)",
+              transform: "translate(-50%, -50%)",
+              background: "radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.018) 55%, rgba(255,255,255,0) 75%)",
+              opacity: on, pointerEvents: "none", zIndex: 0
+            }} />
+          ), document.body)}
           <div className="relative max-w-6xl mx-auto">
             <FadeIn className="text-center mb-12 md:mb-20">
               <h2 className="text-5xl md:text-6xl lg:text-7xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Services</h2>
@@ -647,6 +649,32 @@
                   </div>
                 </FadeIn>
               ))}
+            </div>
+
+            <div className="mt-20 md:mt-28">
+              <FadeIn className="text-center mb-10 md:mb-14">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Who does what</h2>
+              </FadeIn>
+              <div className="flex flex-col">
+                {[
+                  { service: "Thumbnail", note: "Single YouTube or Instagram thumbnails, or full packs", people: ["Orla", "Luca", "Poli", "Diego"] },
+                  { service: "Copy & Title", note: "Higher-performing titles, paired with the copy inside the thumbnail", people: ["Orla", "Luca", "Fede"] },
+                  { service: "Strategy", note: "Concept, audience, potential and structure of a media project", people: ["Fede", "Orla"] },
+                  { service: "Video Edit", note: "Single videos or packages, horizontal and vertical", people: ["Lorenzo", "Gabri"] },
+                  { service: "Videomaking", note: "On-location shooting: vlog, corporate, general media", people: ["Lorenzo", "Gabri"] },
+                  { service: "Consulting", note: "A call or a meeting on thumbnails, potential and scalability", people: ["Fede", "Orla"] },
+                ].map((r, i) => (
+                  <FadeIn key={i} delay={i * 60}>
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 md:gap-10 items-baseline border-t border-white/15 py-6 md:py-7">
+                      <div className="flex flex-col gap-1.5">
+                        <h3 className="text-white text-xl md:text-2xl" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.02em" }}>{r.service}</h3>
+                        <p className="text-white/55 font-body font-light text-sm leading-relaxed max-w-md">{r.note}</p>
+                      </div>
+                      <p className="text-white/80 font-body font-light text-sm md:text-base md:text-right">{r.people.join(" · ")}</p>
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -776,7 +804,7 @@
         return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
       }, [lightbox]);
       return (
-        <section id="our-work" className="relative z-10 py-14 md:py-24 bg-black overflow-hidden">
+        <section id="our-work" className="relative z-10 py-14 md:py-24 overflow-hidden">
           <div className="px-6 md:px-12 lg:px-24 mb-10 md:mb-14">
             <FadeIn className="text-center">
               <h2 className="text-5xl md:text-7xl lg:text-8xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Thumbnails that perform.</h2>
@@ -841,7 +869,7 @@
     function FAQ() {
       const [open, setOpen] = useState(null);
       return (
-        <section id="faq" className="relative z-10 py-12 md:py-20 px-6 md:px-12 lg:px-24 bg-black">
+        <section id="faq" className="relative z-10 py-12 md:py-20 px-6 md:px-12 lg:px-24">
           <div className="max-w-3xl mx-auto">
             <FadeIn className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Common questions.</h2>
@@ -877,7 +905,7 @@
         { icon: IconShield, title: "Consistent by Default", body: "Strong visual identity across your channel, so every upload feels sharper, stronger, and more recognizable." },
       ];
       return (
-        <section className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24 bg-black">
+        <section className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24">
           <div className="max-w-6xl mx-auto">
             <FadeIn className="text-center mb-10 md:mb-16">
               <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>What you get, every time.</h2>
@@ -1015,7 +1043,7 @@
       );
 
       return (
-        <section className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24 bg-black">
+        <section className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24">
           <div className="max-w-6xl mx-auto">
             <FadeIn className="text-center mb-10 md:mb-16">
               <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Creators, in their words.</h2>
@@ -1082,7 +1110,7 @@
       };
       const inputStyle = { background: "rgba(255,255,255,0.07)", border: "1.4px solid rgba(255,255,255,0.15)", borderRadius: "14px", color: "white", padding: "14px 18px", width: "100%", outline: "none", fontFamily: "'Barlow', sans-serif", fontSize: "14px", transition: "border-color var(--d-ui) var(--ease-out)" };
       return (
-        <section id="contact" className="relative z-10 py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-black">
+        <section id="contact" className="relative z-10 py-16 md:py-28 px-6 md:px-12 lg:px-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
             <FadeIn className="text-center lg:text-left flex flex-col">
               <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Let's talk.</h2>
@@ -1170,11 +1198,11 @@
     // ── App ───────────────────────────────────────────────────────────────
     function App() {
       return (
-        <div className="bg-black min-h-screen">
+        <div className="min-h-screen">
           <div className="relative z-10">
             <Navbar />
             <Hero />
-            <div className="bg-black">
+            <div>
               <FeaturesChess />
               <OurWork />
               <FAQ />
