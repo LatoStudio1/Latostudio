@@ -367,6 +367,7 @@
     // ── CreatorsCarousel ───────────────────────────────────────────────────
     const creators = [
       { name: "Ninna e Matti",   subs: "2,6M subscribers",  img: "https://yt3.googleusercontent.com/KFZVoYTrTISUy1POqnB0KBs_P3YUCrlt0DxHgH6JDf6Vx7NIaQ_pxpQGAN9zAxqkzFLM7Ll5=s900-c-k-c0x00ffffff-no-rj" },
+      { name: "The Show",        subs: "40K subscribers",   img: "https://yt3.googleusercontent.com/RWukho1SlnxXwd4okFYAt0nbsuOHYejpuqYLpMLkcARGx7QeCNutXvTN2tniT-cKoSA-6xEOVfM=s900-c-k-c0x00ffffff-no-rj" },
       { name: "CO.RA. SpA",      subs: "3K subscribers",    img: "https://yt3.googleusercontent.com/NA1myIhCafnuJAwO7x0G8akgGfPpJYXZfNwFDbMsT1zOEBnqQmRP10GxmkE41RO8GXE9LGacKg=s900-c-k-c0x00ffffff-no-rj" },
       { name: "Riccardo Danile",  subs: "86K subscribers",   img: "https://yt3.googleusercontent.com/jTM0frbs-hnADmfN0IYr4ibknOq3EG_8JMrIMR6GcS7oU-4Tr7Uvxd2fylRHzC7auAyDVKiksw=s900-c-k-c0x00ffffff-no-rj" },
       { name: "Marcello Ascani", subs: "1,06M subscribers", img: "uploads/marcello.jpg" },
@@ -377,7 +378,7 @@
       { name: "AstroViktor",     subs: "114K subscribers",  img: "https://yt3.googleusercontent.com/BbmIGgqUlKg5zGloH-iVH7Zyy6kba5Tm4xfc-_k84FSOldbKCtYCQdN69BRK84XeT3-AL3D9DQ=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Ascensore",       subs: "12,8K subscribers", img: "https://yt3.googleusercontent.com/AVqp_OHPe6oOXXR8Co-CCigOvosPxhV5VKLvSe8XBz4lyreFWPncOgvn60THkn7ci1VICkuR=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Quota Zero",      subs: "9,41K subscribers", img: "https://yt3.googleusercontent.com/aWf0mxcUDD7WEdfUKhsFbKnRtvJOeY2Fu6DUAiUan60KBdvfZJK1WOdGMGY-U1eXL09J15nK=s160-c-k-c0x00ffffff-no-rj" },
-      { name: "Piccoli Mondi",   subs: "13,9K subscribers", img: "https://yt3.googleusercontent.com/qBTL3FrzNiOsotBPcx_1v_-v4GwyiTi75fO6o9KkTjCUkikVSNzyA33qjOuMOwGNfn4h2HoHmA=s160-c-k-c0x00ffffff-no-rj" },
+      { name: "Piccoli Mondi",   subs: "13,9K subscribers", img: "https://yt3.googleusercontent.com/ari9GejWd-yT03CXnNrAS3F4HUWtSroVyIEzJtgB5N5pn3dn1-UQBU3WE8yjWDTAuNmrnXubuw=s900-c-k-c0x00ffffff-no-rj" },
       { name: "Piz",             subs: "170K subscribers",  img: "https://yt3.googleusercontent.com/a30cmSLe9QXHTMfZswSHb3gpBvnvt2hW_-2dAi4JHOVzzNMNA4j0saiCPYYORk53zK4gpbPg=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Andrea Muzii",    subs: "245K subscribers",  img: "https://yt3.googleusercontent.com/ytc/AIdro_lyQzE5qg9qAwCsMsdr_rauz5jXgX19RfpBlqJ4QKri5n4=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Danny Enrico",    subs: "360K subscribers",  img: "https://yt3.googleusercontent.com/ZbueC6NLBuB4ZXDKRfv0PaXjjOCrg-g-6BQorg11fXzCNRn0E-5ciS3d-QATpF-8-olbR9dW=s160-c-k-c0x00ffffff-no-rj" },
@@ -416,25 +417,35 @@
       const items = [...creators, ...creators, ...creators];
       const trackRef = useRef(null);
       const wrapRef = useRef(null);
-      const currentX = useRef(0);
-      const targetX = useRef(0);
+      const pos = useRef(0);   // wrapped position, always inside one copy
+      const rem = useRef(0);   // distance still to travel (can be negative)
+      const vel = useRef(0);   // px per second
       const rafRef = useRef(null);
       const isMobile = window.innerWidth < 768;
 
-      // one card + its gap, measured from the DOM — never a hardcoded guess
+      // one card + its gap, measured with sub-pixel precision
       const pitch = () => {
         const t = trackRef.current;
         if (!t || t.children.length < 2) return 240;
-        return t.children[1].offsetLeft - t.children[0].offsetLeft;
+        const a = t.children[0].getBoundingClientRect();
+        const b = t.children[1].getBoundingClientRect();
+        return b.left - a.left;
+      };
+      // every press adds exactly one card, then the landing is aligned to a boundary
+      const scroll = (dir) => {
+        const p = pitch();
+        if (p <= 0) return;
+        const cap = p * 6;
+        let r = rem.current + dir * p;
+        const landing = pos.current + r;
+        r += Math.round(landing / p) * p - landing;   // land on a card edge
+        rem.current = Math.max(-cap, Math.min(cap, r));
       };
       const snap = () => {
         const p = pitch();
-        targetX.current = Math.round(targetX.current / p) * p;
-      };
-      // land on a card boundary, always
-      const scroll = (dir) => {
-        const p = pitch();
-        targetX.current = (Math.round(targetX.current / p) + dir) * p;
+        if (p <= 0) return;
+        const off = ((pos.current % p) + p) % p;
+        rem.current = off > p / 2 ? (p - off) : -off;
       };
 
       // Pointer drag: works with a mouse in a narrow window and with a finger
@@ -446,7 +457,12 @@
       };
       const onPointerMove = (e) => {
         if (!pdrag.current.active || e.pointerId !== pdrag.current.id) return;
-        targetX.current += pdrag.current.x - e.clientX;
+        if (e.buttons === 0) { onPointerUp(e); return; } // button already released
+        const dx = pdrag.current.x - e.clientX;
+        if (Math.abs(dx) > 400) { pdrag.current.x = e.clientX; return; } // ignore teleports
+        pos.current += dx;   // the finger moves it directly
+        rem.current = 0;
+        vel.current = 0;
         pdrag.current.x = e.clientX;
       };
       const onPointerUp = (e) => {
@@ -455,9 +471,15 @@
         snap();
         try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (_) {}
       };
+      useEffect(() => {
+        const stop = () => { if (pdrag.current.active) { pdrag.current.active = false; snap(); } };
+        window.addEventListener("pointerup", stop);
+        window.addEventListener("blur", stop);
+        return () => { window.removeEventListener("pointerup", stop); window.removeEventListener("blur", stop); };
+      }, []);
 
       useEffect(() => {
-        let touchStartX = 0, touchStartY = 0, isSwiping = false, started = false;
+        let touchStartX = 0, touchStartY = 0, isSwiping = false, lastT = 0;
         const onTouchStart = (e) => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; isSwiping = false; };
         const onTouchMove = (e) => {
           if (!trackRef.current) return;
@@ -466,36 +488,43 @@
           if (!isSwiping && dy > Math.abs(dx) * 1.5) return;
           isSwiping = true;
           e.preventDefault();
-          targetX.current += dx * 1.5;
+          pos.current += dx * 1.5;
+          rem.current = 0;
+          vel.current = 0;
           touchStartX = e.touches[0].clientX;
         };
 
         const period = () => {
           const t = trackRef.current;
           if (!t || t.children.length < creators.length + 1) return 0;
-          // exact width of one copy, gap included
-          return t.children[creators.length].offsetLeft - t.children[0].offsetLeft;
-        };
-
-        // start inside the middle copy so there is room in both directions
-        const seed = () => {
-          const p = period();
-          if (!p || started) return;
-          started = true;
-          currentX.current = p;
-          targetX.current = p;
+          const a = t.children[0].getBoundingClientRect();
+          const b = t.children[creators.length].getBoundingClientRect();
+          return b.left - a.left; // exact width of one copy, gap included
         };
 
         const animate = () => {
-          seed();
-          currentX.current += (targetX.current - currentX.current) * 0.06;
-          if (trackRef.current) {
+          if (!isFinite(rem.current)) rem.current = 0;
+          if (!isFinite(pos.current)) pos.current = 0;
+          // spring toward the remaining distance: fast start, settles in ~300ms,
+          // and a new press just adds to it — the velocity carries over
+          const now = performance.now();
+          const dt = Math.min((now - (lastT || now)) / 1000, 1 / 30);
+          lastT = now;
+          if (Math.abs(rem.current) > 0.3 || Math.abs(vel.current) > 0.3) {
+            vel.current += (rem.current * 220 - vel.current * 30) * dt;
+            const step = vel.current * dt;
+            pos.current += step;
+            rem.current -= step;
+          } else if (rem.current !== 0 || vel.current !== 0) {
+            pos.current += rem.current;
+            rem.current = 0;
+            vel.current = 0;
+          }
+          const t = trackRef.current;
+          if (t) {
             const p = period();
-            if (p > 0) {
-              if (currentX.current >= p * 2) { currentX.current -= p; targetX.current -= p; }
-              else if (currentX.current < 0) { currentX.current += p; targetX.current += p; }
-            }
-            trackRef.current.style.transform = `translateX(-${currentX.current}px)`;
+            if (p > 0) pos.current = ((pos.current % p) + p) % p; // stays in one copy, forever
+            t.style.transform = `translateX(-${pos.current + (p > 0 ? p : 0)}px)`;
           }
           rafRef.current = requestAnimationFrame(animate);
         };
@@ -532,7 +561,7 @@
             WebkitMaskImage: isMobile ? "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)" : "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
             paddingTop: "12px", paddingBottom: "12px"
           }}>
-            <div ref={trackRef} className="flex gap-5" style={{ width: "max-content", willChange: "transform" }}>
+            <div ref={trackRef} className="flex gap-5" style={{ width: "max-content", willChange: "transform", transition: "none" }}>
               {items.map((c, i) => (
                 <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-2 px-3 py-3 flex-shrink-0 md:px-5 md:py-5 md:gap-4 w-[140px] md:w-[220px]"
                   style={{ cursor: "pointer" }}>
