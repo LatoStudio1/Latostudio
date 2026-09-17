@@ -876,7 +876,7 @@
     const canHover = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     // Background videos cost decode time even off screen — play them only when visible
-    function useLazyVideos() {
+    function useLazyVideos(dep) {
       useEffect(() => {
         const vids = Array.from(document.querySelectorAll("video[data-lazyvid]"));
         if (!vids.length) return;
@@ -889,7 +889,7 @@
         }, { rootMargin: "200px 0px" });
         vids.forEach((v) => obs.observe(v));
         return () => obs.disconnect();
-      }, []);
+      }, [dep]);
     }
 
     function OurWorkRow({ images, reverse, speed, paused, onOpen }) {
@@ -1378,7 +1378,7 @@
         setLang(code);
       };
       useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-      useLazyVideos();
+      useLazyVideos(lang);
       return (
         <div className="min-h-screen" key={lang}>
           <LangToggle lang={lang} onChange={switchTo} />
