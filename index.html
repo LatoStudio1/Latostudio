@@ -356,10 +356,10 @@
             }} />
             {[["Home","#"],["Services","#capabilities"],["Portfolio","#our-work"],["Contacts","#contact"]].map(([label, href]) => (
               <a key={label} href={href} data-nav={label} className="px-3 py-2 text-sm font-medium font-body rounded-full relative"
-                style={{ color: active === label ? "#000" : "rgba(255,255,255,0.75)", transition: "color var(--d-ui) var(--ease-out)" }}>{t(label)}</a>
+                style={{ color: active === label ? "#000" : "rgba(255,255,255,0.75)", transition: "color var(--d-ui) var(--ease-out)" }}>{label}</a>
             ))}
           </div>
-          <a href="#contact" className="md:hidden flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium font-body">{t("Contacts")}</a>
+          <a href="#contact" className="md:hidden flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium font-body">Contacts</a>
         </nav>
       );
     }
@@ -593,20 +593,20 @@
           <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-0" style={{ height: "760px", background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.78) 78%, black 100%)" }} />
           <div className="relative z-10 flex flex-col items-center text-center pt-[110px] md:pt-[190px]">
             <div className="w-full max-w-6xl mx-auto px-4 mb-6">
-              <BlurText text={t("We handle the packaging.")} className="whitespace-nowrap text-[7.4vw] min-[520px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-hero font-medium text-white leading-[1.05] " style={{ letterSpacing: "-0.038em" }} delay={100} serifWords={[t("handle")]} />
-              <BlurText text={t("You enjoy the growth.")} className="whitespace-nowrap text-[7.4vw] min-[520px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-hero font-medium text-white leading-[1.05] " style={{ letterSpacing: "-0.038em" }} delay={100} serifLast={true} />
+              <BlurText text="We handle the packaging." className="whitespace-nowrap text-[7.4vw] min-[520px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-hero font-medium text-white leading-[1.05] " style={{ letterSpacing: "-0.038em" }} delay={100} serifWords={["handle"]} />
+              <BlurText text="You enjoy the growth." className="whitespace-nowrap text-[7.4vw] min-[520px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-hero font-medium text-white leading-[1.05] " style={{ letterSpacing: "-0.038em" }} delay={100} serifLast={true} />
             </div>
-            <p className="text-xs md:text-base text-white/70 font-body font-light leading-relaxed max-w-md mx-auto mb-8 px-4" style={fadeStyle(800)}>{t("Lato Studio helps creators and brands grow on YouTube through high performance thumbnails and premium visual packaging.")}</p>
+            <p className="text-xs md:text-base text-white/70 font-body font-light leading-relaxed max-w-md mx-auto mb-8 px-4" style={fadeStyle(800)}>Lato Studio helps creators and brands grow on YouTube through high performance thumbnails and premium visual packaging.</p>
             <div style={{ paddingTop: "18px" }}>
               <div className="flex items-center gap-4" style={fadeStyle(1100)}>
-                <a href="#capabilities" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">{t("Services")}</a>
-                <a href="#contact" className="text-white/80 text-sm font-body font-light hover:text-white transition-colors">{t("Contact Us")}</a>
+                <a href="#capabilities" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">Services</a>
+                <a href="#contact" className="text-white/80 text-sm font-body font-light hover:text-white transition-colors">Contact Us</a>
               </div>
             </div>
             <div className="mt-auto pt-10 md:pt-20 pb-8 md:pb-12 w-full flex flex-col items-center gap-4 md:gap-8" style={fadeStyle(1400)}>
               <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center px-6 leading-snug md:whitespace-nowrap" style={{ textWrap: "balance" }}>
-                <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.03em" }}>{t("Creators and agencies who worked with ")}</span>
-                <span style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400, fontStyle: "italic", fontSize: "1.1em" }}>{t("Lato Studio.")}</span>
+                <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.03em" }}>Creators and agencies who worked with </span>
+                <span style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400, fontStyle: "italic", fontSize: "1.1em" }}>Lato Studio.</span>
               </p>
               <CreatorsCarousel />
             </div>
@@ -672,18 +672,18 @@
           ), document.body)}
           <div className="relative max-w-6xl mx-auto">
             <FadeIn className="text-center mb-12 md:mb-20">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("Services")}</h2>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Services</h2>
             </FadeIn>
             <div className="flex flex-col gap-14 md:gap-24">
               {rows.map((row, i) => (
                 <FadeIn key={i} delay={i * 150}>
                   {row.heading ? (
-                    <h2 id="team" className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02] text-center mb-12 md:mb-20" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em", scrollMarginTop: "90px" }}>{t(row.heading)}</h2>
+                    <h2 id="team" className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02] text-center mb-12 md:mb-20" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em", scrollMarginTop: "90px" }}>{row.heading}</h2>
                   ) : null}
                   <div className={`flex flex-col ${row.reverse ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12 md:gap-16`}>
                     <div className="flex-1 flex flex-col gap-5 text-center md:text-left items-center md:items-start">
-                      <h3 className="text-2xl md:text-3xl lg:text-4xl text-white" style={{ lineHeight: "1.05", fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.03em", textWrap: "balance" }}>{t(row.title)}</h3>
-                      <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed max-w-md" style={{ whiteSpace: "pre-line", textWrap: "pretty" }}>{t(row.body)}</p>
+                      <h3 className="text-2xl md:text-3xl lg:text-4xl text-white" style={{ lineHeight: "1.05", fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.03em", textWrap: "balance" }}>{row.title}</h3>
+                      <p className="text-white/60 font-body font-light text-sm md:text-base leading-relaxed max-w-md" style={{ whiteSpace: "pre-line", textWrap: "pretty" }}>{row.body}</p>
                     </div>
                     <div className="flex-1 w-full">{row.isLogo ? (
                       <div className="grid grid-cols-3 gap-3 md:gap-4">
@@ -705,7 +705,7 @@
 
             <div className="mt-20 md:mt-28">
               <FadeIn className="text-center mb-10 md:mb-14">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("Collaborators")}</h2>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Collaborators</h2>
               </FadeIn>
               <div className="flex flex-col">
                 {[
@@ -719,8 +719,8 @@
                   <FadeIn key={i} delay={i * 60}>
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 md:gap-10 items-baseline border-t border-white/15 py-6 md:py-7">
                       <div className="flex flex-col gap-1.5">
-                        <h3 className="text-white text-xl md:text-2xl" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.02em" }}>{t(r.service)}</h3>
-                        <p className="text-white/55 font-body font-light text-sm leading-relaxed max-w-md">{t(r.note)}</p>
+                        <h3 className="text-white text-xl md:text-2xl" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.02em" }}>{r.service}</h3>
+                        <p className="text-white/55 font-body font-light text-sm leading-relaxed max-w-md">{r.note}</p>
                       </div>
                       <p className="text-white/80 font-body font-light text-sm md:text-base md:text-right">{r.people.join(" · ")}</p>
                     </div>
@@ -736,125 +736,6 @@
     // ── OurWork ───────────────────────────────────────────────────────────
     const _v = 7; // bump this when you replace files in /uploads
 
-    // ── Language ──────────────────────────────────────────────────────────
-    const IT = {
-      // nav + hero
-      "Home": "Home",
-      "Services": "Servizi",
-      "Portfolio": "Portfolio",
-      "Contacts": "Contatti",
-      "Contact Us": "Contattaci",
-      "We handle the packaging.": "Noi curiamo il packaging.",
-      "handle": "curiamo",
-      "You enjoy the growth.": "Tu goditi la crescita.",
-      "Lato Studio helps creators and brands grow on YouTube through high performance thumbnails and premium visual packaging.": "Lato Studio fa crescere creator e brand su YouTube con miniature che performano e un packaging visivo di livello.",
-      "Creators and agencies who worked with ": "Creator e agenzie che hanno lavorato con ",
-      "Lato Studio.": "Lato Studio.",
-      // services
-      "Thumbnail": "Miniature",
-      "Explore the step-by-step process of creating a YouTube thumbnail in this time-lapse. From initial layout to precise adjustments, see how every detail is refined to maximize CTR and craft an eye-catching design.": "Il processo di creazione di una miniatura YouTube, passo per passo, in time-lapse. Dalla prima impostazione agli ultimi aggiustamenti: ogni dettaglio è rifinito per alzare il CTR e fermare lo scroll.",
-      "Learn more": "Scopri di più",
-      "Title & Packaging": "Titolo & Packaging",
-      "Title and thumbnail are one decision, not two. We work on them together, testing angles against what the audience already clicks on.\nYou get the thinking behind the image, not only the image.": "Titolo e miniatura sono una decisione sola, non due. Li lavoriamo insieme, verificando gli angoli su ciò che il pubblico già clicca.\nRicevi il ragionamento dietro l'immagine, non solo l'immagine.",
-      "Video Editing": "Video Editing",
-      "Cuts, pacing, sound design and graphics built around retention, not around effects.\nWe edit so the first thirty seconds earn the next ten minutes, and the video keeps the promise the thumbnail made.": "Tagli, ritmo, sound design e grafica costruiti sulla retention, non sugli effetti.\nMontiamo perché i primi trenta secondi si guadagnino i dieci minuti successivi, e il video mantenga la promessa della miniatura.",
-      "Videomaking": "Videomaking",
-      "Shooting handled end to end: setup, lighting, sound and direction on the day.\nWe come in with the format already defined, so what gets filmed is what the edit actually needs.": "Riprese gestite dall'inizio alla fine: setup, luci, audio e regia sul set.\nArriviamo con il formato già definito, così si gira esattamente quello che serve al montaggio.",
-      "Consulting & Strategy": "Consulenza & Strategia",
-      "A read of the channel from the outside: what the catalogue communicates, where clicks are lost, which formats deserve more room.\nYou leave with a clear set of decisions, whether or not we produce them for you.": "Una lettura del canale da fuori: cosa comunica il catalogo, dove si perdono i click, quali formati meritano più spazio.\nEsci con decisioni chiare, che poi le realizziamo noi o no.",
-      "About Us": "Chi siamo",
-      "Team": "Team",
-      "Lato Studio is led by Luca Terenzi, Alessio Orlando and Matteo Polito, three graphic designers with years of experience in social media and visual design.\nWe help creators and brands stand out on YouTube with thumbnails that are crafted to perform.": "Lato Studio è guidato da Luca Terenzi, Alessio Orlando e Matteo Polito, tre graphic designer con anni di esperienza nei social e nel visual design.\nAiutiamo creator e brand a distinguersi su YouTube con miniature costruite per performare.",
-      // collaborators
-      "Collaborators": "Collaboratori",
-      "Single YouTube or Instagram thumbnails, or full packs": "Miniature singole per YouTube o Instagram, oppure pacchetti completi",
-      "Copy & Title": "Copy & Titolo",
-      "Higher-performing titles, paired with the copy inside the thumbnail": "Titoli più performanti, abbinati al copy dentro la miniatura",
-      "Strategy": "Strategia",
-      "Concept, audience, potential and structure of a media project": "Ideazione, target, potenziale e struttura di un progetto media",
-      "Video Edit": "Video Edit",
-      "Single videos or packages, horizontal and vertical": "Video singoli o pacchetti, orizzontale e verticale",
-      "On-location shooting: vlog, corporate, general media": "Riprese in presenza: vlog, aziendali, contenuti media",
-      "Consulting": "Consulenza",
-      "A call or a meeting on thumbnails, potential and scalability": "Una call o un incontro su miniature, potenziale e scalabilità",
-      // portfolio + faq
-      "Thumbnails that perform.": "Miniature che performano.",
-      "Common questions.": "Domande frequenti.",
-      "How much does it cost?": "Quanto costa?",
-      "It depends on the scope: a single thumbnail, a recurring pack, an edit, or a full packaging retainer are priced differently, and volume and turnaround move the number. Tell us what's coming up on the channel and you get a clear quote, not a rate card.": "Dipende dal progetto: una miniatura singola, un pacchetto ricorrente, un montaggio o un packaging continuativo hanno prezzi diversi, e volume e tempi di consegna spostano la cifra. Raccontaci cosa hai in uscita sul canale e ricevi un preventivo chiaro, non un listino.",
-      "Which niches do you work with?": "Con quali nicchie lavorate?",
-      "Finance, business, AI and tech, podcasts, educational content, IRL and gaming — plus brand channels in any of those spaces. The read on audience psychology transfers across niches; what changes is the visual language we adapt to.": "Finanza, business, AI e tech, podcast, contenuti educativi, IRL e gaming — più i canali brand in ognuno di questi ambiti. La lettura della psicologia del pubblico si trasferisce da una nicchia all'altra; quello che cambia è il linguaggio visivo a cui ci adattiamo.",
-      "What softwares do you work with?": "Con quali software lavorate?",
-      "Photoshop and Illustrator for packaging, Premiere Pro and After Effects for editing, with Figma for review and DaVinci for colour. You get the flat exports for upload and the working files, so nothing is locked to us.": "Photoshop e Illustrator per il packaging, Premiere Pro e After Effects per il montaggio, Figma per le revisioni e DaVinci per il colore. Ricevi gli export pronti per l'upload e i file di lavoro: niente resta legato a noi.",
-      // why us
-      "What you get, every time.": "Cosa ottieni, ogni volta.",
-      "Fast Turnaround": "Consegne rapide",
-      "From idea to finished thumbnail in a timeframe that keeps up with your upload schedule.": "Dall'idea alla miniatura finita in tempi che stanno dietro al tuo calendario di uscita.",
-      "Obsessively Crafted": "Cura ossessiva",
-      "Every composition, facial expression, contrast choice, and hierarchy refined for maximum visual impact.": "Ogni composizione, espressione, scelta di contrasto e gerarchia rifinita per il massimo impatto visivo.",
-      "Built to Click": "Costruite per il click",
-      "Creative decisions driven by audience psychology and packaging strategy, delivering CTR increases of up to 40%.": "Decisioni creative guidate dalla psicologia del pubblico e dalla strategia di packaging, con aumenti di CTR fino al 40%.",
-      "Consistent by Default": "Coerenza di serie",
-      "Strong visual identity across your channel, so every upload feels sharper, stronger, and more recognizable.": "Un'identità visiva solida su tutto il canale, così ogni video esce più nitido, più forte e più riconoscibile.",
-      // stats
-      "Thumbnails delivered": "Miniature consegnate",
-      "Total subscribers": "Iscritti totali",
-      "Total views": "Visualizzazioni totali",
-      "Years of experience": "Anni di esperienza",
-      // testimonials
-      "Creators, in their words.": "I creator, con le loro parole.",
-      "Smooth from day one: high-quality work delivered fast, and always open to revisions and feedback. You can tell they've spent years inside the YouTube industry. Recommended to anyone who wants to rebuild their packaging and lift CTR.": "Tutto liscio dal primo giorno: lavoro di qualità consegnato in fretta, e sempre aperti a revisioni e feedback. Si vede che hanno passato anni dentro il mondo YouTube. Consigliati a chiunque voglia rifare il proprio packaging e alzare il CTR.",
-      "Incredibly professional and always on hand. Their thumbnails have really improved the look of the channel and made our videos more engaging. They pay close attention to detail, meet deadlines and understand a creator's needs straight away.": "Incredibilmente professionali e sempre disponibili. Le loro miniature hanno migliorato davvero l'aspetto del canale e reso i nostri video più coinvolgenti. Curano il dettaglio, rispettano le scadenze e capiscono subito cosa serve a un creator.",
-      "A couple of years working together and always a great experience. Punctual, efficient, with a perfect grasp of the channel's style. What I appreciate most is the initiative: ideas and solutions I wouldn't have thought of myself.": "Un paio d'anni di lavoro insieme e sempre un'ottima esperienza. Puntuali, efficienti, con una comprensione perfetta dello stile del canale. Quello che apprezzo di più è l'iniziativa: idee e soluzioni a cui non avrei pensato da solo.",
-      "A year in, and the thumbnails have improved beyond what I expected. The audience noticed the new style immediately and the channel looks far more professional than before. Precise and fast, every single time.": "Dopo un anno, le miniature sono migliorate oltre le mie aspettative. Il pubblico ha notato subito il nuovo stile e il canale sembra molto più professionale di prima. Precisi e veloci, ogni volta.",
-      "They understood the channel's tone before we had to explain it. Titles and thumbnails arrive already thought through, never as files to fix, and the numbers on the videos we packaged together speak for themselves.": "Hanno capito il tono del canale prima che dovessimo spiegarlo. Titoli e miniature arrivano già ragionati, mai come file da sistemare, e i numeri dei video che abbiamo impacchettato insieme parlano da soli.",
-      "YouTube channel": "Canale YouTube",
-      // contact
-      "Let's talk.": "Parliamone.",
-      "Studio": "Sede",
-      "Mail": "Mail",
-      "Follow": "Seguici",
-      "Your Name": "Nome",
-      "Email": "Email",
-      "Write your message": "Scrivi il tuo messaggio",
-      "Submit": "Invia",
-      "Sending...": "Invio...",
-      "Message sent": "Messaggio inviato",
-      "We'll get back to you shortly.": "Ti risponderemo a breve.",
-      "Something went wrong. Please try again.": "Qualcosa è andato storto. Riprova.",
-      "Network error. Please try again.": "Errore di rete. Riprova.",
-      // footer
-      "© 2026 Lato Studio. All rights reserved.": "© 2026 Lato Studio. Tutti i diritti riservati.",
-      "Privacy": "Privacy",
-      "Terms": "Termini",
-      "Close": "Chiudi",
-    };
-    let LANG = (() => { try { return localStorage.getItem("lato-lang") === "it" ? "it" : "en"; } catch (_) { return "en"; } })();
-    const t = (s) => (LANG === "it" && IT[s] !== undefined ? IT[s] : s);
-
-    function LangToggle({ lang, onChange }) {
-      const flags = [["en", "GB", "M0 0h60v30H0z|"], ["it", "IT", ""]];
-      const Flag = ({ code }) => code === "en" ? (
-        <svg width="22" height="16" viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0l60 40M60 0L0 40" stroke="#fff" strokeWidth="8"/><path d="M0 0l60 40M60 0L0 40" stroke="#C8102E" strokeWidth="4"/><path d="M30 0v40M0 20h60" stroke="#fff" strokeWidth="13"/><path d="M30 0v40M0 20h60" stroke="#C8102E" strokeWidth="7"/></svg>
-      ) : (
-        <svg width="22" height="16" viewBox="0 0 60 40" aria-hidden="true"><rect width="20" height="40" fill="#008C45"/><rect x="20" width="20" height="40" fill="#F4F5F0"/><rect x="40" width="20" height="40" fill="#CD212A"/></svg>
-      );
-      return (
-        <div className="flex liquid-glass-strong rounded-full items-center gap-1 p-1"
-          style={{ position: "fixed", left: "16px", bottom: "16px", zIndex: 60 }}>
-          {["en", "it"].map((code) => (
-            <button key={code} onClick={() => onChange(code)} aria-label={code === "en" ? "English" : "Italiano"}
-              className="rounded-full flex items-center justify-center"
-              style={{ width: "34px", height: "28px", border: "none", cursor: "pointer",
-                background: lang === code ? "rgba(255,255,255,0.22)" : "transparent",
-                opacity: lang === code ? 1 : 0.5,
-                transition: "background-color var(--d-ui) var(--ease-out), opacity var(--d-ui) var(--ease-out)" }}>
-              <Flag code={code} />
-            </button>
-          ))}
-        </div>
-      );
-    }
     const row1imgs = [
       `uploads/1.jpg?v=${_v}`,`uploads/2.jpg?v=${_v}`,`uploads/3.jpg?v=${_v}`,`uploads/4.jpg?v=${_v}`,
       `uploads/5.jpg?v=${_v}`,`uploads/6.jpg?v=${_v}`,`uploads/7.jpg?v=${_v}`,`uploads/8.jpg?v=${_v}`,
@@ -876,7 +757,7 @@
     const canHover = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     // Background videos cost decode time even off screen — play them only when visible
-    function useLazyVideos(dep) {
+    function useLazyVideos() {
       useEffect(() => {
         const vids = Array.from(document.querySelectorAll("video[data-lazyvid]"));
         if (!vids.length) return;
@@ -889,7 +770,7 @@
         }, { rootMargin: "200px 0px" });
         vids.forEach((v) => obs.observe(v));
         return () => obs.disconnect();
-      }, [dep]);
+      }, []);
     }
 
     function OurWorkRow({ images, reverse, speed, paused, onOpen }) {
@@ -996,7 +877,7 @@
         <section id="our-work" className="relative z-10 py-14 md:py-24 overflow-hidden">
           <div className="px-6 md:px-12 lg:px-24 mb-10 md:mb-14">
             <FadeIn className="text-center">
-              <h2 className="text-5xl md:text-7xl lg:text-8xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("Thumbnails that perform.")}</h2>
+              <h2 className="text-5xl md:text-7xl lg:text-8xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Thumbnails that perform.</h2>
             </FadeIn>
           </div>
           <div className="flex flex-col gap-4 ow-marquee" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
@@ -1024,7 +905,7 @@
                 }}>
                 <img src={lightbox.src} alt="" className="rounded-xl" style={{ display: "block", maxWidth: "100%", maxHeight: "calc(86vh - 20px)", objectFit: "contain" }} />
               </div>
-              <button onClick={close} aria-label={t("Close")}
+              <button onClick={close} aria-label="Close"
                 className="liquid-glass-strong rounded-full flex items-center justify-center absolute"
                 style={{
                   top: "20px", right: "20px", width: "46px", height: "46px", color: "#fff", cursor: "pointer", border: "none",
@@ -1047,42 +928,6 @@
       );
     }
 
-    // ── FAQ ───────────────────────────────────────────────────────────────
-    const faqItems = [
-      { q: "How much does it cost?", a: "It depends on the scope: a single thumbnail, a recurring pack, an edit, or a full packaging retainer are priced differently, and volume and turnaround move the number. Tell us what's coming up on the channel and you get a clear quote, not a rate card." },
-      { q: "Which niches do you work with?", a: "Finance, business, AI and tech, podcasts, educational content, IRL and gaming — plus brand channels in any of those spaces. The read on audience psychology transfers across niches; what changes is the visual language we adapt to." },
-      { q: "What softwares do you work with?", a: "Photoshop and Illustrator for packaging, Premiere Pro and After Effects for editing, with Figma for review and DaVinci for colour. You get the flat exports for upload and the working files, so nothing is locked to us." },
-    ];
-    function FAQ() {
-      const [open, setOpen] = useState(null);
-      return (
-        <section id="faq" className="relative z-10 py-12 md:py-20 px-6 md:px-12 lg:px-24">
-          <div className="max-w-3xl mx-auto">
-            <FadeIn className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("Common questions.")}</h2>
-            </FadeIn>
-            <FadeIn delay={100}>
-              <div className="liquid-glass rounded-2xl overflow-hidden divide-y divide-white/10">
-                {faqItems.map((item, i) => (
-                  <div key={i}>
-                    <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/5 transition-colors">
-                      <span className="text-white font-body font-medium text-sm md:text-base">{t(item.q)}</span>
-                      <span className="flex-shrink-0 w-6 h-6 rounded-full liquid-glass-strong flex items-center justify-center text-white/70" style={{ transform: open === i ? "rotate(45deg)" : "rotate(0deg)", transition: "transform var(--d-ui) var(--ease-in-out)" }}>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="6" y1="0" x2="6" y2="12"/><line x1="0" y1="6" x2="12" y2="6"/></svg>
-                      </span>
-                    </button>
-                    <div style={{ display: "grid", gridTemplateRows: open === i ? "1fr" : "0fr", transition: "grid-template-rows var(--d-panel) var(--ease-in-out)" }}>
-                      <div style={{ overflow: "hidden" }}><p className="px-6 pb-5 pt-1 text-white/60 font-body font-light text-sm leading-relaxed">{t(item.a)}</p></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </FadeIn>
-          </div>
-        </section>
-      );
-    }
-
     // ── FeaturesGrid ──────────────────────────────────────────────────────
     function FeaturesGrid() {
       const cards = [
@@ -1095,14 +940,14 @@
         <section className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24">
           <div className="max-w-6xl mx-auto">
             <FadeIn className="text-center mb-10 md:mb-16">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("What you get, every time.")}</h2>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>What you get, every time.</h2>
             </FadeIn>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-10">
                 {cards.map((card, i) => (
                   <FadeIn key={i} delay={i * 60} className="flex flex-col gap-3 pt-5 border-t border-white/20">
                     <card.icon size={18} className="text-white/70" />
-                    <h4 className="text-white font-body font-medium text-base md:text-lg" style={{ letterSpacing: "-0.01em" }}>{t(card.title)}</h4>
-                    <p className="text-white/60 font-body font-light text-sm leading-relaxed">{t(card.body)}</p>
+                    <h4 className="text-white font-body font-medium text-base md:text-lg" style={{ letterSpacing: "-0.01em" }}>{card.title}</h4>
+                    <p className="text-white/60 font-body font-light text-sm leading-relaxed">{card.body}</p>
                   </FadeIn>
                 ))}
             </div>
@@ -1132,7 +977,7 @@
                   {stats.map((s, i) => (
                     <div key={i} className="text-center flex flex-col gap-2 min-w-0">
                       <span className="text-white leading-[0.95]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.02em", fontSize: "clamp(2rem, 4vw, 3.5rem)", whiteSpace: "nowrap" }}>{s.value}</span>
-                      <span className="text-white/65 font-body font-light text-xs md:text-sm" style={{ letterSpacing: "0.01em" }}>{t(s.label)}</span>
+                      <span className="text-white/65 font-body font-light text-xs md:text-sm" style={{ letterSpacing: "0.01em" }}>{s.label}</span>
                     </div>
                   ))}
                 </div>
@@ -1221,7 +1066,7 @@
         <section className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-24">
           <div className="max-w-6xl mx-auto">
             <FadeIn className="text-center mb-10 md:mb-16">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("Creators, in their words.")}</h2>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Creators, in their words.</h2>
             </FadeIn>
             <div className="flex items-center gap-3 md:gap-4">
               <ArrowBtn dir={-1} disabled={!canLeft} />
@@ -1236,7 +1081,7 @@
                       <img src={item.img} alt={item.name} loading="lazy" decoding="async" className="w-12 h-12 rounded-full flex-shrink-0" style={{ border: "1.5px solid rgba(255,255,255,0.2)", objectFit: item.contain ? "contain" : "cover", background: item.contain ? "rgba(255,255,255,0.06)" : "transparent", padding: item.contain ? "4px" : 0 }} />
                       <p className="text-white font-body font-medium text-sm">{item.name}</p>
                     </div>
-                    <p className="text-white/80 font-body font-light text-sm leading-relaxed flex-1">{t(item.quote)}</p>
+                    <p className="text-white/80 font-body font-light text-sm leading-relaxed flex-1">{item.quote}</p>
                   </div>
                 ))}
               </div>
@@ -1272,10 +1117,10 @@
             setTimeout(() => setSent(true), 200);
           } else {
             const data = await res.json().catch(() => ({}));
-            setError(data.error || t("Something went wrong. Please try again."));
+            setError(data.error || "Something went wrong. Please try again.");
           }
         } catch (err) {
-          setError(t("Network error. Please try again."));
+          setError("Network error. Please try again.");
         } finally {
           setSubmitting(false);
         }
@@ -1285,18 +1130,18 @@
         <section id="contact" className="relative z-10 py-16 md:py-28 px-6 md:px-12 lg:px-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
             <FadeIn className="text-center lg:text-left flex flex-col">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("Let's talk.")}</h2>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Let's talk.</h2>
               <div className="flex flex-col mt-10">
                 <div className="border-t border-white/15 py-6">
-                  <p className="text-white text-xl md:text-2xl" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("Studio")}</p>
+                  <p className="text-white text-xl md:text-2xl" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Studio</p>
                   <p className="text-white/60 font-body font-light text-sm mt-1.5">Via Fabio Filzi 16, Canegrate (MI)</p>
                 </div>
                 <div className="border-t border-white/15 py-6">
-                  <p className="text-white text-xl md:text-2xl" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("Mail")}</p>
+                  <p className="text-white text-xl md:text-2xl" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Mail</p>
                   <a href="mailto:info.latostudio@gmail.com" className="text-white/60 font-body font-light text-sm mt-1.5 inline-flex items-center gap-1.5 hover:text-white transition-colors">info.latostudio@gmail.com <span aria-hidden="true">&#8594;</span></a>
                 </div>
                 <div className="border-t border-white/15 pt-6">
-                  <p className="text-white text-xl md:text-2xl" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>{t("Follow")}</p>
+                  <p className="text-white text-xl md:text-2xl" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Follow</p>
                   <div className="flex items-center gap-3 mt-4 justify-center lg:justify-start">
                     {[
                       ["Instagram", "https://www.instagram.com/lato__studio/", "M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.23 1 .5 1.4.94.44.44.7.84.94 1.4.17.44.36 1.06.42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2a3.8 3.8 0 0 1-.94 1.4c-.44.44-.84.7-1.4.94-.44.17-1.06.36-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42a3.8 3.8 0 0 1-1.4-.94 3.8 3.8 0 0 1-.94-1.4c-.17-.44-.36-1.06-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.23-.6.5-1 .94-1.4.44-.44.84-.7 1.4-.94.44-.17 1.06-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2Zm0 3.2a6.6 6.6 0 1 0 0 13.2 6.6 6.6 0 0 0 0-13.2Zm0 10.9a4.3 4.3 0 1 1 0-8.6 4.3 4.3 0 0 1 0 8.6Zm8.4-11.2a1.54 1.54 0 1 1-3.08 0 1.54 1.54 0 0 1 3.08 0Z"],
@@ -1321,8 +1166,8 @@
                 filter: landed ? "blur(0px)" : "blur(4px)",
                 transition: "opacity var(--d-panel) var(--ease-out), transform var(--d-panel) var(--ease-out), filter var(--d-panel) var(--ease-out)"
               }}>
-                <p className="text-white font-hero font-bold text-2xl mb-2">{t("Message sent")}</p>
-                <p className="text-white/60 font-body font-light text-sm">{t("We'll get back to you shortly.")}</p>
+                <p className="text-white font-hero font-bold text-2xl mb-2">Message sent</p>
+                <p className="text-white/60 font-body font-light text-sm">We'll get back to you shortly.</p>
               </div>
             ) : (
               <FadeIn delay={100} className="h-full">
@@ -1332,11 +1177,11 @@
                   filter: leaving ? "blur(4px)" : "blur(0px)",
                   transition: "opacity 200ms var(--ease-out), transform 200ms var(--ease-out), filter 200ms var(--ease-out)"
                 }}>
-                  <input name="name" type="text" placeholder={t("Your Name")} value={form.name} onChange={handle} required style={inputStyle} onFocus={e => e.target.style.borderColor="rgba(255,255,255,0.4)"} onBlur={e => e.target.style.borderColor="rgba(255,255,255,0.15)"} />
-                  <input name="email" type="email" placeholder={t("Email")} value={form.email} onChange={handle} required style={inputStyle} onFocus={e => e.target.style.borderColor="rgba(255,255,255,0.4)"} onBlur={e => e.target.style.borderColor="rgba(255,255,255,0.15)"} />
-                  <textarea name="message" placeholder={t("Write your message")} value={form.message} onChange={handle} required rows={5} className="flex-1" style={{ ...inputStyle, resize: "none", minHeight: "120px" }} onFocus={e => e.target.style.borderColor="rgba(255,255,255,0.4)"} onBlur={e => e.target.style.borderColor="rgba(255,255,255,0.15)"} />
+                  <input name="name" type="text" placeholder="Your Name" value={form.name} onChange={handle} required style={inputStyle} onFocus={e => e.target.style.borderColor="rgba(255,255,255,0.4)"} onBlur={e => e.target.style.borderColor="rgba(255,255,255,0.15)"} />
+                  <input name="email" type="email" placeholder="Email" value={form.email} onChange={handle} required style={inputStyle} onFocus={e => e.target.style.borderColor="rgba(255,255,255,0.4)"} onBlur={e => e.target.style.borderColor="rgba(255,255,255,0.15)"} />
+                  <textarea name="message" placeholder="Write your message" value={form.message} onChange={handle} required rows={5} className="flex-1" style={{ ...inputStyle, resize: "none", minHeight: "120px" }} onFocus={e => e.target.style.borderColor="rgba(255,255,255,0.4)"} onBlur={e => e.target.style.borderColor="rgba(255,255,255,0.15)"} />
                   {error && <p className="text-red-400 text-xs font-body">{error}</p>}
-                  <button type="submit" disabled={submitting} className="w-full bg-white text-black font-hero font-bold text-sm rounded-2xl py-4 hover:bg-white/90 transition-colors mt-1 disabled:opacity-60 disabled:cursor-not-allowed">{submitting ? t("Sending...") : t("Submit")}</button>
+                  <button type="submit" disabled={submitting} className="w-full bg-white text-black font-hero font-bold text-sm rounded-2xl py-4 hover:bg-white/90 transition-colors mt-1 disabled:opacity-60 disabled:cursor-not-allowed">{submitting ? "Sending..." : "Submit"}</button>
                 </form>
               </FadeIn>
             )}
@@ -1355,10 +1200,10 @@
           <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none" />
           <div className="relative z-10 flex flex-col items-center justify-end h-full py-10 px-8 md:px-16" style={{ minHeight: "300px" }}>
             <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/20 pt-8">
-              <span className="text-white/70 text-sm font-body">{t("© 2026 Lato Studio. All rights reserved.")}</span>
+              <span className="text-white/70 text-sm font-body">© 2026 Lato Studio. All rights reserved.</span>
               <div className="flex items-center gap-8">
-                {[["Privacy", "https://docs.google.com/document/d/e/2PACX-1vSi_s3iCmYRj27zoOjjz-pwakmUHzNVC82wTH9osaQNTcVG53--ljcPiQJFYIg8981EOiGxpU-4_RB6/pub"], ["Terms", "https://docs.google.com/document/d/e/2PACX-1vSCsHB4HkLZiIc9fi6ikjF-A5e5OdyjX2juNhEh77FtgkgTwI_rouEGeaAy_yooa_fdsQQRelustDks/pub"]].map(([link, href]) => (
-                  <a key={link} href={href} target="_blank" rel="noopener noreferrer" className="text-white/60 text-sm font-body hover:text-white transition-colors">{t(link)}</a>
+                {[["Privacy & Cookies", "https://docs.google.com/document/d/e/2PACX-1vSi_s3iCmYRj27zoOjjz-pwakmUHzNVC82wTH9osaQNTcVG53--ljcPiQJFYIg8981EOiGxpU-4_RB6/pub"], ["Terms", "https://docs.google.com/document/d/e/2PACX-1vSCsHB4HkLZiIc9fi6ikjF-A5e5OdyjX2juNhEh77FtgkgTwI_rouEGeaAy_yooa_fdsQQRelustDks/pub"]].map(([link, href]) => (
+                  <a key={link} href={href} target="_blank" rel="noopener noreferrer" className="text-white/60 text-sm font-body hover:text-white transition-colors">{link}</a>
                 ))}
               </div>
             </div>
@@ -1369,19 +1214,9 @@
 
     // ── App ───────────────────────────────────────────────────────────────
     function App() {
-      const [lang, setLang] = useState(LANG);
-      const switchTo = (code) => {
-        if (code === lang) return;
-        LANG = code;
-        try { localStorage.setItem("lato-lang", code); } catch (_) {}
-        document.documentElement.lang = code;
-        setLang(code);
-      };
-      useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-      useLazyVideos(lang);
+      useLazyVideos();
       return (
-        <div className="min-h-screen" key={lang}>
-          <LangToggle lang={lang} onChange={switchTo} />
+        <div className="min-h-screen">
           <div className="relative z-10">
             <Navbar />
             <Hero />
