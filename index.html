@@ -1233,13 +1233,6 @@
                 {[["Privacy & Cookies", "https://docs.google.com/document/d/e/2PACX-1vSi_s3iCmYRj27zoOjjz-pwakmUHzNVC82wTH9osaQNTcVG53--ljcPiQJFYIg8981EOiGxpU-4_RB6/pub"], ["Terms", "https://docs.google.com/document/d/e/2PACX-1vSCsHB4HkLZiIc9fi6ikjF-A5e5OdyjX2juNhEh77FtgkgTwI_rouEGeaAy_yooa_fdsQQRelustDks/pub"]].map(([link, href]) => (
                   <a key={link} href={href} target="_blank" rel="noopener noreferrer" className="text-white/60 text-sm font-body hover:text-white transition-colors">{link}</a>
                 ))}
-                <a href="#" className="iubenda-cs-preferences-link text-white/60 text-sm font-body hover:text-white transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (window._iub && window._iub.cs && window._iub.cs.api && typeof window._iub.cs.api.openPreferences === "function") {
-                      window._iub.cs.api.openPreferences();
-                    }
-                  }}>Cookie preferences</a>
               </div>
             </div>
           </div>
