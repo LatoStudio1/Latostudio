@@ -30,7 +30,7 @@
   <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.6.15/dist/hls.min.js" defer></script>
+  <script src="assets/vendor/hls.js/hls.min.js" defer></script>
 
   <style>
     :root {
@@ -589,7 +589,7 @@
       const fadeStyle = (delay) => ({ opacity: mounted ? 1 : 0, filter: mounted ? "blur(0px)" : "blur(10px)", transform: mounted ? "translateY(0px)" : "translateY(20px)", transition: `opacity var(--d-hero) var(--ease-out) ${delay}ms, filter var(--d-hero) var(--ease-out) ${delay}ms, transform var(--d-hero) var(--ease-out) ${delay}ms` });
       return (
         <section className="relative overflow-hidden" style={{ height: "auto", minHeight: isMobile ? "640px" : "clamp(720px, 100svh, 1000px)" }}>
-          <video autoPlay loop muted playsInline data-lazyvid className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" style={{ objectPosition: "center 38%" }}>
+          <video ref={(el) => { if (el && !el.dataset.primed) { el.dataset.primed = "1"; el.muted = true; el.defaultMuted = true; el.setAttribute("muted", ""); el.setAttribute("playsinline", ""); el.setAttribute("webkit-playsinline", ""); const go = () => { const p = el.play(); if (p && p.catch) p.catch(() => {}); }; go(); el.addEventListener("loadeddata", go, { once: true }); el.addEventListener("canplay", go, { once: true }); } }} autoPlay loop muted playsInline preload="auto" data-lazyvid className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" style={{ objectPosition: "center 38%" }}>
             <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260210_031346_d87182fb-b0af-4273-84d1-c6fd17d6bf0f.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/5 z-0 pointer-events-none" />
