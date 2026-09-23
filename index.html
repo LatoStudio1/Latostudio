@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script type="text/javascript" src="https://embeds.iubenda.com/widgets/d4784b5f-4471-459c-b94f-c730796854c7.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lato Studio</title>
   <link rel="icon" type="image/png" href="uploads/favicon-purple.png?v=2" />
@@ -1232,6 +1233,13 @@
                 {[["Privacy & Cookies", "https://docs.google.com/document/d/e/2PACX-1vSi_s3iCmYRj27zoOjjz-pwakmUHzNVC82wTH9osaQNTcVG53--ljcPiQJFYIg8981EOiGxpU-4_RB6/pub"], ["Terms", "https://docs.google.com/document/d/e/2PACX-1vSCsHB4HkLZiIc9fi6ikjF-A5e5OdyjX2juNhEh77FtgkgTwI_rouEGeaAy_yooa_fdsQQRelustDks/pub"]].map(([link, href]) => (
                   <a key={link} href={href} target="_blank" rel="noopener noreferrer" className="text-white/60 text-sm font-body hover:text-white transition-colors">{link}</a>
                 ))}
+                <a href="#" className="iubenda-cs-preferences-link text-white/60 text-sm font-body hover:text-white transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (window._iub && window._iub.cs && window._iub.cs.api && typeof window._iub.cs.api.openPreferences === "function") {
+                      window._iub.cs.api.openPreferences();
+                    }
+                  }}>Cookie preferences</a>
               </div>
             </div>
           </div>
