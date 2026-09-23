@@ -30,7 +30,7 @@
   <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-  <script src="assets/vendor/hls.js/hls.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.6.15/dist/hls.min.js" defer></script>
 
   <style>
     :root {
@@ -141,6 +141,9 @@
     a { color: #fff; text-decoration-color: rgba(255,255,255,0.35); text-underline-offset: 0.18em; }
     a:hover { text-decoration-color: rgba(255,255,255,0.8); }
     ::placeholder { color: rgba(255,255,255,0.38); }
+    video::-webkit-media-controls,
+    video::-webkit-media-controls-start-playback-button,
+    video::-webkit-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; }
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: #000; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
@@ -695,7 +698,7 @@
                       </div>
                     ) : (
                       <div className="liquid-glass rounded-2xl overflow-hidden aspect-video">
-                        {row.isVideo ? <video src={row.gif} loop muted playsInline preload="none" data-lazyvid className="w-full h-full object-cover" /> : <img src={row.gif} alt={row.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />}
+                        {row.isVideo ? <video src={row.gif} autoPlay loop muted playsInline preload="metadata" data-lazyvid className="w-full h-full object-cover" /> : <img src={row.gif} alt={row.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />}
                       </div>
                     )}</div>
                   </div>
@@ -761,15 +764,36 @@
       useEffect(() => {
         const vids = Array.from(document.querySelectorAll("video[data-lazyvid]"));
         if (!vids.length) return;
+        const visible = new Set();
+        const prep = (v) => {
+          v.muted = true; v.defaultMuted = true;
+          v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("webkit-playsinline", "");
+          v.controls = false;
+        };
+        const tryPlay = (v) => {
+          prep(v);
+          if (v.preload === "none") { v.preload = "auto"; v.load(); }
+          const p = v.play();
+          if (p && p.catch) p.catch(() => {});
+        };
+        vids.forEach(prep);
         const obs = new IntersectionObserver((entries) => {
           entries.forEach((e) => {
             const v = e.target;
-            if (e.isIntersecting) { if (v.preload === "none") v.preload = "auto"; v.play().catch(() => {}); }
-            else v.pause();
+            if (e.isIntersecting) { visible.add(v); tryPlay(v); }
+            else { visible.delete(v); v.pause(); }
           });
         }, { rootMargin: "200px 0px" });
         vids.forEach((v) => obs.observe(v));
-        return () => obs.disconnect();
+        // Low Power Mode blocks autoplay until the first gesture — resume then
+        const kick = () => visible.forEach((v) => { if (v.paused) tryPlay(v); });
+        window.addEventListener("touchstart", kick, { passive: true });
+        window.addEventListener("scroll", kick, { passive: true });
+        return () => {
+          obs.disconnect();
+          window.removeEventListener("touchstart", kick);
+          window.removeEventListener("scroll", kick);
+        };
       }, []);
     }
 
@@ -1180,6 +1204,9 @@
                   <input name="name" type="text" placeholder="Your Name" value={form.name} onChange={handle} required style={inputStyle} onFocus={e => e.target.style.borderColor="rgba(255,255,255,0.4)"} onBlur={e => e.target.style.borderColor="rgba(255,255,255,0.15)"} />
                   <input name="email" type="email" placeholder="Email" value={form.email} onChange={handle} required style={inputStyle} onFocus={e => e.target.style.borderColor="rgba(255,255,255,0.4)"} onBlur={e => e.target.style.borderColor="rgba(255,255,255,0.15)"} />
                   <textarea name="message" placeholder="Write your message" value={form.message} onChange={handle} required rows={5} className="flex-1" style={{ ...inputStyle, resize: "none", minHeight: "120px" }} onFocus={e => e.target.style.borderColor="rgba(255,255,255,0.4)"} onBlur={e => e.target.style.borderColor="rgba(255,255,255,0.15)"} />
+                  <p className="font-body font-normal text-xs leading-relaxed text-center" style={{ color: "rgba(255,255,255,0.72)", textWrap: "pretty" }}>
+                    We use your name, email address and message to respond to your enquiry.<br />Read our <a href="https://docs.google.com/document/d/e/2PACX-1vSi_s3iCmYRj27zoOjjz-pwakmUHzNVC82wTH9osaQNTcVG53--ljcPiQJFYIg8981EOiGxpU-4_RB6/pub" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.9)" }}>Privacy Policy</a> for details.
+                  </p>
                   {error && <p className="text-red-400 text-xs font-body">{error}</p>}
                   <button type="submit" disabled={submitting} className="w-full bg-white text-black font-hero font-bold text-sm rounded-2xl py-4 hover:bg-white/90 transition-colors mt-1 disabled:opacity-60 disabled:cursor-not-allowed">{submitting ? "Sending..." : "Submit"}</button>
                 </form>
