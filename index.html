@@ -416,7 +416,7 @@
       return n(b.subs) - n(a.subs);
     });
     // manual position swaps (applied after the subscriber sort)
-    [["Jack Nobile", "Piccoli Mondi"], ["Marcello Ascani", "Piccoli Mondi"]].forEach(([a, b]) => {
+    [["Jack Nobile", "Piccoli Mondi"], ["Marcello Ascani", "Piccoli Mondi"], ["Andrea Monti", "Danny Enrico"], ["Fondatori", "Hyde"], ["Ascensore", "Breakfast Club"]].forEach(([a, b]) => {
       const i = creators.findIndex(c => c.name === a), j = creators.findIndex(c => c.name === b);
       if (i > -1 && j > -1) { const t = creators[i]; creators[i] = creators[j]; creators[j] = t; }
     });
