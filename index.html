@@ -525,8 +525,8 @@
 
       useEffect(() => {
         let touchStartX = 0, touchStartY = 0, isSwiping = false, lastT = 0;
-        const onTouchStart = (e) => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; isSwiping = false; touching.current = true; };
-        const onTouchEnd = () => { touching.current = false; };
+        const onTouchStart = (e) => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; isSwiping = false; };
+        const onTouchEnd = () => {};
         const onTouchMove = (e) => {
           if (!trackRef.current) return;
           const dx = touchStartX - e.touches[0].clientX;
@@ -569,7 +569,7 @@
           // continuous drift, like the thumbnail rows; pauses while dragging or touching
           drift.current += (driftTarget.current - drift.current) * 0.08;
           if (!pdrag.current.active && !touching.current) {
-            pos.current += (isMobile ? 26 : 34) * drift.current * dt;
+            pos.current += (isMobile ? 40 : 60) * drift.current * dt;
           }
           const t = trackRef.current;
           if (t) {
@@ -584,11 +584,9 @@
         el.addEventListener("touchstart", onTouchStart, { passive: true });
         el.addEventListener("touchend", onTouchEnd, { passive: true });
         el.addEventListener("touchcancel", onTouchEnd, { passive: true });
-        el.addEventListener("touchmove", onTouchMove, { passive: false });
         rafRef.current = requestAnimationFrame(animate);
         return () => {
           el.removeEventListener("touchstart", onTouchStart);
-          el.removeEventListener("touchmove", onTouchMove);
           el.removeEventListener("touchend", onTouchEnd);
           el.removeEventListener("touchcancel", onTouchEnd);
           cancelAnimationFrame(rafRef.current);
@@ -601,17 +599,14 @@
           <div ref={wrapRef} className="flex-1 overflow-hidden"
             onMouseEnter={() => { if (!window.matchMedia("(hover: none), (pointer: coarse)").matches) driftTarget.current = 0.35; }}
             onMouseLeave={() => { driftTarget.current = 1; }}
-            onPointerDown={onPointerDown} onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp} onPointerCancel={onPointerUp}
-            style={{ touchAction: "pan-y", cursor: "grab",
+            style={{ touchAction: "pan-y",
             maskImage: isMobile ? "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)" : "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
             WebkitMaskImage: isMobile ? "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)" : "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
             paddingTop: "12px", paddingBottom: "12px"
           }}>
             <div ref={trackRef} className="flex gap-3 md:gap-5" style={{ width: "max-content", willChange: "transform", transition: "none" }}>
               {items.map((c, i) => (
-                <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-2 px-3 py-3 flex-shrink-0 md:px-5 md:py-5 md:gap-4 w-[104px] md:w-[220px]"
-                  style={{ cursor: "pointer" }}>
+                <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-2 px-3 py-3 flex-shrink-0 md:px-5 md:py-5 md:gap-4 w-[104px] md:w-[220px]">
                   <img src={c.img} alt={c.name} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={(e) => { const t = e.currentTarget; const n = Number(t.dataset.retry || 0); if (n < 3) { t.dataset.retry = n + 1; setTimeout(() => { t.src = c.img + (c.img.includes("?") ? "&" : "?") + "r=" + Date.now(); }, 600 * (n + 1)); } }} className="w-[56px] h-[56px] md:w-[116px] md:h-[116px] rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
                   <div className="text-center">
                     <p className="text-white font-body font-medium text-xs md:text-base leading-tight">{c.name}</p>
