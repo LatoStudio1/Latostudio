@@ -444,6 +444,16 @@
       const i = creators.findIndex(c => c.name === name);
       if (i > -1) creators.unshift(creators.splice(i, 1)[0]);
     });
+    // Saikoo takes Ninna e Matti's spot (and vice versa)
+    (() => {
+      const i = creators.findIndex(c => c.name === "Saikoo"), j = creators.findIndex(c => c.name === "Ninna e Matti");
+      if (i > -1 && j > -1) { const t = creators[i]; creators[i] = creators[j]; creators[j] = t; }
+    })();
+    // Quota Zero last, so in the loop it sits right before (left of) Marcello Ascani
+    (() => {
+      const i = creators.findIndex(c => c.name === "Quota Zero");
+      if (i > -1) creators.push(creators.splice(i, 1)[0]);
+    })();
     function CreatorsCarousel() {
       const items = [...creators, ...creators, ...creators];
       const trackRef = useRef(null);
