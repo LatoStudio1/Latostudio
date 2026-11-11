@@ -568,7 +568,7 @@
           }
           // continuous drift, like the thumbnail rows; pauses while dragging or touching
           drift.current += (driftTarget.current - drift.current) * 0.08;
-          if (!reduceMotion && !pdrag.current.active && !touching.current) {
+          if (!pdrag.current.active && !touching.current) {
             pos.current += (isMobile ? 26 : 34) * drift.current * dt;
           }
           const t = trackRef.current;
@@ -580,7 +580,6 @@
           rafRef.current = requestAnimationFrame(animate);
         };
 
-        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const el = wrapRef.current;
         el.addEventListener("touchstart", onTouchStart, { passive: true });
         el.addEventListener("touchend", onTouchEnd, { passive: true });
