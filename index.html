@@ -414,6 +414,7 @@
       { name: "Saikoo",          subs: "",                  img: "uploads/creators/saikoo.webp" },
       { name: "The Italian CEO", subs: "",                  img: "uploads/creators/the-italian-ceo.webp" },
       { name: "Giulio Michelon", subs: "",                  img: "uploads/creators/giulio-michelon.webp" },
+      { name: "Andrea Schedamini", subs: "",              img: "uploads/creators/andrea-schedamini.webp" },
       { name: "Chapeau",         subs: "140K subscribers",  img: "https://yt3.googleusercontent.com/HZm6BuUjWF6_sC9CT3qvHb3cesBfNe8HB1-9HczpSELOMbB9YImlPVm1t5QobyzBLkRXinBQ=s900-c-k-c0x00ffffff-no-rj" },
     ].sort((a, b) => {
       const n = (s) => { if (!s) return 3500; /* no count: place near the end, just before CO.RA. */ const v = parseFloat(s.replace(",", ".")); return s.includes("M") ? v * 1e6 : s.includes("K") ? v * 1e3 : v; };
@@ -438,6 +439,11 @@
       const i = creators.findIndex(c => c.name === "CO.RA. SpA");
       if (i > -1) creators.push(creators.splice(i, 1)[0]);
     })();
+    // first cards on screen: Marcello Ascani, Ascensore, Michele Molteni
+    ["Michele Molteni", "Ascensore", "Marcello Ascani"].forEach((name) => {
+      const i = creators.findIndex(c => c.name === name);
+      if (i > -1) creators.unshift(creators.splice(i, 1)[0]);
+    });
     function CreatorsCarousel() {
       const items = [...creators, ...creators, ...creators];
       const trackRef = useRef(null);
@@ -586,13 +592,13 @@
             WebkitMaskImage: isMobile ? "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)" : "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
             paddingTop: "12px", paddingBottom: "12px"
           }}>
-            <div ref={trackRef} className="flex gap-5" style={{ width: "max-content", willChange: "transform", transition: "none" }}>
+            <div ref={trackRef} className="flex gap-3 md:gap-5" style={{ width: "max-content", willChange: "transform", transition: "none" }}>
               {items.map((c, i) => (
-                <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-2 px-3 py-3 flex-shrink-0 md:px-5 md:py-5 md:gap-4 w-[140px] md:w-[220px]"
+                <div key={i} className="liquid-glass rounded-2xl flex flex-col items-center gap-2 px-3 py-3 flex-shrink-0 md:px-5 md:py-5 md:gap-4 w-[104px] md:w-[220px]"
                   style={{ cursor: "pointer" }}>
-                  <img src={c.img} alt={c.name} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={(e) => { const t = e.currentTarget; const n = Number(t.dataset.retry || 0); if (n < 3) { t.dataset.retry = n + 1; setTimeout(() => { t.src = c.img + (c.img.includes("?") ? "&" : "?") + "r=" + Date.now(); }, 600 * (n + 1)); } }} className="w-[68px] h-[68px] md:w-[116px] md:h-[116px] rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
+                  <img src={c.img} alt={c.name} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={(e) => { const t = e.currentTarget; const n = Number(t.dataset.retry || 0); if (n < 3) { t.dataset.retry = n + 1; setTimeout(() => { t.src = c.img + (c.img.includes("?") ? "&" : "?") + "r=" + Date.now(); }, 600 * (n + 1)); } }} className="w-[56px] h-[56px] md:w-[116px] md:h-[116px] rounded-full object-cover" style={{ border: "1.5px solid rgba(255,255,255,0.2)" }} />
                   <div className="text-center">
-                    <p className="text-white font-body font-medium text-sm md:text-base leading-tight">{c.name}</p>
+                    <p className="text-white font-body font-medium text-xs md:text-base leading-tight">{c.name}</p>
                   </div>
                 </div>
               ))}
