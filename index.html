@@ -467,6 +467,7 @@
       const drift = useRef(1);        // auto-scroll rate multiplier (hover slows it down)
       const driftTarget = useRef(1);
       const touching = useRef(false);
+      const boost = useRef(0);       // extra speed left over from a swipe, fades out
 
       // one card + its gap, measured with sub-pixel precision
       const pitch = () => {
@@ -525,19 +526,30 @@
 
       useEffect(() => {
         let touchStartX = 0, touchStartY = 0, isSwiping = false, lastT = 0;
-        const onTouchStart = (e) => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; isSwiping = false; };
-        const onTouchEnd = () => {};
+        // Touch (phones): a swipe can only push the carousel forward, never reverse it.
+        // The finger moves it 1:1, and on release the swipe speed carries on and fades out.
+        let lastMoveT = 0, swipeVel = 0;
+        const onTouchStart = (e) => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; isSwiping = false; swipeVel = 0; lastMoveT = performance.now(); };
         const onTouchMove = (e) => {
-          if (!trackRef.current) return;
-          const dx = touchStartX - e.touches[0].clientX;
+          const x = e.touches[0].clientX;
+          const dx = touchStartX - x;              // > 0 = finger moving left = forward
           const dy = Math.abs(touchStartY - e.touches[0].clientY);
-          if (!isSwiping && dy > Math.abs(dx) * 1.5) return;
+          if (!isSwiping && (Math.abs(dx) < 6 || dy > Math.abs(dx))) return; // vertical: let the page scroll
           isSwiping = true;
+          touching.current = true;
           e.preventDefault();
-          pos.current += dx * 1.5;
-          rem.current = 0;
-          vel.current = 0;
-          touchStartX = e.touches[0].clientX;
+          const now = performance.now();
+          const fwd = Math.max(0, dx);
+          pos.current += fwd;
+          const ms = Math.max(now - lastMoveT, 8);
+          swipeVel = swipeVel * 0.6 + (fwd / ms) * 1000 * 0.4;
+          lastMoveT = now;
+          touchStartX = x;
+        };
+        const onTouchEnd = () => {
+          if (isSwiping && performance.now() - lastMoveT < 120) boost.current = Math.min(swipeVel, 4000);
+          touching.current = false;
+          isSwiping = false;
         };
 
         const period = () => {
@@ -569,7 +581,9 @@
           // continuous drift, like the thumbnail rows; pauses while dragging or touching
           drift.current += (driftTarget.current - drift.current) * 0.08;
           if (!pdrag.current.active && !touching.current) {
-            pos.current += (isMobile ? 40 : 60) * drift.current * dt;
+            pos.current += ((isMobile ? 40 : 60) * drift.current + boost.current) * dt;
+            boost.current *= Math.exp(-dt * 2.2);
+            if (boost.current < 1) boost.current = 0;
           }
           const t = trackRef.current;
           if (t) {
@@ -584,11 +598,13 @@
         el.addEventListener("touchstart", onTouchStart, { passive: true });
         el.addEventListener("touchend", onTouchEnd, { passive: true });
         el.addEventListener("touchcancel", onTouchEnd, { passive: true });
+        el.addEventListener("touchmove", onTouchMove, { passive: false });
         rafRef.current = requestAnimationFrame(animate);
         return () => {
           el.removeEventListener("touchstart", onTouchStart);
           el.removeEventListener("touchend", onTouchEnd);
           el.removeEventListener("touchcancel", onTouchEnd);
+          el.removeEventListener("touchmove", onTouchMove);
           cancelAnimationFrame(rafRef.current);
         };
       }, []);
@@ -637,7 +653,7 @@
               <BlurText text="We handle the packaging." className="whitespace-nowrap text-[7.4vw] min-[520px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-hero font-medium text-white leading-[1.05] " style={{ letterSpacing: "-0.038em" }} delay={100} serifWords={["handle"]} />
               {" "}<BlurText text="You enjoy the growth." className="whitespace-nowrap text-[7.4vw] min-[520px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-hero font-medium text-white leading-[1.05] " style={{ letterSpacing: "-0.038em" }} delay={100} serifLast={true} />
             </h1>
-            <p className="text-xs md:text-base text-white/70 font-body font-light leading-relaxed max-w-md mx-auto mb-8 px-4" style={fadeStyle(800)}>Lato Studio helps creators and brands grow on YouTube through high performance thumbnails and premium visual packaging.</p>
+            <p className="text-xs md:text-base text-white/70 font-body font-light leading-relaxed max-w-md md:max-w-xl mx-auto mb-8 px-4" style={{ ...fadeStyle(800), textWrap: "balance" }}>Lato Studio helps creators and brands grow on YouTube through high performance thumbnails and premium visual packaging.</p>
             <div style={{ paddingTop: "18px" }}>
               <div className="flex items-center gap-4" style={fadeStyle(1100)}>
                 <a href="#capabilities" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium font-body text-white flex items-center gap-2 hover:bg-white/10 transition-colors">Services</a>
