@@ -406,9 +406,13 @@
       { name: "iStorica",        subs: "102K subscribers",  img: "https://yt3.googleusercontent.com/ytc/AIdro_kiHD384JXCgEhwvAK07_mWNgVra9OeY4BsFdh6mC0wsA=s160-c-k-c0x00ffffff-no-rj" },
       { name: "Portable Orange", subs: "51K subscribers",   img: "https://yt3.googleusercontent.com/paVLW5j7sOimYOidgAU4iFRtBmrf7VLiytPxwPegF1iRHMYh-psPtDAEzxV2IIxNTWxQZQU94uM=s160-c-k-c0x00ffffff-no-rj" },
       { name: "E. with Giotto",  subs: "228K subscribers",  img: "https://yt3.googleusercontent.com/bOrWjta1mBS1Sw_-UpzCzeb8tXSb9N5h_tAIfpWiSD-egZp78qlIwzm-k_Ydiy8H1aVSUVaP=s160-c-k-c0x00ffffff-no-rj" },
+      { name: "Fondatori",       subs: "",                  img: "uploads/creators/fondatori.webp" },
+      { name: "Sales Busters",   subs: "",                  img: "uploads/creators/sales-busters.webp" },
+      { name: "Andrea Monti",    subs: "",                  img: "uploads/creators/andrea-monti.webp" },
+      { name: "Unlinear",        subs: "",                  img: "uploads/creators/unlinear.webp" },
       { name: "Chapeau",         subs: "140K subscribers",  img: "https://yt3.googleusercontent.com/HZm6BuUjWF6_sC9CT3qvHb3cesBfNe8HB1-9HczpSELOMbB9YImlPVm1t5QobyzBLkRXinBQ=s900-c-k-c0x00ffffff-no-rj" },
     ].sort((a, b) => {
-      const n = (s) => { const v = parseFloat(s.replace(",", ".")); return s.includes("M") ? v * 1e6 : s.includes("K") ? v * 1e3 : v; };
+      const n = (s) => { if (!s) return 3500; /* no count: place near the end, just before CO.RA. */ const v = parseFloat(s.replace(",", ".")); return s.includes("M") ? v * 1e6 : s.includes("K") ? v * 1e3 : v; };
       return n(b.subs) - n(a.subs);
     });
     // manual position swaps (applied after the subscriber sort)
