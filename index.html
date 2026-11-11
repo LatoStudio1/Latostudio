@@ -449,11 +449,12 @@
       const i = creators.findIndex(c => c.name === "Saikoo"), j = creators.findIndex(c => c.name === "Ninna e Matti");
       if (i > -1 && j > -1) { const t = creators[i]; creators[i] = creators[j]; creators[j] = t; }
     })();
-    // Quota Zero last, so in the loop it sits right before (left of) Marcello Ascani
-    (() => {
-      const i = creators.findIndex(c => c.name === "Quota Zero");
+    // left of Marcello Ascani in the loop (reading right to left): The Italian CEO,
+    // Tech 'n' Cheese, Ninna e Matti, Unlinear, Andrea Schedamini, CO.RA. SpA
+    ["CO.RA. SpA", "Andrea Schedamini", "Unlinear", "Ninna e Matti", "Tech 'n' Cheese", "The Italian CEO"].forEach((name) => {
+      const i = creators.findIndex(c => c.name === name);
       if (i > -1) creators.push(creators.splice(i, 1)[0]);
-    })();
+    });
     function CreatorsCarousel() {
       const items = [...creators, ...creators, ...creators];
       const trackRef = useRef(null);
@@ -463,6 +464,9 @@
       const vel = useRef(0);   // px per second
       const rafRef = useRef(null);
       const isMobile = window.innerWidth < 768;
+      const drift = useRef(1);        // auto-scroll rate multiplier (hover slows it down)
+      const driftTarget = useRef(1);
+      const touching = useRef(false);
 
       // one card + its gap, measured with sub-pixel precision
       const pitch = () => {
@@ -521,7 +525,8 @@
 
       useEffect(() => {
         let touchStartX = 0, touchStartY = 0, isSwiping = false, lastT = 0;
-        const onTouchStart = (e) => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; isSwiping = false; };
+        const onTouchStart = (e) => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; isSwiping = false; touching.current = true; };
+        const onTouchEnd = () => { touching.current = false; };
         const onTouchMove = (e) => {
           if (!trackRef.current) return;
           const dx = touchStartX - e.touches[0].clientX;
@@ -561,6 +566,11 @@
             rem.current = 0;
             vel.current = 0;
           }
+          // continuous drift, like the thumbnail rows; pauses while dragging or touching
+          drift.current += (driftTarget.current - drift.current) * 0.08;
+          if (!reduceMotion && !pdrag.current.active && !touching.current) {
+            pos.current += (isMobile ? 26 : 34) * drift.current * dt;
+          }
           const t = trackRef.current;
           if (t) {
             const p = period();
@@ -570,31 +580,28 @@
           rafRef.current = requestAnimationFrame(animate);
         };
 
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const el = wrapRef.current;
         el.addEventListener("touchstart", onTouchStart, { passive: true });
+        el.addEventListener("touchend", onTouchEnd, { passive: true });
+        el.addEventListener("touchcancel", onTouchEnd, { passive: true });
         el.addEventListener("touchmove", onTouchMove, { passive: false });
         rafRef.current = requestAnimationFrame(animate);
         return () => {
           el.removeEventListener("touchstart", onTouchStart);
           el.removeEventListener("touchmove", onTouchMove);
+          el.removeEventListener("touchend", onTouchEnd);
+          el.removeEventListener("touchcancel", onTouchEnd);
           cancelAnimationFrame(rafRef.current);
         };
       }, []);
 
-      const ArrowBtn = ({ dir }) => (
-        <button onClick={() => scroll(dir)}
-          className="hidden md:flex liquid-glass-strong rounded-full items-center justify-center flex-shrink-0 hover:bg-white/20 transition-colors"
-          style={{ width: "44px", height: "44px", minWidth: "44px" }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            {dir === -1 ? <polyline points="15 18 9 12 15 6"/> : <polyline points="9 6 15 12 9 18"/>}
-          </svg>
-        </button>
-      );
 
       return (
         <div className="w-full flex items-center gap-4 px-4 md:px-8">
-          <ArrowBtn dir={-1} />
           <div ref={wrapRef} className="flex-1 overflow-hidden"
+            onMouseEnter={() => { if (!window.matchMedia("(hover: none), (pointer: coarse)").matches) driftTarget.current = 0.35; }}
+            onMouseLeave={() => { driftTarget.current = 1; }}
             onPointerDown={onPointerDown} onPointerMove={onPointerMove}
             onPointerUp={onPointerUp} onPointerCancel={onPointerUp}
             style={{ touchAction: "pan-y", cursor: "grab",
@@ -614,7 +621,6 @@
               ))}
             </div>
           </div>
-          <ArrowBtn dir={1} />
         </div>
       );
     }
