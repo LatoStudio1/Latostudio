@@ -439,8 +439,8 @@
       const i = creators.findIndex(c => c.name === "CO.RA. SpA");
       if (i > -1) creators.push(creators.splice(i, 1)[0]);
     })();
-    // first cards on screen: Marcello Ascani, Ascensore, Michele Molteni
-    ["Michele Molteni", "Ascensore", "Marcello Ascani"].forEach((name) => {
+    // first cards on screen, in this order
+    ["Marcello Ascani", "Michele Molteni", "Ascensore", "Piccoli Mondi", "Chapeau", "Giulio Michelon"].reverse().forEach((name) => {
       const i = creators.findIndex(c => c.name === name);
       if (i > -1) creators.unshift(creators.splice(i, 1)[0]);
     });
