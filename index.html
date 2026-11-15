@@ -744,7 +744,7 @@
                     </div>
                     <div className="flex-1 w-full">{row.isLogo ? (
                       <div className="grid grid-cols-3 gap-3 md:gap-4">
-                        {["uploads/team/team-01.webp", "uploads/team/team-02.webp", "uploads/team/luca.webp"].map((src, k) => (
+                        {["uploads/team/team-01-v2.webp", "uploads/team/team-02.webp", "uploads/team/luca.webp"].map((src, k) => (
                           <div key={k} className="liquid-glass rounded-full overflow-hidden aspect-square">
                             <img src={src} alt="Lato Studio team member" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                           </div>
@@ -766,12 +766,12 @@
               </FadeIn>
               <div className="flex flex-col">
                 {[
-                  { service: "Thumbnail", note: "Single YouTube or Instagram thumbnails, or full packs", people: ["Orla", "Luca", "Poli"] },
-                  { service: "Copy & Title", note: "Higher-performing titles, paired with the copy inside the thumbnail", people: ["Orla", "Luca", "Fede"] },
-                  { service: "Strategy", note: "Concept, audience, potential and structure of a media project", people: ["Fede", "Orla"] },
-                  { service: "Video Edit", note: "Single videos or packages, horizontal and vertical", people: ["Lorenzo", "Gabri"] },
-                  { service: "Videomaking", note: "On-location shooting: vlog, corporate, general media", people: ["Lorenzo", "Gabri"] },
-                  { service: "Consulting", note: "A call or a meeting on thumbnails, potential and scalability", people: ["Fede", "Orla"] },
+                  { service: "Thumbnail", note: "Single YouTube or Instagram thumbnails, or full packs", people: ["Alessio Orlando", "Luca Terenzi", "Matteo Polito"] },
+                  { service: "Copy & Title", note: "Higher-performing titles, paired with the copy inside the thumbnail", people: ["Alessio Orlando", "Luca Terenzi", "Federico Stompo", "Simone Piccolo"] },
+                  { service: "Strategy", note: "Concept, audience, potential and structure of a media project", people: ["Federico Stompo", "Alessio Orlando", "Simone Piccolo"] },
+                  { service: "Video Edit", note: "Single videos or packages, horizontal and vertical", people: ["Lorenzo Stabile", "Gabriele Maone"] },
+                  { service: "Videomaking", note: "On-location shooting: vlog, corporate, general media", people: ["Lorenzo Stabile", "Gabriele Maone"] },
+                  { service: "Consulting", note: "A call or a meeting on thumbnails, potential and scalability", people: ["Federico Stompo", "Alessio Orlando", "Simone Piccolo"] },
                 ].map((r, i) => (
                   <FadeIn key={i} delay={i * 60}>
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 md:gap-10 items-baseline border-t border-white/15 py-6 md:py-7">
@@ -791,7 +791,7 @@
     }
 
     // ── OurWork ───────────────────────────────────────────────────────────
-    const _v = 26; // bump this when you replace files in /uploads
+    const _v = 36; // bump this when you replace files in /uploads
 
     const row1imgs = [
       `uploads/thumbnails/thumb-01.webp?v=${_v}`,`uploads/thumbnails/thumb-02.webp?v=${_v}`,`uploads/thumbnails/thumb-03.webp?v=${_v}`,`uploads/thumbnails/thumb-04.webp?v=${_v}`,
@@ -799,18 +799,15 @@
       `uploads/thumbnails/thumb-09.webp?v=${_v}`,`uploads/thumbnails/thumb-10.webp?v=${_v}`,`uploads/thumbnails/thumb-11.webp?v=${_v}`,`uploads/thumbnails/thumb-12.webp?v=${_v}`,
       `uploads/thumbnails/thumb-13.webp?v=${_v}`,`uploads/thumbnails/thumb-14.webp?v=${_v}`,`uploads/thumbnails/thumb-15.webp?v=${_v}`,`uploads/thumbnails/thumb-16.webp?v=${_v}`,
     ];
+
     const row2imgs = [
       `uploads/thumbnails/thumb-17.webp?v=${_v}`,`uploads/thumbnails/thumb-18.webp?v=${_v}`,`uploads/thumbnails/thumb-19.webp?v=${_v}`,`uploads/thumbnails/thumb-20.webp?v=${_v}`,
       `uploads/thumbnails/thumb-21.webp?v=${_v}`,`uploads/thumbnails/thumb-22.webp?v=${_v}`,`uploads/thumbnails/thumb-23.webp?v=${_v}`,`uploads/thumbnails/thumb-24.webp?v=${_v}`,
       `uploads/thumbnails/thumb-25.webp?v=${_v}`,`uploads/thumbnails/thumb-26.webp?v=${_v}`,`uploads/thumbnails/thumb-27.webp?v=${_v}`,`uploads/thumbnails/thumb-28.webp?v=${_v}`,
-      `uploads/thumbnails/thumb-29.webp?v=${_v}`,`uploads/thumbnails/thumb-31.webp?v=${_v}`,`uploads/thumbnails/thumb-32.webp?v=${_v}`,
+      `uploads/thumbnails/thumb-29.webp?v=${_v}`,`uploads/thumbnails/thumb-30.webp?v=${_v}`,`uploads/thumbnails/thumb-31.webp?v=${_v}`,`uploads/thumbnails/thumb-32.webp?v=${_v}`,
     ];
-    const row3imgs = [
-      `uploads/thumbnails/thumb-33.webp?v=${_v}`,`uploads/thumbnails/thumb-34.webp?v=${_v}`,`uploads/thumbnails/thumb-35.webp?v=${_v}`,`uploads/thumbnails/thumb-36.webp?v=${_v}`,
-      `uploads/thumbnails/thumb-37.webp?v=${_v}`,`uploads/thumbnails/thumb-38.webp?v=${_v}`,`uploads/thumbnails/thumb-39.webp?v=${_v}`,`uploads/thumbnails/thumb-40.webp?v=${_v}`,
-      `uploads/thumbnails/thumb-41.webp?v=${_v}`,`uploads/thumbnails/thumb-42.webp?v=${_v}`,`uploads/thumbnails/thumb-43.webp?v=${_v}`,`uploads/thumbnails/thumb-44.webp?v=${_v}`,
-      `uploads/thumbnails/thumb-45.webp?v=${_v}`,`uploads/thumbnails/thumb-46.webp?v=${_v}`,`uploads/thumbnails/thumb-47.webp?v=${_v}`,`uploads/thumbnails/thumb-48.webp?v=${_v}`,
-    ];
+
+    // uploads/thumbnails/spare/: thumbnails set aside, not shown on the site
     const canHover = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     // Background videos cost decode time even off screen — play them only when visible
@@ -927,6 +924,110 @@
         </div>
       );
     }
+    const titleExamples = [
+      { name: "Ascensore", video: `uploads/titles/ascensore-ab-v3.mp4?v=${_v}` },
+      { name: "Velasca", custom: "velasca" },
+    ];
+
+    // Interactive before/after of a real title change (Velasca). Auto-flips until the visitor picks a side.
+    const velascaTest = {
+      before: { vph: 69.5, parts: [["Da ", 0], ["ZERO", 1], [" a €30 MILIONI in ", 0], ["Italia", 1], [" 🇮🇹 - Velasca", 0]] },
+      after:  { vph: 307.9, parts: [["Da ", 0], ["una BOTTEGA", 1], [" a €30 MILIONI ", 0], ["con il MADE IN ITALY", 1], [" 🇮🇹 | Velasca", 0]] },
+      lift: "+343%",
+    };
+    // Windows has no flag emoji (it shows "IT"), so the Italian flag is drawn inline
+    const ItFlag = () => (
+      <svg viewBox="0 0 3 2" width="1.15em" height="0.77em" role="img" aria-label="Italian flag" style={{ display: "inline-block", verticalAlign: "-0.08em", borderRadius: "2px" }}>
+        <rect width="1" height="2" x="0" fill="#009246" /><rect width="1" height="2" x="1" fill="#fff" /><rect width="1" height="2" x="2" fill="#ce2b37" />
+      </svg>
+    );
+    const withFlag = (t) => t.includes("🇮🇹")
+      ? t.split("🇮🇹").flatMap((piece, k, arr) => k < arr.length - 1 ? [piece, <ItFlag key={k} />] : [piece])
+      : t;
+    function TitleChangeCard() {
+      const [after, setAfter] = useState(false);
+      const [touched, setTouched] = useState(false);
+      const [shown, setShown] = useState(0);
+      useEffect(() => {
+        if (touched) return;
+        const t = setInterval(() => setAfter((a) => !a), 3200);
+        return () => clearInterval(t);
+      }, [touched]);
+      const cur = after ? velascaTest.after : velascaTest.before;
+      // count the VPH number to its new value on every switch
+      useEffect(() => {
+        const from = shown, to = cur.vph, start = performance.now(), dur = 600;
+        let raf;
+        const step = (now) => {
+          const k = Math.min((now - start) / dur, 1);
+          const e = 1 - Math.pow(1 - k, 3);
+          setShown(from + (to - from) * e);
+          if (k < 1) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+        return () => cancelAnimationFrame(raf);
+      }, [after]);
+      const pick = (v) => { setTouched(true); setAfter(v); };
+      const green = "#4ade80";
+      return (
+        <div className="liquid-glass rounded-2xl overflow-hidden bg-black flex flex-col justify-between gap-4 p-5 md:p-6 min-h-[300px] md:min-h-0" style={{ aspectRatio: window.innerWidth >= 768 ? "1.72" : "auto" }}>
+          {/* the video's thumbnail, faded behind the content */}
+          <img src={`uploads/titles/velasca-bg.webp?v=${_v}`} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover pointer-events-none" style={{ opacity: 0.32, zIndex: 0, filter: "blur(8px)", transform: "scale(1.08)" }} />
+          <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.65))" }} />
+          <div className="relative flex items-center justify-between gap-3" style={{ zIndex: 1 }}>
+            <div className="liquid-glass rounded-full p-1 flex items-center gap-1" role="group" aria-label="Show title before or after the change">
+              {[["Before", false], ["After", true]].map(([label, v]) => (
+                <button key={label} type="button" onClick={() => pick(v)} aria-pressed={after === v}
+                  className="rounded-full px-3.5 py-1.5 text-xs md:text-sm font-body font-medium"
+                  style={{ background: after === v ? "#fff" : "transparent", color: after === v ? "#000" : "rgba(255,255,255,0.75)", transition: "background-color var(--d-ui) var(--ease-out), color var(--d-ui) var(--ease-out)" }}>{label}</button>
+              ))}
+            </div>
+            <span className="rounded-full px-3 py-1 text-xs md:text-sm font-body font-medium" style={{ color: green, background: "rgba(74,222,128,0.12)", border: "1px solid rgba(74,222,128,0.3)" }}>{velascaTest.lift} views per hour</span>
+          </div>
+          <p key={after ? "a" : "b"} className="relative text-white font-body text-base md:text-lg lg:text-xl leading-snug" style={{ zIndex: 1, animation: "tt-fade 0.35s var(--ease-out)" }}>
+            {cur.parts.map(([t, changed], i) => changed
+              ? <span key={i} className="rounded px-1" style={after ? { background: "rgba(74,222,128,0.16)", color: "#fff", fontWeight: 600 } : { color: "#fff", background: "rgba(239,68,68,0.18)" }}>{t}</span>
+              : <span key={i} style={{ color: "#fff" }}>{withFlag(t)}</span>)}
+          </p>
+          <div className="relative flex items-end justify-between gap-4" style={{ zIndex: 1 }}>
+            <div className="flex-shrink-0">
+              <p className="text-white/55 font-body text-xs md:text-sm">Average views per hour</p>
+              <p className="font-body font-semibold text-3xl md:text-4xl leading-none mt-1.5" style={{ color: after ? green : "#fff", transition: "color var(--d-ui) var(--ease-out)", fontVariantNumeric: "tabular-nums" }}>{shown.toFixed(1)}</p>
+            </div>
+            <svg viewBox="0 0 200 70" className="w-1/2 max-w-[220px] h-auto" role="img" aria-label="Views per hour before and after the title change">
+              <line x1="100" y1="4" x2="100" y2="66" stroke="rgba(255,255,255,0.35)" strokeDasharray="3 3" />
+              <path d="M2 60 L35 57 L68 58 L100 54" fill="none" stroke="rgba(255,255,255,0.75)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: after ? 0.4 : 1, transition: "opacity var(--d-ui) var(--ease-out)" }} />
+              <path d="M100 54 L140 28 L198 10" fill="none" stroke={green} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: after ? 1 : 0.25, transition: "opacity var(--d-ui) var(--ease-out)" }} />
+              <path d="M100 54 L140 28 L198 10 L198 66 L100 66 Z" fill={green} style={{ opacity: after ? 0.12 : 0, transition: "opacity var(--d-ui) var(--ease-out)" }} />
+            </svg>
+          </div>
+          <style>{`@keyframes tt-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }`}</style>
+        </div>
+      );
+    }
+
+    // Two examples side by side (stacked on phones), each in its own 16:9 frame
+    function TitleExamples() {
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 max-w-5xl mx-auto">
+          {titleExamples.map((ex, i) => (
+            <FadeIn key={i} delay={i * 80}>
+              <div className="flex flex-col gap-3">
+                {ex.custom === "velasca" ? <TitleChangeCard /> :
+                <div className="liquid-glass rounded-2xl overflow-hidden bg-black flex items-center justify-center" style={{ aspectRatio: "1.72" }}>
+                  {ex.img
+                    ? <img src={ex.img} alt={`Title test results for ${ex.name}`} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                    : ex.video
+                    ? <video src={ex.video} autoPlay loop muted playsInline preload="metadata" data-lazyvid className="w-full h-full object-cover" aria-label={`A/B title test for ${ex.name}`} />
+                    : <span className="text-white/40 font-body font-light text-sm">Coming soon</span>}
+                </div>}
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      );
+    }
+
     function OurWork() {
       const [lightbox, setLightbox] = useState(null); // { src, origin }
       const [shown, setShown] = useState(false);      // drives the enter/exit path
@@ -955,13 +1056,21 @@
         <section id="our-work" className="relative z-10 py-14 md:py-24 overflow-hidden">
           <div className="px-6 md:px-12 lg:px-24 mb-10 md:mb-14">
             <FadeIn className="text-center">
-              <h2 className="text-5xl md:text-7xl lg:text-8xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Thumbnails that perform.</h2>
+              <h2 className="text-5xl md:text-7xl lg:text-8xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Packaging, studied.</h2>
             </FadeIn>
           </div>
           <div className="flex flex-col gap-4 ow-marquee" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
             <OurWorkRow images={row1imgs} reverse={false} speed="78s" paused={!!lightbox} onOpen={open} />
             <OurWorkRow images={row2imgs} reverse={true} speed="98s" paused={!!lightbox} onOpen={open} />
-            <OurWorkRow images={row3imgs} reverse={false} speed="88s" paused={!!lightbox} onOpen={open} />
+          </div>
+          {/* Title examples: three squares, one per channel */}
+          <div className="px-6 md:px-12 lg:px-24 mt-14 md:mt-20">
+            <div className="max-w-6xl mx-auto">
+              <FadeIn className="text-center mb-8 md:mb-10">
+                <h3 className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.05]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>We test for better results.</h3>
+              </FadeIn>
+              <TitleExamples />
+            </div>
           </div>
           {lightbox && ReactDOM.createPortal((
             <div onClick={close} className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
@@ -1304,8 +1413,6 @@
             <div>
               <FeaturesChess />
               <OurWork />
-              <FeaturesGrid />
-              <Stats />
               <Testimonials />
               <ContactForm />
               <CtaFooter />
