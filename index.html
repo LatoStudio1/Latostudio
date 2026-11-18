@@ -72,7 +72,7 @@
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     [id] { scroll-margin-top: 96px; }
-    body { margin: 0; background: #000; color: #fff; -webkit-font-smoothing: antialiased; }
+    body { margin: 0; background: #0a0a0a; color: #fff; -webkit-font-smoothing: antialiased; }
 
     .liquid-glass {
       background: rgba(255, 255, 255, 0.08);
@@ -177,7 +177,7 @@
     video::-webkit-media-controls-start-playback-button,
     video::-webkit-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; }
     ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
     video { display: block; }
     .svc-btn { outline: none; }
@@ -395,7 +395,7 @@
         <nav className="fixed top-4 left-0 right-0 z-50 max-w-[88rem] mx-auto px-6 md:px-12 lg:px-16 flex items-center justify-between py-3">
           <span aria-hidden="true" className="absolute pointer-events-none" style={{
             left: "calc(50% - 50vw)", width: "100vw", top: "-16px", height: "120px", zIndex: -1,
-            background: "linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 45%, rgba(0,0,0,0) 100%)",
+            background: "linear-gradient(to bottom, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.7) 45%, rgba(10,10,10,0) 100%)",
             opacity: scrolled ? 1 : 0, transition: "opacity var(--d-ui) var(--ease-out)"
           }} />
           <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="flex items-center cursor-pointer">
@@ -678,11 +678,10 @@
       const fadeStyle = (delay) => ({ opacity: mounted ? 1 : 0, filter: mounted ? "blur(0px)" : "blur(10px)", transform: mounted ? "translateY(0px)" : "translateY(20px)", transition: `opacity var(--d-hero) var(--ease-out) ${delay}ms, filter var(--d-hero) var(--ease-out) ${delay}ms, transform var(--d-hero) var(--ease-out) ${delay}ms` });
       return (
         <section className="relative overflow-hidden" style={{ height: "auto", minHeight: isMobile ? "640px" : "clamp(720px, 100svh, 1000px)" }}>
-          <video ref={(el) => { if (el && !el.dataset.primed) { el.dataset.primed = "1"; el.muted = true; el.defaultMuted = true; el.setAttribute("muted", ""); el.setAttribute("playsinline", ""); el.setAttribute("webkit-playsinline", ""); const go = () => { const p = el.play(); if (p && p.catch) p.catch(() => {}); }; go(); el.addEventListener("loadeddata", go, { once: true }); el.addEventListener("canplay", go, { once: true }); } }} autoPlay loop muted playsInline preload="metadata" data-lazyvid className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" style={{ objectPosition: "center 38%" }}>
-            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260210_031346_d87182fb-b0af-4273-84d1-c6fd17d6bf0f.mp4" type="video/mp4" />
+          <video poster="uploads/brand/hero-light-poster.webp" ref={(el) => { if (el && !el.dataset.primed) { el.dataset.primed = "1"; el.muted = true; el.defaultMuted = true; el.setAttribute("muted", ""); el.setAttribute("playsinline", ""); el.setAttribute("webkit-playsinline", ""); const go = () => { const p = el.play(); if (p && p.catch) p.catch(() => {}); }; go(); el.addEventListener("loadeddata", go, { once: true }); el.addEventListener("canplay", go, { once: true }); } }} autoPlay loop muted playsInline preload="metadata" data-lazyvid className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" style={{ objectPosition: "center 38%", maskImage: "linear-gradient(to bottom, black 0%, black 40%, rgba(0,0,0,0.5) 72%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 40%, rgba(0,0,0,0.5) 72%, transparent 100%)" }}>
+            <source src="uploads/brand/hero-light.mp4?v=37" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-black/5 z-0 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-0" style={{ height: "760px", background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.78) 78%, black 100%)" }} />
+          <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-0" style={{ height: "760px", background: "linear-gradient(to bottom, transparent 0%, rgba(10,10,10,0.2) 40%, rgba(10,10,10,0.3) 70%, transparent 100%)" }} />
           <div className="relative z-10 flex flex-col items-center text-center pt-[110px] md:pt-[190px]">
             <h1 className="w-full max-w-6xl mx-auto px-4 mb-6">
               <BlurText text="We handle the channel." className="whitespace-nowrap text-[7.4vw] min-[520px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-hero font-medium text-white leading-[1.05] " style={{ letterSpacing: "-0.038em" }} delay={100} serifWords={["handle"]} />
@@ -725,7 +724,7 @@
         vidRefs.current.forEach((v, i) => {
           if (!v) return;
           v.muted = true; v.defaultMuted = true; v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
-          if (inView && i === active) {
+          if (inView && i === active && window.matchMedia("(min-width: 768px)").matches) {
             if (v.preload === "none") { v.preload = "auto"; v.load(); }
             const p = v.play(); if (p && p.catch) p.catch(() => {});
           } else { v.pause(); }
@@ -735,7 +734,7 @@
       const titleStyle = { lineHeight: "1.05", fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.03em" };
       return (
         <div ref={wrapRef} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-12 items-center">
-          <div className="md:col-span-7 md:order-2">
+          <div className="hidden md:block md:col-span-7 md:order-2">
             <div className="liquid-glass rounded-2xl overflow-hidden aspect-video relative">
               {services.map((row, i) => (
                 <div key={row.title} aria-hidden={i !== active ? "true" : undefined} className="absolute inset-0"
@@ -758,6 +757,16 @@
                     <span className="svc-title whitespace-nowrap text-[1.55rem] sm:text-3xl md:text-2xl lg:text-[2rem] xl:text-[2.6rem]" style={{ ...titleStyle, color: on ? "#fff" : undefined, transition: "color var(--d-ui) var(--ease-out)" }}>{row.title}</span>
                     <span aria-hidden="true" className="text-white text-xl" style={{ opacity: on ? 1 : 0, transform: on ? "translateX(0)" : "translateX(-6px)", transition: "opacity var(--d-ui) var(--ease-out), transform var(--d-ui) var(--ease-out)" }}>&#8594;</span>
                   </button>
+                  {on && (
+                    <div className="md:hidden pb-6 svc-body">
+                      <div className="liquid-glass rounded-2xl overflow-hidden aspect-video">
+                        {row.isVideo
+                          ? <video src={row.gif} autoPlay loop muted playsInline preload="metadata" className="w-full h-full object-cover" />
+                          : <img src={row.gif} alt={row.title} decoding="async" className="w-full h-full object-cover" />}
+                      </div>
+                      <p className="text-white/60 font-body font-light text-sm leading-relaxed mt-4" style={{ whiteSpace: "pre-line", textWrap: "pretty" }}>{row.body}</p>
+                    </div>
+                  )}
                 </li>
               );
             })}
@@ -802,22 +811,22 @@
         <>
         <section ref={secRef} id="capabilities" className="relative z-10 py-14 md:py-24 px-6 md:px-12 lg:px-16">
           {/* the light starts before the section and dies out long before it ends */}
-          <div className="absolute z-0 pointer-events-none overflow-hidden" style={{ left: 0, right: 0, top: 0, bottom: 0,
-            maskImage: "linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,0.55) 78%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,0.55) 78%, transparent 100%)" }}>
+          <div className="absolute z-0 pointer-events-none overflow-hidden" style={{ left: 0, right: 0, top: "260px", bottom: "-420px",
+            maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 8%, rgba(0,0,0,0.75) 16%, black 24%, black 62%, rgba(0,0,0,0.6) 78%, rgba(0,0,0,0.25) 90%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 8%, rgba(0,0,0,0.75) 16%, black 24%, black 62%, rgba(0,0,0,0.6) 78%, rgba(0,0,0,0.25) 90%, transparent 100%)" }}>
             <video loop muted playsInline preload="none" data-lazyvid className="absolute inset-0 w-full h-full object-cover pointer-events-none" style={{ opacity: 0.5, objectPosition: "center top" }}>
-              <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260210_031346_d87182fb-b0af-4273-84d1-c6fd17d6bf0f.mp4" type="video/mp4" />
+              <source src="uploads/brand/hero-light.mp4?v=37" type="video/mp4" />
             </video>
             {/* the light lives at the frame's top edge; a mirrored, blurred echo keeps the lower half alive without a second decode */}
             <div className="absolute left-0 right-0 bottom-0 pointer-events-none" style={{ height: "60%", background: "radial-gradient(120% 100% at 50% 100%, rgba(150,90,220,0.20) 0%, rgba(90,60,160,0.10) 45%, transparent 80%)" }} />
             <div className="absolute inset-0 bg-black/25 pointer-events-none" />
-            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.25) 90px, transparent 320px)" }} />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,0.25) 90px, transparent 320px)" }} />
           </div>
           {ReactDOM.createPortal((
             <div aria-hidden="true" style={{
               position: "fixed", left: "50%", top: "50%", width: "min(1900px, 190vw)", height: "min(1900px, 190vw)",
               transform: "translate(-50%, -50%)",
-              background: "radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.018) 55%, rgba(255,255,255,0) 75%)",
+              background: "radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 30%, rgba(255,255,255,0.01) 55%, rgba(255,255,255,0) 75%)",
               opacity: on, pointerEvents: "none", zIndex: 0
             }} />
           ), document.body)}
@@ -1056,7 +1065,7 @@
       const pick = (v) => { setTouched(true); setAfter(v); };
       const green = "#4ade80";
       return (
-        <div className="liquid-glass rounded-2xl overflow-hidden bg-black flex flex-col justify-between gap-4 p-5 md:p-6 min-h-[300px] md:min-h-0" style={{ aspectRatio: window.innerWidth >= 768 ? "1.72" : "auto" }}>
+        <div className="liquid-glass rounded-2xl overflow-hidden bg-[#0a0a0a] flex flex-col justify-between gap-4 p-5 md:p-6 min-h-[300px] md:min-h-0" style={{ aspectRatio: window.innerWidth >= 768 ? "1.72" : "auto" }}>
           {/* the video's thumbnail, faded behind the content */}
           <img src={`uploads/titles/velasca-bg.webp?v=${_v}`} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover pointer-events-none" style={{ opacity: 0.32, zIndex: 0, filter: "blur(8px)", transform: "scale(1.08)" }} />
           <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.65))" }} />
@@ -1100,7 +1109,7 @@
             <FadeIn key={i} delay={i * 80}>
               <div className="flex flex-col gap-3">
                 {ex.custom === "velasca" ? <TitleChangeCard /> :
-                <div className="liquid-glass rounded-2xl overflow-hidden bg-black flex items-center justify-center" style={{ aspectRatio: "1.72" }}>
+                <div className="liquid-glass rounded-2xl overflow-hidden bg-[#0a0a0a] flex items-center justify-center" style={{ aspectRatio: "1.72" }}>
                   {ex.img
                     ? <img src={ex.img} alt={`Title test results for ${ex.name}`} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                     : ex.video
@@ -1139,7 +1148,7 @@
         return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
       }, [lightbox]);
       return (
-        <section id="our-work" className="relative z-10 pt-14 md:pt-24 pb-6 md:pb-8 overflow-hidden">
+        <section id="our-work" className="relative z-10 pt-14 md:pt-24 pb-6 md:pb-8 overflow-x-clip">
           <div className="px-6 md:px-12 lg:px-16 mb-12 md:mb-16">
             <FadeIn className="text-center">
               <h2 className="text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Designed to be clicked.</h2>
@@ -1157,13 +1166,24 @@
                 <p className="text-white/60 font-body font-light text-base md:text-lg leading-relaxed max-w-xl mx-auto mt-4 md:mt-5" style={{ textWrap: "balance" }}>Every test pits two different ideas against each other. Knowing which ones are worth testing is the work.</p>
               </FadeIn>
               <TitleExamples />
-              <FadeIn className="mt-20 md:mt-28 flex flex-col items-center text-center">
+              <div className="relative mt-20 md:mt-28">
+                {/* wave lines behind the bridge to the contact form, faded top and bottom */}
+                <div aria-hidden="true" className="absolute pointer-events-none" style={{
+                  left: "calc(50% - 50vw)", width: "100vw", top: "-420px", bottom: "-320px", zIndex: -1,
+                  maskImage: "linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)"
+                }}>
+                  <video src="uploads/brand/wave-lines.mp4?v=37" poster="uploads/brand/wave-lines-poster.webp" autoPlay loop muted playsInline preload="none" data-lazyvid
+                    className="w-full h-full object-cover" style={{ opacity: 0.7 }} />
+                </div>
+              <FadeIn className="relative z-10 flex flex-col items-center text-center">
                 <a href="#contact" className="group flex flex-col items-center">
                   <span className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em", textWrap: "balance" }}>Want to see this on your channel?</span>
                   <span aria-hidden="true" className="block mt-8 md:mt-10 w-px h-20 md:h-28" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(255,255,255,0))" }} />
                   <span aria-hidden="true" className="block -mt-1 w-2 h-2 rounded-full bg-white/60 transition-transform duration-300 group-hover:translate-y-1" />
                 </a>
               </FadeIn>
+              </div>
             </div>
           </div>
           {lightbox && ReactDOM.createPortal((
@@ -1480,11 +1500,11 @@
     // ── CtaFooter ─────────────────────────────────────────────────────────
     function CtaFooter() {
       return (
-        <section className="relative overflow-hidden w-full" style={{ minHeight: "300px" }}>
-          <HLSVideo src="https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8" className="absolute inset-0 w-full h-full object-cover z-0" />
-          <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, black 0%, transparent 200px)" }} />
-          <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none" />
-          <div className="relative z-10 flex flex-col items-center justify-end h-full py-10 px-6 md:px-12 lg:px-16 max-w-[88rem] mx-auto" style={{ minHeight: "300px" }}>
+        <section className="relative overflow-hidden w-full" style={{ minHeight: "420px" }}>
+          <video src="uploads/brand/liquid-bg.mp4?v=37" poster="uploads/brand/liquid-bg-poster.webp" autoPlay loop muted playsInline preload="none" data-lazyvid className="absolute inset-0 w-full h-full object-cover z-0" style={{ opacity: 0.75, filter: "blur(28px)", transform: "translateY(120px) scale(1.2)" }} />
+          <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, #0a0a0a 0%, transparent 220px)" }} />
+          <div className="absolute inset-0 bg-black/10 z-0 pointer-events-none" />
+          <div className="relative z-10 flex flex-col items-center justify-end h-full py-10 px-6 md:px-12 lg:px-16 max-w-[88rem] mx-auto" style={{ minHeight: "420px" }}>
             <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/20 pt-8">
               <span className="text-white/70 text-sm font-body">© 2026 Lato Studio. All rights reserved. VAT IT13483050962</span>
               <div className="flex items-center gap-8">
