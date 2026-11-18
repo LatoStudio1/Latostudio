@@ -74,47 +74,18 @@
     [id] { scroll-margin-top: 96px; }
     body { margin: 0; background: #0a0a0a; color: #fff; -webkit-font-smoothing: antialiased; }
 
+    /* Flat surfaces (glass removed): one step off the page ground, hairline edge */
     .liquid-glass {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border: none;
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      background: #151515;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       position: relative;
       overflow: hidden;
-    }
-    .liquid-glass::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      padding: 1.4px;
-      background: linear-gradient(180deg,rgba(255,255,255,0.45) 0%,rgba(255,255,255,0.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,0.15) 80%,rgba(255,255,255,0.45) 100%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
     }
     .liquid-glass-strong {
-      background: rgba(255, 255, 255, 0.10);
-      backdrop-filter: blur(50px);
-      -webkit-backdrop-filter: blur(50px);
-      border: none;
-      box-shadow: 4px 4px 4px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.15);
+      background: #1c1c1c;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       position: relative;
       overflow: hidden;
-    }
-    .liquid-glass-strong::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      padding: 1.4px;
-      background: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.2) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,0.2) 80%,rgba(255,255,255,0.5) 100%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
     }
     /* Apple-style motion tokens: critically damped (no overshoot) + momentum (slight bounce) */
     :root {
@@ -146,13 +117,6 @@
       a:active, button:active, [role="button"]:active { transform: none; opacity: 0.7; }
     }
     /* Reduced transparency: frostier, solid surfaces instead of glass */
-    @media (prefers-reduced-transparency: reduce) {
-      .liquid-glass, .liquid-glass-strong {
-        background: rgba(24, 24, 24, 0.96);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-      }
-    }
     /* Higher contrast: near-solid with a defined border */
     @media (prefers-contrast: more) {
       .liquid-glass, .liquid-glass-strong {
@@ -181,12 +145,13 @@
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
     video { display: block; }
     .svc-btn { outline: none; }
-    .svc-btn:focus-visible { box-shadow: 0 0 0 2px rgba(255,255,255,0.7); }
+    .svc-btn:focus-visible { box-shadow: 0 0 0 2px rgba(255,255,255,0.7); outline-offset: 2px; }
     .svc-body { animation: svc-in 320ms var(--ease-out); }
     @keyframes svc-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { .svc-body { animation: none; } }
     .svc-title { color: rgba(255,255,255,0.38); }
     .svc-btn:hover .svc-title { color: rgba(255,255,255,0.7); }
+    .svc-btn[aria-pressed="true"]:hover .svc-title { color: #0a0a0a; }
     #lato-preload { position: fixed; inset: 0; z-index: 9999; background: #0a0a0a; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; transition: opacity 450ms cubic-bezier(0.23, 1, 0.32, 1), visibility 0s linear 450ms; }
     #lato-preload img { height: 34px; width: auto; animation: lp-breathe 1.4s ease-in-out infinite; }
     #lato-preload .lp-bar { width: 120px; height: 2px; border-radius: 2px; background: rgba(255,255,255,0.12); overflow: hidden; }
@@ -794,9 +759,9 @@
               return (
                 <li key={row.title} className="border-t border-white/15 last:border-b">
                   <button type="button" aria-pressed={on} onClick={() => pick(i)}
-                    className="svc-btn w-full text-left py-5 md:py-6 flex items-center justify-between gap-4 cursor-pointer rounded-lg">
-                    <span className="svc-title whitespace-nowrap text-[1.55rem] sm:text-3xl md:text-2xl lg:text-[2rem] xl:text-[2.6rem]" style={{ ...titleStyle, color: on ? "#fff" : undefined, transition: "color var(--d-ui) var(--ease-out)" }}>{row.title}</span>
-                    <span aria-hidden="true" className="text-white text-xl" style={{ opacity: on ? 1 : 0, transform: on ? "translateX(0)" : "translateX(-6px)", transition: "opacity var(--d-ui) var(--ease-out), transform var(--d-ui) var(--ease-out)" }}>&#8594;</span>
+                    className="svc-btn w-full text-left my-1.5 py-4 md:py-5 px-4 md:px-5 flex items-center justify-between gap-4 cursor-pointer rounded-xl" style={{ background: on ? "#fff" : "transparent", transition: "background-color var(--d-ui) var(--ease-out)" }}>
+                    <span className="svc-title whitespace-nowrap text-[1.4rem] sm:text-3xl md:text-[1.35rem] lg:text-[1.8rem] xl:text-[2.35rem]" style={{ ...titleStyle, color: on ? "#0a0a0a" : undefined, transition: "color var(--d-ui) var(--ease-out)" }}>{row.title}</span>
+                    <span aria-hidden="true" className="text-xl" style={{ color: "#0a0a0a", opacity: on ? 1 : 0, transform: on ? "translateX(0)" : "translateX(-6px)", transition: "opacity var(--d-ui) var(--ease-out), transform var(--d-ui) var(--ease-out)" }}>&#8594;</span>
                   </button>
                   {on && (
                     <div className="md:hidden pb-6 svc-body">
