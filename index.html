@@ -187,10 +187,51 @@
     @media (prefers-reduced-motion: reduce) { .svc-body { animation: none; } }
     .svc-title { color: rgba(255,255,255,0.38); }
     .svc-btn:hover .svc-title { color: rgba(255,255,255,0.7); }
+    #lato-preload { position: fixed; inset: 0; z-index: 9999; background: #0a0a0a; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; transition: opacity 450ms cubic-bezier(0.23, 1, 0.32, 1), visibility 0s linear 450ms; }
+    #lato-preload img { height: 34px; width: auto; animation: lp-breathe 1.4s ease-in-out infinite; }
+    #lato-preload .lp-bar { width: 120px; height: 2px; border-radius: 2px; background: rgba(255,255,255,0.12); overflow: hidden; }
+    #lato-preload .lp-bar span { display: block; height: 100%; width: 100%; background: #fff; transform-origin: left; transform: scaleX(0); animation: lp-fill 1.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+    #lato-preload.lp-done { opacity: 0; visibility: hidden; }
+    #lato-preload.lp-done .lp-bar span { transform: scaleX(1); animation: none; transition: transform 200ms ease-out; }
+    @keyframes lp-fill { to { transform: scaleX(0.92); } }
+    @keyframes lp-breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+    @media (prefers-reduced-motion: reduce) { #lato-preload img, #lato-preload .lp-bar span { animation: none; } }
   </style>
 </head>
 <body>
+  <!-- Preloader: covers the first paint for at most ~1.6s, until fonts and the hero video are ready -->
+  <div id="lato-preload" aria-hidden="true">
+    <img src="uploads/brand/logo-lato-studio.png" alt="" width="150" height="34" />
+    <div class="lp-bar"><span></span></div>
+  </div>
+  <noscript><style>#lato-preload { display: none !important; }</style></noscript>
   <div id="root"></div>
+  <script>
+    (function () {
+      var el = document.getElementById("lato-preload");
+      var t0 = Date.now(), MIN = 450, MAX = 1600, done = false;
+      function finish() {
+        if (done) return; done = true;
+        var wait = Math.max(0, MIN - (Date.now() - t0));
+        setTimeout(function () {
+          window.__latoReady = true;
+          try { window.dispatchEvent(new Event("lato:ready")); } catch (e) {}
+          el.classList.add("lp-done");
+          setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, 500);
+        }, wait);
+      }
+      setTimeout(finish, MAX);
+      var fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+      var video = new Promise(function (res) {
+        var v = document.querySelector("#root video");
+        if (!v) { window.addEventListener("load", res); return; }
+        if (v.readyState >= 3) return res();
+        v.addEventListener("canplay", res, { once: true });
+        v.addEventListener("error", res, { once: true });
+      });
+      Promise.all([fonts, video]).then(finish, finish);
+    })();
+  </script>
 
   <script type="text/babel">
     const { useRef, useEffect, useState } = React;
@@ -674,7 +715,7 @@
     function Hero() {
       const isMobile = useIsMobile();
       const [mounted, setMounted] = useState(false);
-      useEffect(() => { setTimeout(() => setMounted(true), 50); }, []);
+      useEffect(() => { const go = () => setTimeout(() => setMounted(true), 50); if (window.__latoReady || !document.getElementById("lato-preload")) go(); else window.addEventListener("lato:ready", go, { once: true }); }, []);
       const fadeStyle = (delay) => ({ opacity: mounted ? 1 : 0, filter: mounted ? "blur(0px)" : "blur(10px)", transform: mounted ? "translateY(0px)" : "translateY(20px)", transition: `opacity var(--d-hero) var(--ease-out) ${delay}ms, filter var(--d-hero) var(--ease-out) ${delay}ms, transform var(--d-hero) var(--ease-out) ${delay}ms` });
       return (
         <section className="relative overflow-hidden" style={{ height: "auto", minHeight: isMobile ? "640px" : "clamp(720px, 100svh, 1000px)" }}>
