@@ -844,49 +844,6 @@
           </div>
         </section>
 
-        <section className="relative z-10 pt-6 pb-14 md:pt-10 md:pb-24 px-6 md:px-12 lg:px-16">
-          <div className="relative max-w-7xl mx-auto">
-            <FadeIn>
-              <h2 id="team" className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02] text-center mb-10 md:mb-12" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em", scrollMarginTop: "90px" }}>Team</h2>
-              <div className="grid grid-cols-3 gap-4 md:gap-10 max-w-2xl mx-auto">
-                {[
-                  { src: "uploads/team/team-01-v2.webp", name: "Matteo Polito" },
-                  { src: "uploads/team/team-02.webp", name: "Alessio Orlando" },
-                  { src: "uploads/team/luca.webp", name: "Luca Terenzi" },
-                ].map((m) => (
-                  <div key={m.name} className="flex flex-col items-center gap-3 md:gap-4 text-center">
-                    <div className="liquid-glass rounded-full overflow-hidden aspect-square w-full max-w-[104px] md:max-w-[150px]">
-                      <img src={m.src} alt={m.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
-                    </div>
-                    <div>
-                      <p className="text-white font-body font-medium text-sm md:text-xl leading-tight">{m.name}</p>
-                      <p className="text-white/55 font-body font-light text-xs md:text-base mt-1">Co-founder</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="text-white/65 font-body font-light text-base md:text-xl leading-relaxed max-w-2xl mx-auto text-center mt-10 md:mt-12" style={{ textWrap: "pretty" }}>Years inside YouTube, social media and visual design, now one studio for creators and brands: from strategy and packaging to the edit and the shoot.</p>
-            </FadeIn>
-            <FadeIn className="mt-20 md:mt-24">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02] text-center mb-10 md:mb-12" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Collaborators</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 border-b border-white/15">
-                {[
-                  { service: "Thumbnail", people: ["Alessio Orlando", "Luca Terenzi", "Matteo Polito"] },
-                  { service: "Copy & Title", people: ["Alessio Orlando", "Luca Terenzi", "Federico Stompo", "Simone Piccolo"] },
-                  { service: "Strategy", people: ["Federico Stompo", "Alessio Orlando", "Simone Piccolo"] },
-                  { service: "Video Edit", people: ["Lorenzo Stabile", "Gabriele Maone", "Giacomo Canova"] },
-                  { service: "Videomaking", people: ["Lorenzo Stabile", "Gabriele Maone"] },
-                  { service: "Consulting", people: ["Federico Stompo", "Alessio Orlando", "Simone Piccolo"] },
-                ].map((r) => (
-                  <div key={r.service} className="border-t border-white/15 py-6 md:py-8">
-                    <h3 className="text-white text-xl md:text-3xl" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.02em" }}>{r.service}</h3>
-                    <p className="text-white/65 font-body font-light text-sm md:text-lg mt-2 leading-relaxed">{r.people.join(" · ")}</p>
-                  </div>
-                ))}
-              </div>
-            </FadeIn>
-          </div>
-        </section>
         </>
       );
     }
@@ -1129,6 +1086,83 @@
       );
     }
 
+    // ── Team + collaborators ─────────────────────────────────────────────
+    function TeamSection() {
+      return (
+        <section className="relative z-10 pt-6 pb-14 md:pt-10 md:pb-24 px-6 md:px-12 lg:px-16">
+          <div className="relative max-w-7xl mx-auto">
+            <FadeIn>
+              <h2 id="team" className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02] text-center mb-10 md:mb-12" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em", scrollMarginTop: "90px" }}>Team</h2>
+              <div className="grid grid-cols-3 gap-4 md:gap-10 max-w-2xl mx-auto">
+                {[
+                  { src: "uploads/team/team-01-v2.webp", name: "Matteo Polito" },
+                  { src: "uploads/team/team-02.webp", name: "Alessio Orlando" },
+                  { src: "uploads/team/luca.webp", name: "Luca Terenzi" },
+                ].map((m) => (
+                  <div key={m.name} className="flex flex-col items-center gap-3 md:gap-4 text-center">
+                    <div className="liquid-glass rounded-full overflow-hidden aspect-square w-full max-w-[104px] md:max-w-[150px]">
+                      <img src={m.src} alt={m.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <p className="text-white font-body font-medium text-sm md:text-xl leading-tight">{m.name}</p>
+                      <p className="text-white/55 font-body font-light text-xs md:text-base mt-1">Co-founder</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-white/65 font-body font-light text-base md:text-xl leading-relaxed max-w-2xl mx-auto text-center mt-10 md:mt-12" style={{ textWrap: "pretty" }}>Years inside YouTube, social media and visual design, now one studio for creators and brands: from strategy and packaging to the edit and the shoot.</p>
+            </FadeIn>
+            <FadeIn className="mt-20 md:mt-24">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02] text-center mb-10 md:mb-12" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Collaborators</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 border-b border-white/15">
+                {[
+                  { service: "Thumbnail", people: ["Alessio Orlando", "Luca Terenzi", "Matteo Polito"] },
+                  { service: "Copy & Title", people: ["Alessio Orlando", "Luca Terenzi", "Federico Stompo", "Simone Piccolo"] },
+                  { service: "Strategy", people: ["Federico Stompo", "Alessio Orlando", "Simone Piccolo"] },
+                  { service: "Video Edit", people: ["Lorenzo Stabile", "Gabriele Maone", "Giacomo Canova"] },
+                  { service: "Videomaking", people: ["Lorenzo Stabile", "Gabriele Maone"] },
+                  { service: "Consulting", people: ["Federico Stompo", "Alessio Orlando", "Simone Piccolo"] },
+                ].map((r) => (
+                  <div key={r.service} className="border-t border-white/15 py-6 md:py-8">
+                    <h3 className="text-white text-xl md:text-3xl" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.02em" }}>{r.service}</h3>
+                    <p className="text-white/65 font-body font-light text-sm md:text-lg mt-2 leading-relaxed">{r.people.join(" · ")}</p>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
+        </section>
+      );
+    }
+
+    // ── Bridge into the contact form ─────────────────────────────────────
+    function ContactBridge() {
+      return (
+        <section className="relative z-10 pt-10 md:pt-16 pb-6 md:pb-8 px-6 md:px-12 lg:px-16 overflow-x-clip">
+          <div className="max-w-7xl mx-auto">
+              <div className="relative">
+                {/* wave lines behind the bridge to the contact form, faded top and bottom */}
+                <div aria-hidden="true" className="absolute pointer-events-none" style={{
+                  left: "calc(50% - 50vw)", width: "100vw", top: "-260px", bottom: "-320px", zIndex: -1,
+                  maskImage: "linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)"
+                }}>
+                  <video src="uploads/brand/wave-lines.mp4?v=37" poster="uploads/brand/wave-lines-poster.webp" autoPlay loop muted playsInline preload="none" data-lazyvid
+                    className="w-full h-full object-cover" style={{ opacity: 0.7 }} />
+                </div>
+              <FadeIn className="relative z-10 flex flex-col items-center text-center">
+                <a href="#contact" className="group flex flex-col items-center">
+                  <span className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em", textWrap: "balance" }}>Want to see this on your channel?</span>
+                  <span aria-hidden="true" className="block mt-8 md:mt-10 w-px h-20 md:h-28" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(255,255,255,0))" }} />
+                  <span aria-hidden="true" className="block -mt-1 w-2 h-2 rounded-full bg-white/60 transition-transform duration-300 group-hover:translate-y-1" />
+                </a>
+              </FadeIn>
+              </div>
+          </div>
+        </section>
+      );
+    }
+
     function OurWork() {
       const [lightbox, setLightbox] = useState(null); // { src, origin }
       const [shown, setShown] = useState(false);      // drives the enter/exit path
@@ -1154,7 +1188,17 @@
         return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
       }, [lightbox]);
       return (
-        <section id="our-work" className="relative z-10 pt-14 md:pt-24 pb-6 md:pb-8 overflow-x-clip">
+        <>
+        <section id="proven" className="relative z-10 pt-6 md:pt-10 pb-14 md:pb-24 px-6 md:px-12 lg:px-16">
+          <div className="max-w-7xl mx-auto">
+              <FadeIn className="text-center mb-12 md:mb-16">
+                <h2 className="text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em", textWrap: "balance" }}>Proven by the numbers.</h2>
+                <p className="text-white/60 font-body font-light text-base md:text-lg leading-relaxed max-w-xl mx-auto mt-4 md:mt-5" style={{ textWrap: "balance" }}>Every test pits two different ideas against each other. Knowing which ones are worth testing is the work.</p>
+              </FadeIn>
+              <TitleExamples />
+          </div>
+        </section>
+        <section id="our-work" className="relative z-10 pt-6 md:pt-10 pb-14 md:pb-24 overflow-x-clip">
           <div className="px-6 md:px-12 lg:px-16 mb-12 md:mb-16">
             <FadeIn className="text-center">
               <h2 className="text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Designed to be clicked.</h2>
@@ -1163,34 +1207,6 @@
           <div className="flex flex-col gap-4 ow-marquee" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
             <OurWorkRow images={row1imgs} reverse={false} speed="78s" paused={!!lightbox} onOpen={open} />
             <OurWorkRow images={row2imgs} reverse={true} speed="98s" paused={!!lightbox} onOpen={open} />
-          </div>
-          {/* Title examples: three squares, one per channel */}
-          <div className="px-6 md:px-12 lg:px-16 mt-14 md:mt-20">
-            <div className="max-w-7xl mx-auto">
-              <FadeIn className="text-center mb-10 md:mb-12">
-                <h3 className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em", textWrap: "balance" }}>Proven by the numbers.</h3>
-                <p className="text-white/60 font-body font-light text-base md:text-lg leading-relaxed max-w-xl mx-auto mt-4 md:mt-5" style={{ textWrap: "balance" }}>Every test pits two different ideas against each other. Knowing which ones are worth testing is the work.</p>
-              </FadeIn>
-              <TitleExamples />
-              <div className="relative mt-20 md:mt-28">
-                {/* wave lines behind the bridge to the contact form, faded top and bottom */}
-                <div aria-hidden="true" className="absolute pointer-events-none" style={{
-                  left: "calc(50% - 50vw)", width: "100vw", top: "-420px", bottom: "-320px", zIndex: -1,
-                  maskImage: "linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 22%, black 72%, transparent 100%)"
-                }}>
-                  <video src="uploads/brand/wave-lines.mp4?v=37" poster="uploads/brand/wave-lines-poster.webp" autoPlay loop muted playsInline preload="none" data-lazyvid
-                    className="w-full h-full object-cover" style={{ opacity: 0.7 }} />
-                </div>
-              <FadeIn className="relative z-10 flex flex-col items-center text-center">
-                <a href="#contact" className="group flex flex-col items-center">
-                  <span className="text-3xl md:text-4xl lg:text-5xl text-white leading-[1.02]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em", textWrap: "balance" }}>Want to see this on your channel?</span>
-                  <span aria-hidden="true" className="block mt-8 md:mt-10 w-px h-20 md:h-28" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(255,255,255,0))" }} />
-                  <span aria-hidden="true" className="block -mt-1 w-2 h-2 rounded-full bg-white/60 transition-transform duration-300 group-hover:translate-y-1" />
-                </a>
-              </FadeIn>
-              </div>
-            </div>
           </div>
           {lightbox && ReactDOM.createPortal((
             <div onClick={close} className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
@@ -1232,6 +1248,7 @@
             }
           `}</style>
         </section>
+        </>
       );
     }
 
@@ -1535,6 +1552,8 @@
             <div>
               <FeaturesChess />
               <OurWork />
+              <TeamSection />
+              <ContactBridge />
               <ContactForm />
               <CtaFooter />
             </div>
