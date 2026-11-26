@@ -809,7 +809,7 @@
       const rows = [
         { title: "Thumbnail", body: "One idea, readable in a second on a phone screen. We sketch, compare and refine every thumbnail against what already works in your niche.\nThe time-lapse shows a full one coming together, from first layout to final detail.", cta: "Learn more", gif: `uploads/services/thumbnail-timelapse.mp4?v=${_v}`, isVideo: true, reverse: false },
         { title: "Title & Packaging", body: "Title and thumbnail are one decision, not two. We work on them together, testing angles against what the audience already clicks on.\nYou get the thinking behind the image, not only the image.", gif: `uploads/services/title-packaging-michelon.mp4?v=${_v}`, isVideo: true, reverse: true },
-        { title: "Video Editing", body: "Cuts, pacing, sound design and graphics built around retention, not around effects.\nWe edit so the first thirty seconds earn the next ten minutes, and the video keeps the promise the thumbnail made.", gif: `uploads/services/video-editing.mp4?v=${_v}`, isVideo: true, reverse: false },
+        { title: "Video Editing", body: "Cuts, pacing, sound design and graphics built around retention, not around effects.\nWe edit so the first thirty seconds earn the next ten minutes, and the video keeps the promise the thumbnail made.", gif: `uploads/services/video-editing-v2.mp4?v=${_v}`, isVideo: true, reverse: false },
         { title: "Videomaking", body: "Shooting handled end to end: setup, lighting, sound and direction on the day.\nWe come in with the format already defined, so what gets filmed is what the edit actually needs.", gif: `uploads/services/videomaking.webp?v=${_v}`, reverse: true },
         { title: "Consulting & Strategy", body: "A read of the channel from the outside: what the catalogue communicates, where clicks are lost, which formats deserve more room.\nYou leave with a clear set of decisions, whether or not we produce them for you.", gif: `uploads/services/consulting.webp?v=${_v}`, reverse: false },
         { title: "About Us", heading: "Team", body: "Lato Studio is a YouTube creative agency led by Luca Terenzi, Alessio Orlando and Matteo Polito, with years of experience in YouTube, social media and visual design.\nWe help creators and brands grow on YouTube end to end: from strategy and packaging to the edit and the shoot.", cta: "See how it works", isLogo: true, reverse: true },
@@ -1452,7 +1452,7 @@
       };
       const inputStyle = { background: "rgba(255,255,255,0.07)", border: "1.4px solid rgba(255,255,255,0.15)", borderRadius: "14px", color: "white", padding: "14px 18px", width: "100%", outline: "none", fontFamily: "'Barlow', sans-serif", fontSize: "14px", transition: "border-color var(--d-ui) var(--ease-out)" };
       return (
-        <section id="contact" className="relative z-10 pt-6 md:pt-8 pb-16 md:pb-28 px-6 md:px-12 lg:px-16" style={{ scrollMarginTop: "40px" }}>
+        <section id="contact" className="relative z-10 pt-6 md:pt-8 pb-6 md:pb-8 px-6 md:px-12 lg:px-16" style={{ scrollMarginTop: "40px" }}>
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
             <FadeIn className="text-center lg:text-left flex flex-col">
               <h2 className="text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[0.98]" style={{ fontFamily: "'alfabet', 'Inter', sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}>Let's talk.</h2>
@@ -1526,11 +1526,11 @@
     // ── CtaFooter ─────────────────────────────────────────────────────────
     function CtaFooter() {
       return (
-        <section className="relative overflow-hidden w-full" style={{ minHeight: "420px" }}>
-          <video src="uploads/brand/liquid-bg.mp4?v=37" poster="uploads/brand/liquid-bg-poster.webp" autoPlay loop muted playsInline preload="none" data-lazyvid className="absolute inset-0 w-full h-full object-cover z-0" style={{ opacity: 0.32, filter: "blur(28px)", transform: "translateY(120px) scale(1.2)" }} />
-          <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, #0a0a0a 0%, transparent 220px)" }} />
+        <section className="relative overflow-hidden w-full" style={{ minHeight: "150px" }}>
+          <video src="uploads/brand/liquid-bg.mp4?v=37" poster="uploads/brand/liquid-bg-poster.webp" autoPlay loop muted playsInline preload="none" data-lazyvid className="absolute inset-0 w-full h-full object-cover z-0" style={{ opacity: 0.32, filter: "blur(28px)", transform: "translateY(30px) scale(1.2)" }} />
+          <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, #0a0a0a 0%, transparent 90px)" }} />
           <div className="absolute inset-0 bg-black/10 z-0 pointer-events-none" />
-          <div className="relative z-10 flex flex-col items-center justify-end h-full py-10 px-6 md:px-12 lg:px-16 max-w-[88rem] mx-auto" style={{ minHeight: "420px" }}>
+          <div className="relative z-10 flex flex-col items-center justify-end h-full py-10 px-6 md:px-12 lg:px-16 max-w-[88rem] mx-auto" style={{ minHeight: "150px" }}>
             <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/20 pt-8">
               <span className="text-white/70 text-sm font-body">© 2026 Lato Studio. All rights reserved. VAT IT13483050962</span>
               <div className="flex items-center gap-8">
