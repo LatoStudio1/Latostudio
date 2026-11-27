@@ -984,6 +984,7 @@
       );
     }
     const titleExamples = [
+      { name: "Giuseppe Castagna", custom: "castagna" },
       { name: "Ascensore", video: `uploads/titles/ascensore-ab-v3.mp4?v=${_v}` },
       { name: "Velasca", custom: "velasca" },
     ];
@@ -1003,84 +1004,129 @@
     const withFlag = (t) => t.includes("🇮🇹")
       ? t.split("🇮🇹").flatMap((piece, k, arr) => k < arr.length - 1 ? [piece, <ItFlag key={k} />] : [piece])
       : t;
-    function TitleChangeCard() {
+    // Before/after toggle that flips on its own until the visitor picks a side
+    function useFlip() {
       const [after, setAfter] = useState(false);
       const [touched, setTouched] = useState(false);
-      const [shown, setShown] = useState(0);
       useEffect(() => {
         if (touched) return;
         const t = setInterval(() => setAfter((a) => !a), 3200);
         return () => clearInterval(t);
       }, [touched]);
-      const cur = after ? velascaTest.after : velascaTest.before;
-      // count the VPH number to its new value on every switch
+      return [after, (v) => { setTouched(true); setAfter(v); }];
+    }
+    // Counts a number to its new value whenever the target changes
+    function useCount(target) {
+      const [shown, setShown] = useState(target);
+      const cur = useRef(target);
       useEffect(() => {
-        const from = shown, to = cur.vph, start = performance.now(), dur = 600;
+        const from = cur.current, start = performance.now(), dur = 650;
         let raf;
         const step = (now) => {
           const k = Math.min((now - start) / dur, 1);
-          const e = 1 - Math.pow(1 - k, 3);
-          setShown(from + (to - from) * e);
+          const v = from + (target - from) * (1 - Math.pow(1 - k, 3));
+          cur.current = v; setShown(v);
           if (k < 1) raf = requestAnimationFrame(step);
         };
         raf = requestAnimationFrame(step);
         return () => cancelAnimationFrame(raf);
-      }, [after]);
-      const pick = (v) => { setTouched(true); setAfter(v); };
-      const green = "#4ade80";
+      }, [target]);
+      return shown;
+    }
+    const PROOF_GREEN = "#4ade80";
+    function FlipToggle({ after, pick, label }) {
       return (
-        <div className="liquid-glass rounded-2xl overflow-hidden bg-[#0a0a0a] flex flex-col justify-between gap-4 p-5 md:p-6 min-h-[300px] md:min-h-0" style={{ aspectRatio: window.innerWidth >= 768 ? "1.72" : "auto" }}>
-          {/* the video's thumbnail, faded behind the content */}
-          <img src={`uploads/titles/velasca-bg.webp?v=${_v}`} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover pointer-events-none" style={{ opacity: 0.32, zIndex: 0, filter: "blur(8px)", transform: "scale(1.08)" }} />
-          <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.65))" }} />
-          <div className="relative flex items-center justify-between gap-3" style={{ zIndex: 1 }}>
-            <div className="liquid-glass rounded-full p-1 flex items-center gap-1" role="group" aria-label="Show title before or after the change">
-              {[["Before", false], ["After", true]].map(([label, v]) => (
-                <button key={label} type="button" onClick={() => pick(v)} aria-pressed={after === v}
-                  className="rounded-full px-3.5 py-1.5 text-xs md:text-sm font-body font-medium"
-                  style={{ background: after === v ? "#fff" : "transparent", color: after === v ? "#000" : "rgba(255,255,255,0.75)", transition: "background-color var(--d-ui) var(--ease-out), color var(--d-ui) var(--ease-out)" }}>{label}</button>
-              ))}
-            </div>
-            <span className="rounded-full px-3 py-1 text-xs md:text-sm font-body font-medium" style={{ color: green, background: "rgba(74,222,128,0.12)", border: "1px solid rgba(74,222,128,0.3)" }}>{velascaTest.lift} views per hour</span>
-          </div>
-          <p key={after ? "a" : "b"} className="relative text-white font-body text-base md:text-lg lg:text-xl leading-snug" style={{ zIndex: 1, animation: "tt-fade 0.35s var(--ease-out)" }}>
-            {cur.parts.map(([t, changed], i) => changed
-              ? <span key={i} className="rounded px-1" style={after ? { background: "rgba(74,222,128,0.16)", color: "#fff", fontWeight: 600 } : { color: "#fff", background: "rgba(239,68,68,0.18)" }}>{t}</span>
-              : <span key={i} style={{ color: "#fff" }}>{withFlag(t)}</span>)}
-          </p>
-          <div className="relative flex items-end justify-between gap-4" style={{ zIndex: 1 }}>
-            <div className="flex-shrink-0">
-              <p className="text-white/55 font-body text-xs md:text-sm">Average views per hour</p>
-              <p className="font-body font-semibold text-3xl md:text-4xl leading-none mt-1.5" style={{ color: after ? green : "#fff", transition: "color var(--d-ui) var(--ease-out)", fontVariantNumeric: "tabular-nums" }}>{shown.toFixed(1)}</p>
-            </div>
-            <svg viewBox="0 0 200 70" className="w-1/2 max-w-[220px] h-auto" role="img" aria-label="Views per hour before and after the title change">
-              <line x1="100" y1="4" x2="100" y2="66" stroke="rgba(255,255,255,0.35)" strokeDasharray="3 3" />
-              <path d="M2 60 L35 57 L68 58 L100 54" fill="none" stroke="rgba(255,255,255,0.75)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: after ? 0.4 : 1, transition: "opacity var(--d-ui) var(--ease-out)" }} />
-              <path d="M100 54 L140 28 L198 10" fill="none" stroke={green} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: after ? 1 : 0.25, transition: "opacity var(--d-ui) var(--ease-out)" }} />
-              <path d="M100 54 L140 28 L198 10 L198 66 L100 66 Z" fill={green} style={{ opacity: after ? 0.12 : 0, transition: "opacity var(--d-ui) var(--ease-out)" }} />
-            </svg>
-          </div>
-          <style>{`@keyframes tt-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }`}</style>
+        <div className="flex-shrink-0 rounded-full p-1 flex items-center gap-1" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }} role="group" aria-label={label}>
+          {[["Before", false], ["After", true]].map(([t, v]) => (
+            <button key={t} type="button" onClick={() => pick(v)} aria-pressed={after === v}
+              className="rounded-full px-3.5 py-1.5 text-xs md:text-sm font-body font-medium"
+              style={{ background: after === v ? "#fff" : "transparent", color: after === v ? "#000" : "rgba(255,255,255,0.8)", transition: "background-color var(--d-ui) var(--ease-out), color var(--d-ui) var(--ease-out)" }}>{t}</button>
+          ))}
         </div>
       );
     }
+    // One shape for every proof: the visual on top, then what it is and the number
+    function ProofCard({ visual, kind, big, foot, toggle }) {
+      return (
+        <div className="liquid-glass rounded-2xl overflow-hidden h-full flex flex-col">
+          <div className="relative aspect-video overflow-hidden bg-[#0a0a0a]">{visual}</div>
+          <div className="p-5 md:p-6 flex flex-col flex-1">
+            <div className="flex items-center justify-between gap-3 min-h-[38px]">
+              <p className="text-white/55 font-body text-sm">{kind}</p>
+              {toggle}
+            </div>
+            <p className="font-body font-semibold text-5xl md:text-6xl leading-none mt-3" style={{ color: PROOF_GREEN, letterSpacing: "-0.03em", fontVariantNumeric: "tabular-nums" }}>{big}</p>
+            <p className="text-white/55 font-body text-sm mt-3">{foot}</p>
+          </div>
+        </div>
+      );
+    }
+    const fmtVph = (v) => v >= 1000 ? (v / 1000).toFixed(1) + "K" : (v < 100 && v % 1 ? v.toFixed(1) : Math.round(v).toString());
 
-    // Two examples side by side (stacked on phones), each in its own 16:9 frame
+    function ThumbChangeCard() {
+      const [after, pick] = useFlip();
+      const shown = useCount(after ? 1100 : 60);
+      return (
+        <ProofCard
+          visual={<>
+            {[["before", "uploads/titles/castagna-before.webp"], ["after", "uploads/titles/castagna-after.webp"]].map(([k, src]) => (
+              <img key={k} src={`${src}?v=${_v}`} alt={`Thumbnail ${k} the change, Giuseppe Castagna`} loading="lazy" decoding="async"
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ opacity: (k === "after") === after ? 1 : 0, transition: "opacity 450ms var(--ease-out)" }} />
+            ))}
+          </>}
+          toggle={<FlipToggle after={after} pick={pick} label="Show thumbnail before or after the change" />}
+          kind="Thumbnail change"
+          big="+1,809%"
+          foot={<>Views per hour: <span className="font-medium" style={{ color: after ? PROOF_GREEN : "#fff", transition: "color var(--d-ui) var(--ease-out)", fontVariantNumeric: "tabular-nums" }}>{fmtVph(shown)}</span></>}
+        />
+      );
+    }
+
+    function TitleChangeCard() {
+      const [after, pick] = useFlip();
+      const cur = after ? velascaTest.after : velascaTest.before;
+      const shown = useCount(cur.vph);
+      return (
+        <ProofCard
+          visual={<>
+            <img src={`uploads/titles/velasca-bg.webp?v=${_v}`} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover pointer-events-none" style={{ opacity: 0.32, filter: "blur(8px)", transform: "scale(1.08)" }} />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.65))" }} />
+            <div className="absolute inset-0 flex items-center px-5 md:px-6">
+              <p key={after ? "a" : "b"} className="text-white font-body text-base md:text-lg leading-snug" style={{ animation: "tt-fade 0.35s var(--ease-out)" }}>
+                {cur.parts.map(([t, changed], i) => changed
+                  ? <span key={i} className="rounded px-1" style={after ? { background: "rgba(74,222,128,0.16)", color: "#fff", fontWeight: 600 } : { color: "#fff", background: "rgba(239,68,68,0.18)" }}>{t}</span>
+                  : <span key={i} style={{ color: "#fff" }}>{withFlag(t)}</span>)}
+              </p>
+            </div>
+            <style>{`@keyframes tt-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }`}</style>
+          </>}
+          toggle={<FlipToggle after={after} pick={pick} label="Show title before or after the change" />}
+          kind="Title change"
+          big={velascaTest.lift}
+          foot={<>Views per hour: <span className="font-medium" style={{ color: after ? PROOF_GREEN : "#fff", transition: "color var(--d-ui) var(--ease-out)", fontVariantNumeric: "tabular-nums" }}>{shown.toFixed(1)}</span></>}
+        />
+      );
+    }
+
+    function AbTestCard({ video }) {
+      return (
+        <ProofCard
+          visual={<video src={video} autoPlay loop muted playsInline preload="metadata" data-lazyvid className="absolute inset-0 w-full h-full object-cover" aria-label="A/B title test report for Ascensore" />}
+          kind="A/B title test"
+          big="51.6%"
+          foot="Share of watch time won by the new title"
+        />
+      );
+    }
+
+    // The three proofs in one row (stacked on phones and tablets)
     function TitleExamples() {
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 items-stretch">
           {titleExamples.map((ex, i) => (
-            <FadeIn key={i} delay={i * 80}>
-              <div className="flex flex-col gap-3">
-                {ex.custom === "velasca" ? <TitleChangeCard /> :
-                <div className="liquid-glass rounded-2xl overflow-hidden bg-[#0a0a0a] flex items-center justify-center" style={{ aspectRatio: "1.72" }}>
-                  {ex.img
-                    ? <img src={ex.img} alt={`Title test results for ${ex.name}`} loading="lazy" decoding="async" className="w-full h-full object-cover" />
-                    : ex.video
-                    ? <video src={ex.video} autoPlay loop muted playsInline preload="metadata" data-lazyvid className="w-full h-full object-cover" aria-label={`A/B title test for ${ex.name}`} />
-                    : <span className="text-white/40 font-body font-light text-sm">Coming soon</span>}
-                </div>}
-              </div>
+            <FadeIn key={i} delay={i * 80} className="h-full">
+              {ex.custom === "castagna" ? <ThumbChangeCard /> : ex.custom === "velasca" ? <TitleChangeCard /> : <AbTestCard video={ex.video} />}
             </FadeIn>
           ))}
         </div>
